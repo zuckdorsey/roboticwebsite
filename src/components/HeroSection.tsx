@@ -14,11 +14,11 @@ export default function HeroSection({ title, subtitle }: HeroSectionProps) {
         <div className="flex flex-col md:flex-row gap-12 items-center">
           {/* Left Content */}
           <div className="flex-1 space-y-6">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-polibatam-navy">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-none text-gray-900 uppercase tracking-tighter">
               {title}
             </h1>
             {subtitle && (
-              <p className="text-base md:text-lg text-gray-500 font-light tracking-wide">
+              <p className="text-xs md:text-sm text-gray-900 font-normal tracking-wider uppercase">
                 {subtitle}
               </p>
             )}
