@@ -1,65 +1,176 @@
-import Image from "next/image";
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import AboutSection from "@/components/AboutSection";
+import CurriculumSection from "@/components/CurriculumSection";
+import FacilitiesSection from "@/components/FacilitiesSection";
+import FacultyMembersSection from "@/components/FacultyMembersSection";
+import StudentsSection from "@/components/StudentsSection";
+import AlumniSection from "@/components/AlumniSection";
+import Footer from "@/components/Footer";
 
 export default function Home() {
+  // Data untuk Curriculum
+  const courses = [
+    {
+      title: "Introduction to Robotics",
+      description: "Learn the fundamentals of robotics, including mechanical design, sensors, and actuators.",
+      duration: "Semester 1-2"
+    },
+    {
+      title: "Programming for Robotics",
+      description: "Master programming languages like Python, C++, and ROS for robot control.",
+      duration: "Semester 2-3"
+    },
+    {
+      title: "Artificial Intelligence",
+      description: "Explore AI and machine learning techniques for intelligent robot systems.",
+      duration: "Semester 4-5"
+    },
+    {
+      title: "Computer Vision",
+      description: "Learn image processing and computer vision for robot perception.",
+      duration: "Semester 5-6"
+    },
+    {
+      title: "Robot Manipulation",
+      description: "Study kinematics, dynamics, and control of robotic manipulators.",
+      duration: "Semester 6-7"
+    },
+    {
+      title: "Autonomous Systems",
+      description: "Design and implement autonomous navigation and decision-making systems.",
+      duration: "Semester 7-8"
+    }
+  ];
+
+  // Data untuk Facilities
+  const facilities = [
+    {
+      name: "Robotics Laboratory",
+      description: "State-of-the-art lab equipped with industrial robots, 3D printers, and testing equipment."
+    },
+    {
+      name: "AI Research Center",
+      description: "Advanced computing facilities for artificial intelligence and machine learning research."
+    },
+    {
+      name: "Prototyping Workshop",
+      description: "Complete workshop with CNC machines, laser cutters, and electronic assembly stations."
+    },
+    {
+      name: "Innovation Hub",
+      description: "Collaborative space for students to work on innovative robotics projects and startups."
+    }
+  ];
+
+  // Data untuk Faculty Members
+  const facultyMembers = [
+    {
+      name: "Dr. Ahmad Rizki",
+      position: "Head of Program",
+      expertise: "Autonomous Systems"
+    },
+    {
+      name: "Dr. Siti Nurhaliza",
+      position: "Senior Lecturer",
+      expertise: "Computer Vision"
+    },
+    {
+      name: "Dr. Budi Santoso",
+      position: "Lecturer",
+      expertise: "AI & Machine Learning"
+    },
+    {
+      name: "Ir. Maya Dewi, M.T.",
+      position: "Lecturer",
+      expertise: "Robot Kinematics"
+    },
+    {
+      name: "Dr. Rudi Hartono",
+      position: "Research Fellow",
+      expertise: "Swarm Robotics"
+    },
+    {
+      name: "Ir. Lina Permata, M.Sc.",
+      position: "Lecturer",
+      expertise: "Embedded Systems"
+    }
+  ];
+
+  // Data untuk Students
+  const students = [
+    {
+      name: "Andi Pratama",
+      year: "2023",
+      program: "Robotics Technology"
+    },
+    {
+      name: "Bella Kusuma",
+      year: "2022",
+      program: "Robotics Technology"
+    },
+    {
+      name: "Chairul Anwar",
+      year: "2024",
+      program: "Robotics Technology"
+    }
+  ];
+
+  // Data untuk Alumni
+  const alumni = [
+    {
+      name: "Dedi Setiawan",
+      graduationYear: "2020",
+      currentPosition: "Robotics Engineer",
+      company: "Tech Robotics Indonesia"
+    },
+    {
+      name: "Eka Fitriani",
+      graduationYear: "2019",
+      currentPosition: "AI Specialist",
+      company: "Smart AI Solutions"
+    },
+    {
+      name: "Fajar Ramadhan",
+      graduationYear: "2021",
+      currentPosition: "Automation Engineer",
+      company: "Industrial Automation Corp"
+    },
+    {
+      name: "Gina Marlina",
+      graduationYear: "2018",
+      currentPosition: "Research Scientist",
+      company: "National Robotics Lab"
+    }
+  ];
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="min-h-screen bg-polibatam-light">
+      <Navbar />
+      
+      <HeroSection 
+        title="Learn Robotics Technology in Polibatam"
+        subtitle="The First Robotics Study Program in Indonesia"
+      />
+      
+      <AboutSection 
+        description="Our Robotics Technology program at Politeknik Negeri Batam offers a comprehensive education in the field of robotics, automation, and intelligent systems. We prepare students to become innovative engineers capable of designing, building, and programming advanced robotic systems for various industries."
+      />
+      
+      <CurriculumSection courses={courses} />
+      
+      <FacilitiesSection facilities={facilities} />
+      
+      <FacultyMembersSection members={facultyMembers} />
+      
+      <StudentsSection 
+        students={students}
+        totalStudents={150}
+      />
+      
+      <AlumniSection alumni={alumni} />
+      
+      <Footer />
     </div>
   );
 }
