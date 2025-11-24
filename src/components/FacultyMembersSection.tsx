@@ -11,7 +11,7 @@ interface FacultyMembersSectionProps {
 export default function FacultyMembersSection({ members }: FacultyMembersSectionProps) {
   return (
     <section id="faculty" className="py-16 bg-polibatam-light">
-      <div className="container mx-auto px-4">
+      <div className="max-w-[1720px] mx-auto px-8 md:px-10 lg:px-12">
         <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">
           <HiUserGroup className="inline-block mr-2 h-10 w-10 text-polibatam-orange" />
           Faculty Members

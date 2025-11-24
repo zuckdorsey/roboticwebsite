@@ -30,3 +30,33 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.hero-card-wrapper {
+  position: relative;
+}
+
+/* persegi peach */
+.hero-card-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* full 500x600 */
+  border-radius: 40px 40px 80px 40px;
+  /* tr & br lebih bulat */
+  background-color: #ffd7b8;
+}
+
+/* lingkaran krem sebagai bagian dari persegi */
+.hero-card-wrapper::after {
+  content: "";
+  position: absolute;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background-color: #f7e5d6;
+  /* samakan dengan background halamanmu */
+  top: -16px;
+  /* geser sedikit keluar */
+  left: 48px;
+  /* geser ke kanan agar tampak menyatu seperti contoh */
+}
