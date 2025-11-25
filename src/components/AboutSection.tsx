@@ -17,10 +17,52 @@ interface AboutSectionProps {
 
 export default function AboutSection({}: AboutSectionProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const [activeHighlightIndex, setActiveHighlightIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
+
+  // Scroll listener for parallax effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Auto-rotate highlights every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveHighlightIndex((prev) => (prev + 1) % aboutContent.highlights.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Swipe gesture handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleHighlightSwipe = () => {
+    if (touchStart - touchEnd > 50) {
+      // Swipe left
+      setActiveHighlightIndex((prev) => (prev + 1) % aboutContent.highlights.length);
+    }
+    if (touchStart - touchEnd < -50) {
+      // Swipe right
+      setActiveHighlightIndex((prev) => (prev - 1 + aboutContent.highlights.length) % aboutContent.highlights.length);
+    }
+  };
 
   return (
     <section id="about" className="py-16 md:py-24 bg-linear-to-b from-white via-polibatam-light/30 to-white relative overflow-hidden">
@@ -45,8 +87,30 @@ export default function AboutSection({}: AboutSectionProps) {
           <div className="w-20 md:w-24 h-1.5 bg-linear-to-r from-polibatam-orange to-polibatam-peach mx-auto rounded-full"></div>
         </div>
 
-        {/* Highlights Grid with Modern Liquid Glass Cards */}
-        <div className={`grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-12 md:mb-16 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        {/* Highlights Section with Stacked Cards for Mobile */}
+        {/* Mobile: Stacked Cards Layout with Swipe & Auto-rotate */}
+        <div 
+          className={`md:hidden relative mb-12 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} 
+          style={{ height: `${aboutContent.highlights.length * 80 + 300}px` }}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleHighlightSwipe}
+        >
+          {/* Pagination Dots */}
+          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2 z-50">
+            {aboutContent.highlights.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveHighlightIndex(index)}
+                className={`w-2 h-2 rounded-full transition-all duration-500 ${
+                  index === activeHighlightIndex 
+                    ? 'bg-polibatam-orange w-8' 
+                    : 'bg-gray-300 hover:bg-polibatam-peach'
+                }`}
+              />
+            ))}
+          </div>
+
           {aboutContent.highlights.map((highlight, index) => {
             const icons = [HiAcademicCap, HiLightBulb, HiCog];
             const Icon = icons[index % icons.length];
@@ -56,13 +120,94 @@ export default function AboutSection({}: AboutSectionProps) {
               'from-polibatam-orange/80 to-polibatam-peach/80'
             ];
             
+            const isActive = index === activeHighlightIndex;
+            const stackOffset = Math.abs(index - activeHighlightIndex);
+            
+            // Calculate parallax offset based on scroll
+            const parallaxOffset = (scrollY * 0.05 * (index + 1)) % 100;
+            
             return (
               <div
                 key={index}
-                className={`group transition-all duration-700 ease-out hover:scale-105 hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                style={{ transitionDelay: `${index * 150}ms` }}
+                onClick={() => setActiveHighlightIndex(index)}
+                className="absolute w-full group transition-all duration-700 ease-out cursor-pointer"
+                style={{ 
+                  top: isActive ? `${parallaxOffset}px` : `${stackOffset * 40 + parallaxOffset}px`,
+                  transform: isActive 
+                    ? `scale(1) translateY(0px) rotateX(0deg)` 
+                    : `scale(${1 - stackOffset * 0.05}) translateY(${stackOffset * 15}px) rotateX(${stackOffset * 2}deg)`,
+                  zIndex: isActive ? 100 : aboutContent.highlights.length - stackOffset,
+                  transformOrigin: 'top center',
+                  opacity: isActive ? 1 : 1 - stackOffset * 0.15,
+                  filter: isActive ? 'none' : `blur(${stackOffset * 0.5}px)`,
+                  transitionDelay: `${index * 50}ms`
+                }}
               >
-                <Card className="h-full border-none shadow-lg hover:shadow-2xl bg-white/70 backdrop-blur-xl relative overflow-hidden transition-all duration-700 ease-out rounded-3xl">
+                <Card className={`border-none shadow-lg bg-white/70 backdrop-blur-xl relative overflow-hidden transition-all duration-700 ease-out rounded-3xl ${isActive ? 'shadow-2xl' : ''}`}>
+                  {/* Liquid Glass Effect */}
+                  <div className="absolute inset-0 bg-white/40 backdrop-blur-md rounded-3xl"></div>
+                  <div className={`absolute inset-0 bg-linear-to-br ${gradients[index]} ${isActive ? 'opacity-20 animate-pulse' : 'opacity-0'} group-hover:opacity-10 transition-all duration-700 ease-out rounded-3xl`}></div>
+                  
+                  {/* Animated Border Gradient */}
+                  <div className={`absolute inset-0 rounded-3xl bg-linear-to-br ${gradients[index]} ${isActive ? 'opacity-50' : 'opacity-20'} group-hover:opacity-40 transition-all duration-700 ease-out blur-sm`}></div>
+                  
+                  {/* Shimmer Effect */}
+                  {isActive && (
+                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent animate-shimmer rounded-3xl"></div>
+                  )}
+                  
+                  <div className="flex flex-col items-center relative z-10 p-4">
+                    {/* Icon with Gradient Background and Animation */}
+                    <div className={`p-3 rounded-3xl bg-linear-to-br ${gradients[index]} mb-3 ${isActive ? 'scale-110 rotate-6 animate-bounce' : ''} group-hover:scale-110 group-hover:rotate-6 transition-all duration-700 ease-out shadow-lg`}>
+                      <Icon className={`h-8 w-8 text-white ${isActive ? 'rotate-12 animate-spin-slow' : ''} transition-transform duration-700 ease-out group-hover:rotate-12`} />
+                    </div>
+                    
+                    <Badge color="gray" className={`mb-2 uppercase tracking-wider text-xs backdrop-blur-sm bg-polibatam-light/80 rounded-full transition-all duration-500 ${isActive ? 'scale-110 animate-pulse' : ''} group-hover:scale-105`}>
+                      {highlight.title}
+                    </Badge>
+                    
+                    <p className={`text-3xl font-black mb-2 transition-all duration-700 ease-out ${isActive ? 'text-polibatam-orange scale-110 animate-pulse' : 'text-polibatam-navy'} group-hover:text-polibatam-orange group-hover:scale-110`}>
+                      {highlight.value}
+                    </p>
+                    
+                    <p className="text-sm text-gray-600 font-medium text-center transition-all duration-500 group-hover:text-gray-800">
+                      {highlight.description}
+                    </p>
+                    
+                    {/* Bottom Glow Effect */}
+                    <div className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-1 bg-linear-to-r ${gradients[index]} ${isActive ? 'opacity-60' : 'opacity-0'} group-hover:opacity-60 transition-all duration-700 ease-out blur-sm rounded-full`}></div>
+                  </div>
+                </Card>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Desktop: Grid Layout with Floating & Parallax Animation */}
+        <div className={`hidden md:grid grid-cols-3 gap-4 md:gap-8 mb-12 md:mb-16 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          {aboutContent.highlights.map((highlight, index) => {
+            const icons = [HiAcademicCap, HiLightBulb, HiCog];
+            const Icon = icons[index % icons.length];
+            const gradients = [
+              'from-polibatam-orange to-polibatam-peach',
+              'from-polibatam-peach to-polibatam-orange',
+              'from-polibatam-orange/80 to-polibatam-peach/80'
+            ];
+            
+            // Parallax effect for desktop - different speed per card
+            const desktopParallax = scrollY * (0.02 + index * 0.01);
+            
+            return (
+              <div
+                key={index}
+                className={`group transition-all duration-700 ease-out hover:scale-105 hover:-translate-y-2 animate-float ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                style={{ 
+                  transitionDelay: `${index * 150}ms`,
+                  animationDelay: `${index * 0.5}s`,
+                  transform: `translateY(${desktopParallax}px)`
+                }}
+              >
+                <Card className="h-full border-none shadow-lg hover:shadow-2xl bg-white/70 backdrop-blur-xl relative overflow-hidden transition-all duration-700 ease-out rounded-3xl group-hover:animate-glow">
                   {/* Liquid Glass Effect */}
                   <div className="absolute inset-0 bg-white/40 backdrop-blur-md rounded-3xl"></div>
                   <div className={`absolute inset-0 bg-linear-to-br ${gradients[index]} opacity-0 group-hover:opacity-10 transition-all duration-700 ease-out rounded-3xl`}></div>
@@ -70,13 +215,18 @@ export default function AboutSection({}: AboutSectionProps) {
                   {/* Animated Border Gradient */}
                   <div className={`absolute inset-0 rounded-3xl bg-linear-to-br ${gradients[index]} opacity-20 group-hover:opacity-40 transition-all duration-700 ease-out blur-sm`}></div>
                   
+                  {/* Floating Particles */}
+                  <div className="absolute top-4 left-4 w-2 h-2 bg-polibatam-orange/30 rounded-full animate-float opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute top-8 right-6 w-1.5 h-1.5 bg-polibatam-peach/40 rounded-full animate-float opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ animationDelay: '0.3s' }}></div>
+                  <div className="absolute bottom-6 left-8 w-2.5 h-2.5 bg-polibatam-orange/20 rounded-full animate-float opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ animationDelay: '0.6s' }}></div>
+                  
                   <div className="flex flex-col items-center relative z-10 p-4 md:p-6">
                     {/* Icon with Gradient Background and Animation */}
-                    <div className={`p-3 md:p-4 rounded-3xl bg-linear-to-br ${gradients[index]} mb-3 md:mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-700 ease-out shadow-lg`}>
-                      <Icon className="h-8 w-8 md:h-10 md:w-10 text-white transition-transform duration-700 ease-out group-hover:rotate-12" />
+                    <div className={`p-3 md:p-4 rounded-3xl bg-linear-to-br ${gradients[index]} mb-3 md:mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-700 ease-out shadow-lg group-hover:shadow-2xl`}>
+                      <Icon className="h-8 w-8 md:h-10 md:w-10 text-white transition-transform duration-700 ease-out group-hover:rotate-12 group-hover:animate-spin-slow" />
                     </div>
                     
-                    <Badge color="gray" className="mb-2 md:mb-3 uppercase tracking-wider text-xs backdrop-blur-sm bg-polibatam-light/80 rounded-full transition-all duration-500 group-hover:scale-105">
+                    <Badge color="gray" className="mb-2 md:mb-3 uppercase tracking-wider text-xs backdrop-blur-sm bg-polibatam-light/80 rounded-full transition-all duration-500 group-hover:scale-105 group-hover:animate-pulse">
                       {highlight.title}
                     </Badge>
                     
@@ -97,88 +247,115 @@ export default function AboutSection({}: AboutSectionProps) {
           })}
         </div>
 
-        {/* Main Content with Timeline */}
-        <div className={`grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          {/* Left: Timeline with Liquid Glass */}
-            <Card className="lg:col-span-1 border-none shadow-xl bg-linear-to-br from-polibatam-navy to-gray-800 text-white backdrop-blur-xl relative overflow-hidden group rounded-3xl transition-all duration-700 ease-out hover:scale-105 hover:-translate-y-2">
-            {/* Glass Effect Overlay */}
-            <div className="absolute inset-0 bg-linear-to-br from-white/10 to-transparent backdrop-blur-sm rounded-3xl"></div>
+        {/* Main Content - Creative No-Card Layout */}
+        <div 
+          className={`mb-12 md:mb-16 max-w-6xl mx-auto transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+          style={{ transform: `translateY(${scrollY * 0.02}px)` }}
+        >
+          <div className="relative">
+            {/* Background decorative elements */}
+            <div className="absolute -top-20 -right-10 w-72 h-72 bg-polibatam-orange/5 rounded-full blur-3xl animate-float" />
+            <div className="absolute top-1/2 -left-10 w-64 h-64 bg-polibatam-peach/10 rounded-full blur-2xl" />
             
-            <div className="relative z-10 p-4 md:p-6">
-              <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 flex items-center gap-2 transition-all duration-500 group-hover:scale-105">
-              <HiTrendingUp className="h-6 w-6 md:h-7 md:w-7 animate-bounce" />
-              {aboutContent.journeyTitle}
-              </h3>
-              
-              {/* Custom Timeline */}
-              <div className="space-y-4 md:space-y-6">
-              {aboutContent.timeline.map((item, index) => (
-              <div key={index} className="flex gap-3 md:gap-4 group/item transition-all duration-500 hover:translate-x-2">
-                <div className="flex flex-col items-center">
-                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-polibatam-orange flex items-center justify-center shadow-lg group-hover/item:scale-110 transition-all duration-500 ease-out">
-                  <HiCheckCircle className="h-5 w-5 md:h-6 md:w-6 text-white transition-transform duration-500 group-hover/item:rotate-12" />
-                </div>
-                {index < aboutContent.timeline.length - 1 && (
-                <div className="w-0.5 h-full bg-gray-600 mt-2 group-hover/item:bg-polibatam-orange transition-colors duration-500"></div>
-                )}
-                </div>
-                <div className={index < aboutContent.timeline.length - 1 ? "pb-4 md:pb-6" : ""}>
-                <p className="text-gray-300 text-xs md:text-sm mb-1 transition-all duration-300 group-hover/item:text-polibatam-peach">{item.year}</p>
-                <h4 className="text-white font-bold mb-1 md:mb-2 text-sm md:text-base transition-all duration-300 group-hover/item:text-polibatam-orange">{item.title}</h4>
-                <p className="text-gray-300 text-xs md:text-sm">{item.description}</p>
-                </div>
-              </div>
-              ))}
-              </div>
-            </div>
-            </Card>
-
-          {/* Right: Main Content with Liquid Glass */}
-          <Card className="lg:col-span-2 border-none shadow-xl bg-white/60 backdrop-blur-2xl relative overflow-hidden group rounded-3xl transition-all duration-700 ease-out hover:scale-[1.02] hover:-translate-y-2">
-            {/* Glass Effect Layers */}
-            <div className="absolute inset-0 bg-linear-to-br from-white/80 to-white/40 backdrop-blur-xl rounded-3xl"></div>
-            <div className="absolute inset-0 bg-linear-to-br from-polibatam-peach/5 to-transparent rounded-3xl"></div>
-            
-            <div className="relative z-10 p-4 md:p-6 lg:p-8">
-              <div className="space-y-4 md:space-y-6">
-                {aboutContent.paragraphs.map((paragraph, index) => (
-                  <div key={index} className="group/paragraph transition-all duration-500">
-                    <p className="text-base md:text-lg text-gray-700 leading-relaxed text-justify group-hover/paragraph:text-gray-900 transition-all duration-500 ease-out">
-                      {index === 0 && (
-                        <span className="text-5xl md:text-6xl font-bold text-polibatam-orange float-left mr-3 md:mr-4 mt-1 md:mt-2 leading-none drop-shadow-lg transition-all duration-500 group-hover/paragraph:scale-110 group-hover/paragraph:rotate-3">
-                          {paragraph.charAt(0)}
+            {/* Content wrapper with gradient border */}
+            <div className="relative border-l-4 border-polibatam-orange/30 pl-8 md:pl-16 space-y-12 md:space-y-16">
+              {aboutContent.paragraphs.map((paragraph, index) => (
+                <div 
+                  key={index} 
+                  className="relative group/para"
+                  style={{ animationDelay: `${index * 0.2}s` }}
+                >
+                  {/* Paragraph number - large decorative */}
+                  <div className="absolute -left-8 md:-left-16 top-0 flex items-center justify-center w-12 h-12 md:w-16 md:h-16">
+                    <div className="relative">
+                      {/* Rotating ring */}
+                      <div className="absolute inset-0 border-2 border-polibatam-orange/20 rounded-full group-hover/para:border-polibatam-orange/40 transition-all duration-500 group-hover/para:rotate-180 group-hover/para:scale-110" />
+                      
+                      {/* Number */}
+                      <div className="relative w-12 h-12 md:w-16 md:h-16 flex items-center justify-center">
+                        <span className="text-2xl md:text-3xl font-bold bg-linear-to-br from-polibatam-orange to-polibatam-peach bg-clip-text text-transparent">
+                          {(index + 1).toString().padStart(2, '0')}
                         </span>
-                      )}
-                      {index === 0 ? paragraph.slice(1) : paragraph}
-                    </p>
-                    {index < aboutContent.paragraphs.length - 1 && (
-                      <div className="w-full h-px bg-linear-to-r from-transparent via-gray-300 to-transparent mt-4 md:mt-6 transition-all duration-500 group-hover/paragraph:via-polibatam-orange"></div>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {/* Stats Section with Liquid Glass Cards */}
-              <div className="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-gray-200">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                  {aboutContent.stats.map((stat, index) => (
-                    <div key={index} className="p-4 rounded-2xl bg-white/50 backdrop-blur-md border border-white/60 shadow-lg hover:shadow-xl transition-all duration-500 ease-out hover:scale-105 hover:-translate-y-1 group/stat">
-                      <div className="flex justify-between mb-2">
-                        <span className="text-xs md:text-sm font-semibold text-gray-700 transition-colors duration-300 group-hover/stat:text-polibatam-orange">{stat.label}</span>
-                        <span className="text-xs md:text-sm font-bold text-polibatam-orange transition-transform duration-300 group-hover/stat:scale-110">{stat.value}%</span>
                       </div>
-                      <Progress progress={stat.value} size="lg" color="orange" className="animate-pulse transition-all duration-500" style={index === 1 ? { animationDelay: '0.5s' } : undefined} />
+                      
+                      {/* Glow effect on hover */}
+                      <div className="absolute inset-0 bg-polibatam-orange/20 rounded-full blur-xl opacity-0 group-hover/para:opacity-100 transition-opacity duration-500 -z-10" />
                     </div>
-                  ))}
+                  </div>
+                  
+                  {/* Paragraph content with alternating layouts */}
+                  <div className={`
+                    relative
+                    ${index % 2 === 0 ? 'pr-0 md:pr-20' : 'pl-0 md:pl-20'}
+                  `}>
+                    {/* Drop cap for first paragraph */}
+                    {index === 0 && (
+                      <div className="float-left mr-4 mb-2">
+                        <div className="relative">
+                          <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center bg-linear-to-br from-polibatam-orange to-polibatam-peach rounded-2xl shadow-lg group-hover/para:shadow-polibatam-orange/50 transition-all duration-500 group-hover/para:rotate-6">
+                            <span className="text-4xl md:text-5xl font-bold text-white">
+                              {paragraph.charAt(0)}
+                            </span>
+                          </div>
+                          {/* Decorative corner accent */}
+                          <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-polibatam-orange rounded-tr-lg opacity-0 group-hover/para:opacity-100 transition-opacity duration-300" />
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* Paragraph text */}
+                    <p className="text-base md:text-lg leading-relaxed text-gray-700 relative">
+                      {/* Background highlight on hover */}
+                      <span className="absolute inset-0 bg-linear-to-r from-polibatam-peach/0 via-polibatam-peach/5 to-polibatam-peach/0 rounded-lg opacity-0 group-hover/para:opacity-100 transition-opacity duration-500 -m-2 p-2" />
+                      
+                      <span className="relative z-10">
+                        {index === 0 ? paragraph.slice(1) : paragraph}
+                      </span>
+                    </p>
+                    
+                    {/* Decorative quote or accent for alternating paragraphs */}
+                    {index % 2 === 1 && (
+                      <div className="absolute -right-4 top-0 text-6xl md:text-8xl font-serif text-polibatam-orange/10 leading-none hidden md:block">
+                        "
+                      </div>
+                    )}
+                    
+                    {/* Side accent line */}
+                    <div className={`
+                      absolute top-0 bottom-0 w-0.5 bg-linear-to-b from-transparent via-polibatam-orange/30 to-transparent
+                      opacity-0 group-hover/para:opacity-100 transition-opacity duration-500
+                      ${index % 2 === 0 ? '-right-8 md:-right-12' : '-left-8 md:-left-12'}
+                    `} />
+                  </div>
+                  
+                  {/* Connector line between paragraphs */}
+                  {index < aboutContent.paragraphs.length - 1 && (
+                    <div className="mt-10 md:mt-12 flex items-center gap-4">
+                      {/* Animated dots */}
+                      <div className="flex gap-2">
+                        <div className="w-2 h-2 rounded-full bg-polibatam-orange animate-pulse" style={{ animationDelay: '0s' }} />
+                        <div className="w-2 h-2 rounded-full bg-polibatam-peach animate-pulse" style={{ animationDelay: '0.2s' }} />
+                        <div className="w-2 h-2 rounded-full bg-polibatam-orange/50 animate-pulse" style={{ animationDelay: '0.4s' }} />
+                      </div>
+                      
+                      {/* Gradient line */}
+                      <div className="flex-1 h-px bg-linear-to-r from-polibatam-orange/30 via-polibatam-peach/50 to-transparent" />
+                    </div>
+                  )}
                 </div>
-              </div>
+              ))}
             </div>
-          </Card>
+           
+          </div>
         </div>
 
-        {/* Vision & Mission Cards with Liquid Glass */}
-        <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <Card className="border-none shadow-xl bg-linear-to-br from-polibatam-light/80 to-polibatam-peach/50 backdrop-blur-xl hover:shadow-2xl transition-all duration-700 ease-out hover:scale-105 hover:-translate-y-3 relative overflow-hidden group rounded-3xl">
+        <div 
+          className={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        >
+          <Card 
+            className="border-none shadow-xl bg-linear-to-br from-polibatam-light/80 to-polibatam-peach/50 backdrop-blur-xl hover:shadow-2xl transition-all duration-700 ease-out hover:scale-105 hover:-translate-y-3 relative overflow-hidden group rounded-3xl"
+            style={{ transform: `translateY(${scrollY * 0.025}px)` }}
+          >
             {/* Liquid Glass Overlay */}
             <div className="absolute inset-0 bg-linear-to-br from-white/50 to-transparent backdrop-blur-md rounded-3xl"></div>
             <div className="absolute inset-0 bg-linear-to-br from-polibatam-peach/0 to-polibatam-orange/0 group-hover:from-polibatam-peach/10 group-hover:to-polibatam-orange/10 transition-all duration-700 rounded-3xl"></div>
@@ -199,7 +376,10 @@ export default function AboutSection({}: AboutSectionProps) {
             <div className="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-polibatam-orange to-polibatam-peach opacity-0 group-hover:opacity-60 transition-all duration-700 ease-out rounded-full"></div>
           </Card>
 
-          <Card className="border-none shadow-xl bg-linear-to-br from-polibatam-peach/50 to-polibatam-light/80 backdrop-blur-xl hover:shadow-2xl transition-all duration-700 ease-out hover:scale-105 hover:-translate-y-3 relative overflow-hidden group rounded-3xl">
+          <Card 
+            className="border-none shadow-xl bg-linear-to-br from-polibatam-peach/50 to-polibatam-light/80 backdrop-blur-xl hover:shadow-2xl transition-all duration-700 ease-out hover:scale-105 hover:-translate-y-3 relative overflow-hidden group rounded-3xl"
+            style={{ transform: `translateY(${scrollY * 0.035}px)` }}
+          >
             {/* Liquid Glass Overlay */}
             <div className="absolute inset-0 bg-linear-to-br from-white/50 to-transparent backdrop-blur-md rounded-3xl"></div>
             <div className="absolute inset-0 bg-linear-to-br from-polibatam-orange/0 to-polibatam-peach/0 group-hover:from-polibatam-orange/10 group-hover:to-polibatam-peach/10 transition-all duration-700 rounded-3xl"></div>
