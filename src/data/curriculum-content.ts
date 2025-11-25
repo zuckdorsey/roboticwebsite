@@ -30,7 +30,7 @@ export const curriculumContent = {
         {
           code: "MTH101",
           name: "Calculus I",
-          credits: 4,
+          credits: 9,
           description: "A comprehensive introduction to differential and integral calculus. Topics include limits, continuity, derivatives, applications of derivatives, definite and indefinite integrals, and fundamental theorem of calculus. Students will develop problem-solving skills essential for engineering applications and learn to apply calculus concepts to real-world robotics problems.",
           type: "mandatory" as const
         },
@@ -44,7 +44,7 @@ export const curriculumContent = {
         {
           code: "PRG101",
           name: "Programming Fundamentals",
-          credits: 3,
+          credits: 8,
           description: "Introduction to programming using Python and C++. Topics include variables, data types, control structures, functions, arrays, and basic object-oriented programming. Students will learn algorithm design, debugging techniques, and best coding practices. The course emphasizes programming skills necessary for robot control and automation systems.",
           type: "mandatory" as const
         },
