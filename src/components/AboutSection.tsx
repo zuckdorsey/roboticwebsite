@@ -12,7 +12,7 @@ interface AboutHighlight {
 }
 
 interface AboutSectionProps {
-  // Props tidak diperlukan lagi karena data diambil dari about-content
+  
 }
 
 export default function AboutSection({}: AboutSectionProps) {
@@ -26,7 +26,7 @@ export default function AboutSection({}: AboutSectionProps) {
     setIsVisible(true);
   }, []);
 
-  // Scroll listener for parallax effect
+  
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
@@ -36,7 +36,7 @@ export default function AboutSection({}: AboutSectionProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Auto-rotate highlights every 4 seconds
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveHighlightIndex((prev) => (prev + 1) % aboutContent.highlights.length);
@@ -44,7 +44,7 @@ export default function AboutSection({}: AboutSectionProps) {
     return () => clearInterval(interval);
   }, []);
 
-  // Swipe gesture handlers
+  
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX);
   };
@@ -55,11 +55,11 @@ export default function AboutSection({}: AboutSectionProps) {
 
   const handleHighlightSwipe = () => {
     if (touchStart - touchEnd > 50) {
-      // Swipe left
+      
       setActiveHighlightIndex((prev) => (prev + 1) % aboutContent.highlights.length);
     }
     if (touchStart - touchEnd < -50) {
-      // Swipe right
+      
       setActiveHighlightIndex((prev) => (prev - 1 + aboutContent.highlights.length) % aboutContent.highlights.length);
     }
   };
@@ -123,7 +123,7 @@ export default function AboutSection({}: AboutSectionProps) {
             const isActive = index === activeHighlightIndex;
             const stackOffset = Math.abs(index - activeHighlightIndex);
             
-            // Calculate parallax offset based on scroll
+            
             const parallaxOffset = (scrollY * 0.05 * (index + 1)) % 100;
             
             return (
@@ -194,7 +194,7 @@ export default function AboutSection({}: AboutSectionProps) {
               'from-polibatam-orange/80 to-polibatam-peach/80'
             ];
             
-            // Parallax effect for desktop - different speed per card
+            
             const desktopParallax = scrollY * (0.02 + index * 0.01);
             
             return (
@@ -370,7 +370,7 @@ export default function AboutSection({}: AboutSectionProps) {
                   
                   {/* Logo box */}
                   <div className="relative w-48 h-48 md:w-full md:h-auto md:aspect-square mx-auto bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl flex items-center justify-center overflow-hidden border-2 border-polibatam-orange/30 group-hover/logo:border-polibatam-orange/50 transition-all duration-500 group-hover/logo:scale-105">
-                    {/* CDIO Image Logo */}
+                    
                     <div className="relative w-full h-full p-6 md:p-8">
                     <img 
                       src="cdio.png" 
