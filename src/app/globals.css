@@ -35,18 +35,18 @@ body {
   position: relative;
 }
 
-/* persegi peach */
+
 .hero-card-wrapper::before {
   content: "";
   position: absolute;
   inset: 0;
-  /* full 500x600 */
+ 
   border-radius: 40px 40px 80px 40px;
-  /* tr & br lebih bulat */
+ 
   background-color: #ffd7b8;
 }
 
-/* lingkaran krem sebagai bagian dari persegi */
+
 .hero-card-wrapper::after {
   content: "";
   position: absolute;
@@ -54,9 +54,33 @@ body {
   height: 96px;
   border-radius: 50%;
   background-color: #f7e5d6;
-  /* samakan dengan background halamanmu */
+ 
   top: -16px;
-  /* geser sedikit keluar */
+ 
   left: 48px;
-  /* geser ke kanan agar tampak menyatu seperti contoh */
+ 
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-fade-in-up-delay {
+  animation: fadeInUp 0.8s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+.navbar-glass-transition {
+  transition: all 0.5s ease-in-out;
 }

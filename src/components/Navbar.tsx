@@ -6,16 +6,40 @@ import { HiMenu, HiX } from 'react-icons/hi';
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+
+  const menuItems = [
+    { label: 'HOME', href: '#home' },
+    { label: 'ABOUT', href: '#about' },
+    { label: 'CURRICULUM', href: '#curriculum' },
+    { label: 'FACILITIES', href: '#facilities' },
+    { label: 'FACULTY MEMBERS', href: '#faculty' },
+    { label: 'ALUMNI', href: '#alumni' },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
+
+      
+      const scrollPosition = window.scrollY + 300; 
+
+      for (const item of menuItems) {
+        const sectionId = item.href.substring(1);
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(sectionId);
+          }
+        }
+      }
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close menu when clicking outside
+  
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -27,27 +51,28 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
-  const menuItems = [
-    { label: 'HOME', href: '#home' },
-    { label: 'ABOUT', href: '#about' },
-    { label: 'CURRICULUM', href: '#curriculum' },
-    { label: 'FACILITIES', href: '#facilities' },
-    { label: 'FACULTY MEMBERS', href: '#faculty' },
-    { label: 'STUDENTS', href: '#students' },
-    { label: 'ALUMNI', href: '#alumni' },
-  ];
 
   return (
-    <nav className={`bg-polibatam-light w-full fixed top-0 left-0 right-0 z-50 transition-shadow duration-300 ${scrolled ? 'shadow-md' : ''}`}>
-      <div className="max-w-[1720px] flex flex-wrap items-center justify-between mx-auto px-8 md:px-10 lg:px-12 py-4">
+    <nav 
+      className={`
+        fixed z-50 navbar-glass-transition
+        ${scrolled 
+          ? 'top-6 left-0 right-0 mx-auto w-[90%] md:w-fit md:min-w-[600px] rounded-full bg-white/70 backdrop-blur-xl border border-white/40 shadow-xl' 
+          : 'top-0 left-0 w-full bg-polibatam-light border-transparent shadow-none'
+        }
+      `}
+    >
+      <div className={`
+        flex flex-wrap items-center justify-between mx-auto navbar-glass-transition
+        ${scrolled ? 'px-8 py-3' : 'max-w-[1720px] px-8 md:px-10 lg:px-12 py-5'}
+      `}>
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-polibatam-orange rounded-md flex items-center justify-center">
-              <span className="text-white font-bold text-xl">RT</span>
-            </div>
-            <span className="self-center text-xl font-bold whitespace-nowrap text-polibatam-navy">
-              Robotic Technology
-            </span>
+            <img 
+              src="logo.png" 
+              alt="Robotic Technology Logo" 
+              className="w-32 h-13 object-contain"
+            />
           </div>
         </a>
         <button
@@ -95,23 +120,35 @@ export default function Navbar() {
             </button>
           </div>
 
-          <ul className="flex flex-col md:flex-row p-6 md:p-0 pt-2 md:pt-0 space-y-2 md:space-y-0 md:space-x-8">
+          <ul className="flex flex-col md:flex-row p-6 md:p-0 pt-2 md:pt-0 space-y-2 md:space-y-0 md:items-center">
             {menuItems.map((item, index) => (
               <li 
                 key={item.label}
                 className={`
-                  transform transition-all duration-300
+                  transform transition-all duration-300 flex items-center
                   ${isOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0 md:translate-x-0 md:opacity-100'}
                 `}
                 style={{ transitionDelay: isOpen ? `${index * 50}ms` : '0ms' }}
               >
                 <a
                   href={item.href}
-                  className="block py-3 px-4 text-gray-700 text-sm font-light rounded-lg hover:bg-polibatam-peach hover:text-polibatam-orange md:hover:bg-transparent md:border-0 md:p-0 transition-all duration-200"
+                  className={`
+                    block py-3 px-4 text-sm rounded-lg transition-all duration-300
+                    md:p-0 md:bg-transparent md:hover:bg-transparent
+                    ${activeSection === item.href.substring(1) 
+                      ? 'text-polibatam-navy font-extrabold md:scale-105' 
+                      : 'text-gray-500 font-medium hover:text-polibatam-navy'
+                    }
+                    hover:bg-polibatam-peach md:hover:bg-transparent
+                  `}
                   onClick={() => setIsOpen(false)}
                 >
                   {item.label}
                 </a>
+                {/* Separator Shape */}
+                {index < menuItems.length - 1 && (
+                  <span className="hidden md:block w-1.5 h-1.5 bg-gray-300/50 rounded-full mx-6"></span>
+                )}
               </li>
             ))}
           </ul>

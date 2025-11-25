@@ -11,8 +11,8 @@ interface HeroIllustrationProps {
 export function HeroIllustration({ 
   src = '/hero-2.png', 
   alt = 'Robotics Illustration',
-  width = 1640,
-  height = 1640,
+  width = 1800,
+  height = 1800,
   className = '' 
 }: HeroIllustrationProps = {}) {
   return (
@@ -24,7 +24,7 @@ export function HeroIllustration({
       height={height}
       className="w-full h-full object-contain"
       priority
-      sizes="(max-width: 768px) 85vw, (max-width: 1024px) 55vw, 50vw"
+      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 70vw, 60vw"
       />
     </div>
   );
