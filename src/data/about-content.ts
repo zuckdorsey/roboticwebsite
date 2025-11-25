@@ -59,5 +59,23 @@ export const aboutContent = {
     title: "Our Mission",
     description: "To provide world-class education and hands-on experience in robotics engineering, empowering students to design innovative solutions for real-world challenges."
   },
-  journeyTitle: "Our Journey"
+  journeyTitle: "Our Journey",
+  peo: {
+    title: "Program Educational Objectives (PEO)",
+    introduction: "Robotics Engineering Technology Program curriculum, developed in 2021 apart from referring to BAN-PT accreditation. Therefore, it is required to determine goals for educational programs or Program Educational Objectives (PEO), a general statement describing career and professional achievements when graduates have worked for 3-5 years. The Robotics Engineering Technology program has determined the following PEO:",
+    objectives: [
+      {
+        code: "PEO-1",
+        description: "Our graduates are able to actively, creatively, and innovatively identify and solve problems related to robotics technology through the application of engineering principles."
+      },
+      {
+        code: "PEO-2",
+        description: "Our graduates possess superior personal and interpersonal skills for successful careers in industry, academia, and business."
+      },
+      {
+        code: "PEO-3",
+        description: "Our graduates are able to adapt to new technologies through quality, open, and relevant applied research, and in close collaboration with society and industry."
+      }
+    ]
+  }
 };

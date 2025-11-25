@@ -349,56 +349,244 @@ export default function AboutSection({}: AboutSectionProps) {
           </div>
         </div>
 
-        <div 
-          className={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-        >
-          <Card 
-            className="border-none shadow-xl bg-linear-to-br from-polibatam-light/80 to-polibatam-peach/50 backdrop-blur-xl hover:shadow-2xl transition-all duration-700 ease-out hover:scale-105 hover:-translate-y-3 relative overflow-hidden group rounded-3xl"
-            style={{ transform: `translateY(${scrollY * 0.025}px)` }}
+        {/* Program Educational Objectives (PEO) - No Card Layout */}
+        {aboutContent.peo && (
+          <div 
+            className={`mb-12 md:mb-16 max-w-6xl mx-auto transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+            style={{ transform: `translateY(${scrollY * 0.018}px)` }}
           >
-            {/* Liquid Glass Overlay */}
-            <div className="absolute inset-0 bg-linear-to-br from-white/50 to-transparent backdrop-blur-md rounded-3xl"></div>
-            <div className="absolute inset-0 bg-linear-to-br from-polibatam-peach/0 to-polibatam-orange/0 group-hover:from-polibatam-peach/10 group-hover:to-polibatam-orange/10 transition-all duration-700 rounded-3xl"></div>
-            
-            <div className="flex flex-col md:flex-row items-start gap-3 md:gap-4 relative z-10 p-4 md:p-6">
-              <div className="p-2.5 md:p-3 bg-linear-to-br from-polibatam-orange to-polibatam-peach rounded-2xl shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-700 ease-out">
-                <HiLightBulb className="h-6 w-6 md:h-8 md:w-8 text-white transition-transform duration-500 group-hover:rotate-12" />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-xl md:text-2xl font-bold text-polibatam-navy mb-2 md:mb-3 group-hover:text-polibatam-orange transition-all duration-500 ease-out group-hover:scale-105">{aboutContent.vision.title}</h3>
-                <p className="text-sm md:text-base text-gray-700 leading-relaxed transition-colors duration-300 group-hover:text-gray-900">
-                  {aboutContent.vision.description}
-                </p>
+            <div className="relative">
+              {/* Background decorative elements */}
+              <div className="absolute -top-10 -right-20 w-96 h-96 bg-polibatam-peach/5 rounded-full blur-3xl" />
+              <div className="absolute -bottom-10 -left-20 w-80 h-80 bg-polibatam-orange/5 rounded-full blur-3xl animate-pulse" />
+              
+              <div className="grid md:grid-cols-12 gap-8 md:gap-12">
+                {/* Left side - CDIO Logo - Sticky on desktop */}
+                <div className="md:col-span-4 flex flex-col items-center md:items-start gap-6">
+                  {/* CDIO Logo Container - Sticky */}
+                  <div className="relative group/logo w-full md:sticky md:top-8">
+                  {/* Glow background */}
+                  <div className="absolute inset-0 bg-linear-to-br from-polibatam-orange/20 to-polibatam-peach/20 rounded-3xl blur-2xl opacity-50 group-hover/logo:opacity-75 transition-opacity duration-500" />
+                  
+                  {/* Logo box */}
+                  <div className="relative w-48 h-48 md:w-full md:h-auto md:aspect-square mx-auto bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl flex items-center justify-center overflow-hidden border-2 border-polibatam-orange/30 group-hover/logo:border-polibatam-orange/50 transition-all duration-500 group-hover/logo:scale-105">
+                    {/* CDIO Image Logo */}
+                    <div className="relative w-full h-full p-6 md:p-8">
+                    <img 
+                      src="cdio.png" 
+                      alt="CDIO Initiative Logo"
+                      className="w-full h-full object-contain group-hover/logo:scale-110 transition-transform duration-500"
+                    />
+                    </div>
+                      
+                      {/* Decorative corner accents */}
+                      <div className="absolute top-3 left-3 w-10 h-10 border-t-4 border-l-4 border-polibatam-orange rounded-tl-2xl opacity-40 group-hover/logo:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute bottom-3 right-3 w-10 h-10 border-b-4 border-r-4 border-polibatam-orange rounded-br-2xl opacity-40 group-hover/logo:opacity-100 transition-opacity duration-300" />
+                      
+                      {/* Shimmer effect */}
+                      <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/logo:translate-x-full transition-transform duration-1000 ease-in-out" />
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Right side - PEO Content */}
+                <div className="md:col-span-8">
+                  {/* Section Badge & Title */}
+                  <div className="mb-8 md:mb-10">
+                    <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-linear-to-r from-polibatam-orange/10 to-polibatam-peach/10 rounded-full border border-polibatam-orange/30">
+                      <div className="w-2 h-2 rounded-full bg-polibatam-orange animate-pulse" />
+                      <span className="text-sm md:text-base font-bold text-polibatam-orange uppercase tracking-wide">
+                        Educational Framework
+                      </span>
+                    </div>
+                    
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-4 bg-linear-to-r from-polibatam-navy to-polibatam-orange bg-clip-text text-transparent">
+                      {aboutContent.peo.title}
+                    </h2>
+                    
+                    {/* Decorative underline */}
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="h-1 w-20 bg-linear-to-r from-polibatam-orange to-polibatam-peach rounded-full" />
+                      <div className="h-1 w-10 bg-polibatam-peach/50 rounded-full" />
+                      <div className="h-1 w-5 bg-polibatam-orange/30 rounded-full" />
+                    </div>
+                    
+                    <p className="text-base md:text-lg text-gray-700 leading-relaxed">
+                      {aboutContent.peo.introduction}
+                    </p>
+                  </div>
+                  
+                  {/* PEO Objectives List - No Card Style */}
+                  <div className="space-y-8 md:space-y-10">
+                    {aboutContent.peo.objectives.map((objective, index) => (
+                      <div 
+                        key={index}
+                        className="group/peo relative"
+                      >
+                        {/* Vertical connector line */}
+                        {index > 0 && (
+                          <div className="absolute -top-4 left-8 w-0.5 h-4 bg-linear-to-b from-polibatam-orange/50 to-transparent" />
+                        )}
+                        
+                        <div className="flex gap-5 items-start relative">
+                          {/* Decorative side accent */}
+                          <div className="absolute -left-3 top-0 bottom-0 w-1 bg-linear-to-b from-polibatam-orange/0 via-polibatam-orange/30 to-polibatam-orange/0 opacity-0 group-hover/peo:opacity-100 transition-opacity duration-500 rounded-full" />
+                          
+                          {/* Number badge */}
+                          <div className="relative shrink-0 pt-1">
+                            <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-linear-to-br from-polibatam-orange to-polibatam-peach flex items-center justify-center shadow-xl group-hover/peo:scale-110 group-hover/peo:rotate-6 transition-all duration-500">
+                              <span className="text-white font-black text-2xl md:text-3xl drop-shadow-lg">
+                                {index + 1}
+                              </span>
+                            </div>
+                            
+                            {/* Glow effect */}
+                            <div className="absolute inset-0 bg-polibatam-orange/50 rounded-2xl blur-xl opacity-0 group-hover/peo:opacity-100 transition-opacity duration-500 -z-10" />
+                            
+                            {/* Corner accent */}
+                            <div className="absolute -top-1 -right-1 w-6 h-6 border-t-2 border-r-2 border-polibatam-orange rounded-tr-xl opacity-0 group-hover/peo:opacity-100 transition-opacity duration-300" />
+                          </div>
+                          
+                          {/* Content */}
+                          <div className="flex-1 pt-2">
+                            {/* PEO Code */}
+                            <div className="mb-3">
+                              <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-polibatam-peach/20 text-polibatam-orange font-black text-base md:text-lg rounded-xl border-2 border-polibatam-orange/30 group-hover/peo:bg-polibatam-orange/20 group-hover/peo:border-polibatam-orange/50 group-hover/peo:scale-105 transition-all duration-300">
+                                <div className="w-1.5 h-1.5 rounded-full bg-polibatam-orange" />
+                                {objective.code}
+                              </span>
+                            </div>
+                            
+                            {/* Description */}
+                            <p className="text-base md:text-lg text-gray-700 leading-relaxed group-hover/peo:text-gray-900 transition-colors duration-300">
+                              {/* Highlight effect on hover */}
+                              <span className="relative">
+                                <span className="absolute inset-0 bg-linear-to-r from-polibatam-peach/0 via-polibatam-peach/10 to-polibatam-peach/0 opacity-0 group-hover/peo:opacity-100 transition-opacity duration-500 -mx-2 px-2 rounded-lg" />
+                                <span className="relative z-10">{objective.description}</span>
+                              </span>
+                            </p>
+                            
+                            {/* Bottom accent line */}
+                            <div className="mt-4 h-0.5 bg-linear-to-r from-polibatam-orange via-polibatam-peach to-transparent w-0 group-hover/peo:w-full transition-all duration-700 rounded-full" />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* Bottom decorative elements */}
+                  <div className="mt-10 flex items-center gap-4">
+                    <div className="flex gap-2">
+                      {[...Array(4)].map((_, i) => (
+                        <div 
+                          key={i}
+                          className="w-2 h-2 rounded-full bg-polibatam-orange animate-pulse"
+                          style={{ animationDelay: `${i * 0.15}s` }}
+                        />
+                      ))}
+                    </div>
+                    <div className="flex-1 h-px bg-linear-to-r from-polibatam-orange/40 via-polibatam-peach/60 to-transparent" />
+                  </div>
+                </div>
               </div>
             </div>
-            
-            {/* Bottom Glow */}
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-polibatam-orange to-polibatam-peach opacity-0 group-hover:opacity-60 transition-all duration-700 ease-out rounded-full"></div>
-          </Card>
+          </div>
+        )}
 
-          <Card 
-            className="border-none shadow-xl bg-linear-to-br from-polibatam-peach/50 to-polibatam-light/80 backdrop-blur-xl hover:shadow-2xl transition-all duration-700 ease-out hover:scale-105 hover:-translate-y-3 relative overflow-hidden group rounded-3xl"
-            style={{ transform: `translateY(${scrollY * 0.035}px)` }}
-          >
-            {/* Liquid Glass Overlay */}
-            <div className="absolute inset-0 bg-linear-to-br from-white/50 to-transparent backdrop-blur-md rounded-3xl"></div>
-            <div className="absolute inset-0 bg-linear-to-br from-polibatam-orange/0 to-polibatam-peach/0 group-hover:from-polibatam-orange/10 group-hover:to-polibatam-peach/10 transition-all duration-700 rounded-3xl"></div>
+        {/* Vision & Mission - No Card Layout */}
+        <div 
+          className={`max-w-6xl mx-auto transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+          style={{ transform: `translateY(${scrollY * 0.025}px)` }}
+        >
+          <div className="relative">
+            {/* Background decorative elements */}
+            <div className="absolute -top-10 -left-20 w-80 h-80 bg-polibatam-orange/5 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute -bottom-10 -right-20 w-96 h-96 bg-polibatam-peach/5 rounded-full blur-3xl" />
             
-            <div className="flex flex-col md:flex-row items-start gap-3 md:gap-4 relative z-10 p-4 md:p-6">
-              <div className="p-2.5 md:p-3 bg-linear-to-br from-polibatam-peach to-polibatam-orange rounded-2xl shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-700 ease-out">
-                <HiCog className="h-6 w-6 md:h-8 md:w-8 text-white transition-transform duration-500 group-hover:rotate-12" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+              {/* Vision */}
+              <div className="group/vision relative">
+                {/* Side gradient accent */}
+                <div className="absolute -left-4 top-0 bottom-0 w-1 bg-linear-to-b from-polibatam-orange/0 via-polibatam-orange/40 to-polibatam-orange/0 rounded-full" />
+                
+                <div className="relative pl-6">
+                  {/* Icon */}
+                  <div className="mb-6">
+                    <div className="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 bg-linear-to-br from-polibatam-orange to-polibatam-peach rounded-2xl shadow-xl group-hover/vision:scale-110 group-hover/vision:rotate-6 transition-all duration-500">
+                      <HiLightBulb className="h-8 w-8 md:h-10 md:w-10 text-white transition-transform duration-500 group-hover/vision:rotate-12" />
+                    </div>
+                    {/* Glow effect */}
+                    <div className="absolute top-0 left-0 w-16 h-16 md:w-20 md:h-20 bg-polibatam-orange/40 rounded-2xl blur-xl opacity-0 group-hover/vision:opacity-100 transition-opacity duration-500 -z-10" />
+                  </div>
+                  
+                  {/* Title */}
+                  <h3 className="text-2xl md:text-3xl lg:text-4xl font-black mb-4 bg-linear-to-r from-polibatam-navy to-polibatam-orange bg-clip-text text-transparent group-hover/vision:scale-105 transition-transform duration-500 origin-left">
+                    {aboutContent.vision.title}
+                  </h3>
+                  
+                  {/* Decorative underline */}
+                  <div className="flex items-center gap-2 mb-6">
+                    <div className="h-1 w-16 bg-linear-to-r from-polibatam-orange to-polibatam-peach rounded-full" />
+                    <div className="h-1 w-8 bg-polibatam-peach/50 rounded-full" />
+                    <div className="h-1 w-4 bg-polibatam-orange/30 rounded-full" />
+                  </div>
+                  
+                  {/* Description */}
+                  <p className="text-base md:text-lg text-gray-700 leading-relaxed group-hover/vision:text-gray-900 transition-colors duration-300">
+                    {/* Highlight background on hover */}
+                    <span className="relative">
+                      <span className="absolute inset-0 bg-linear-to-r from-polibatam-peach/0 via-polibatam-peach/5 to-polibatam-peach/0 opacity-0 group-hover/vision:opacity-100 transition-opacity duration-500 -mx-2 px-2 rounded-lg" />
+                      <span className="relative z-10">{aboutContent.vision.description}</span>
+                    </span>
+                  </p>
+                  
+                  {/* Bottom accent line */}
+                  <div className="mt-6 h-0.5 bg-linear-to-r from-polibatam-orange via-polibatam-peach to-transparent w-0 group-hover/vision:w-full transition-all duration-700 rounded-full" />
+                </div>
               </div>
-              <div className="flex-1">
-                <h3 className="text-xl md:text-2xl font-bold text-polibatam-navy mb-2 md:mb-3 group-hover:text-polibatam-orange transition-all duration-500 ease-out group-hover:scale-105">{aboutContent.mission.title}</h3>
-                <p className="text-sm md:text-base text-gray-700 leading-relaxed transition-colors duration-300 group-hover:text-gray-900">
-                  {aboutContent.mission.description}
-                </p>
+              
+              {/* Mission */}
+              <div className="group/mission relative">
+                {/* Side gradient accent */}
+                <div className="absolute -left-4 top-0 bottom-0 w-1 bg-linear-to-b from-polibatam-peach/0 via-polibatam-peach/40 to-polibatam-peach/0 rounded-full" />
+                
+                <div className="relative pl-6">
+                  {/* Icon */}
+                  <div className="mb-6">
+                    <div className="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 bg-linear-to-br from-polibatam-peach to-polibatam-orange rounded-2xl shadow-xl group-hover/mission:scale-110 group-hover/mission:rotate-6 transition-all duration-500">
+                      <HiCog className="h-8 w-8 md:h-10 md:w-10 text-white transition-transform duration-500 group-hover/mission:rotate-180" />
+                    </div>
+                    {/* Glow effect */}
+                    <div className="absolute top-0 left-0 w-16 h-16 md:w-20 md:h-20 bg-polibatam-peach/40 rounded-2xl blur-xl opacity-0 group-hover/mission:opacity-100 transition-opacity duration-500 -z-10" />
+                  </div>
+                  
+                  {/* Title */}
+                  <h3 className="text-2xl md:text-3xl lg:text-4xl font-black mb-4 bg-linear-to-r from-polibatam-navy to-polibatam-orange bg-clip-text text-transparent group-hover/mission:scale-105 transition-transform duration-500 origin-left">
+                    {aboutContent.mission.title}
+                  </h3>
+                  
+                  {/* Decorative underline */}
+                  <div className="flex items-center gap-2 mb-6">
+                    <div className="h-1 w-16 bg-linear-to-r from-polibatam-peach to-polibatam-orange rounded-full" />
+                    <div className="h-1 w-8 bg-polibatam-orange/50 rounded-full" />
+                    <div className="h-1 w-4 bg-polibatam-peach/30 rounded-full" />
+                  </div>
+                  
+                  {/* Description */}
+                  <p className="text-base md:text-lg text-gray-700 leading-relaxed group-hover/mission:text-gray-900 transition-colors duration-300">
+                    {/* Highlight background on hover */}
+                    <span className="relative">
+                      <span className="absolute inset-0 bg-linear-to-r from-polibatam-orange/0 via-polibatam-orange/5 to-polibatam-orange/0 opacity-0 group-hover/mission:opacity-100 transition-opacity duration-500 -mx-2 px-2 rounded-lg" />
+                      <span className="relative z-10">{aboutContent.mission.description}</span>
+                    </span>
+                  </p>
+                  
+                  {/* Bottom accent line */}
+                  <div className="mt-6 h-0.5 bg-linear-to-r from-polibatam-peach via-polibatam-orange to-transparent w-0 group-hover/mission:w-full transition-all duration-700 rounded-full" />
+                </div>
               </div>
             </div>
-            
-            {/* Bottom Glow */}
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-polibatam-peach to-polibatam-orange opacity-0 group-hover:opacity-60 transition-all duration-700 ease-out rounded-full"></div>
-          </Card>
+          </div>
         </div>
       </div>
     </section>
