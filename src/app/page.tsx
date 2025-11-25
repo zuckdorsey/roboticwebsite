@@ -153,9 +153,7 @@ export default function Home() {
         subtitle="The First Robotics Study Program in Indonesia"
       />
       
-      <AboutSection 
-        description="Our Robotics Technology program at Politeknik Negeri Batam offers a comprehensive education in the field of robotics, automation, and intelligent systems. We prepare students to become innovative engineers capable of designing, building, and programming advanced robotic systems for various industries."
-      />
+      <AboutSection />
       
       <CurriculumSection courses={courses} />
       

@@ -36,3 +36,15 @@ export interface MenuItem {
   label: string;
   href: string;
 }
+
+export interface AboutHighlight {
+  title: string;
+  value: string;
+  description: string;
+}
+
+export interface AboutContent {
+  title: string;
+  paragraphs: string[];
+  highlights: AboutHighlight[];
+}
