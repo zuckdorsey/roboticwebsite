@@ -78,7 +78,7 @@ export default function Home() {
       
       <CurriculumSection />
       
-      <FacilitiesSection facilities={facilities} />
+      <FacilitiesSection />
       
       <FacultyMembersSection members={facultyMembers} />
       
