@@ -64,6 +64,8 @@ export default function Home() {
     }
   ];
 
+  ];
+
   // Data untuk Students
   const students = [
     {
@@ -127,6 +129,11 @@ export default function Home() {
       <FacilitiesSection facilities={facilities} />
       
       <FacultyMembersSection members={facultyMembers} />
+      
+      <StudentsSection 
+        students={students}
+        totalStudents={150}
+      />
       
       <AlumniSection alumni={alumni} />
       
