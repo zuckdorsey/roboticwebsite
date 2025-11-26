@@ -6,6 +6,7 @@ import FacilitiesSection from "@/components/FacilitiesSection";
 import FacultyMembersSection from "@/components/FacultyMembersSection";
 import StudentsSection from "@/components/StudentsSection";
 import AlumniSection from "@/components/AlumniSection";
+import BlogCarousel from "@/components/BlogCarousel";
 import Footer from "@/components/Footer";
 import { facultyMembers } from "@/data/faculty-data";
 
@@ -82,6 +83,8 @@ export default function Home() {
       <FacultyMembersSection members={facultyMembers} />
       
       <AlumniSection />
+      
+      <BlogCarousel />
       
       <Footer />
     </div>

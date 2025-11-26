@@ -6,4 +6,5 @@ export { default as CurriculumSection } from './CurriculumSection';
 export { default as FacilitiesSection } from './FacilitiesSection';
 export { default as FacultyMembersSection } from './FacultyMembersSection';
 export { default as AlumniSection } from './AlumniSection';
+export { default as BlogCarousel } from './BlogCarousel';
 export { default as Footer } from './Footer';

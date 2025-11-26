@@ -10,11 +10,23 @@ interface HeroSectionProps {
 export default function HeroSection({ title, subtitle }: HeroSectionProps) {
   return (
     <section id="home" className="bg-polibatam-light min-h-screen pt-20 relative overflow-hidden">
-      {/* Decorative Frame Elements - Simple & Clean */}
-      <div className="absolute top-48 left-12 w-32 h-32 border-t-4 border-l-4 border-polibatam-orange opacity-30 rounded-tl-3xl hidden lg:block"></div>
-      <div className="absolute top-48 right-12 w-32 h-32 border-r-4 border-t-4 border-polibatam-navy opacity-25 rounded-tr-3xl hidden lg:block"></div>
-      <div className="absolute bottom-32 md:bottom-28 lg:bottom-24 left-12 w-28 h-28 border-l-4 border-b-4 border-polibatam-orange opacity-25 rounded-bl-3xl hidden lg:block"></div>
-      <div className="absolute bottom-32 md:bottom-28 lg:bottom-24 right-12 w-28 h-28 border-r-4 border-b-4 border-polibatam-navy opacity-30 rounded-br-3xl hidden lg:block"></div>
+      {/* Decorative Frame Elements - Abstract & Dynamic */}
+      <div className="absolute top-40 left-6 w-44 h-44 border-t-4 border-l-4 border-polibatam-orange opacity-20 rounded-tl-3xl hidden lg:block -rotate-3"></div>
+      <div className="absolute top-52 left-20 w-28 h-28 border-t-2 border-l-2 border-polibatam-peach opacity-35 rounded-tl-2xl hidden lg:block"></div>
+      
+      <div className="absolute top-36 right-8 w-40 h-40 border-r-4 border-t-4 border-polibatam-navy opacity-18 rounded-tr-3xl hidden lg:block rotate-6"></div>
+      <div className="absolute top-48 right-28 w-24 h-24 border-r-2 border-t-2 border-polibatam-orange opacity-28 rounded-tr-2xl hidden lg:block"></div>
+      
+      <div className="absolute bottom-28 left-8 w-36 h-36 border-l-4 border-b-4 border-polibatam-orange opacity-22 rounded-bl-3xl hidden lg:block rotate-3"></div>
+      <div className="absolute bottom-40 left-24 w-20 h-20 border-l-2 border-b-2 border-polibatam-navy opacity-30 rounded-bl-2xl hidden lg:block"></div>
+      
+      <div className="absolute bottom-24 right-10 w-48 h-48 border-r-4 border-b-4 border-polibatam-navy opacity-25 rounded-br-3xl hidden lg:block -rotate-2"></div>
+      <div className="absolute bottom-36 right-32 w-24 h-24 border-r-2 border-b-2 border-polibatam-peach opacity-40 rounded-br-2xl hidden lg:block rotate-12"></div>
+      
+      {/* Abstract circles and dots */}
+      <div className="absolute top-1/3 left-1/4 w-3 h-3 bg-polibatam-orange/25 rounded-full hidden lg:block"></div>
+      <div className="absolute top-2/3 right-1/3 w-2 h-2 bg-polibatam-navy/20 rounded-full hidden lg:block"></div>
+      <div className="absolute bottom-1/2 right-1/4 w-4 h-4 bg-polibatam-peach/30 rounded-full hidden lg:block"></div>
       
       <div className="max-w-[1720px] mx-auto px-8 md:px-10 lg:px-12 py-16 lg:py-24 relative z-10">
         <div className="flex flex-col md:flex-row gap-8 lg:gap-16 items-center">

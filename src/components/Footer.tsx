@@ -1,12 +1,19 @@
 'use client';
 
-import { BsFacebook, BsTwitter, BsInstagram, BsGithub, BsLinkedin, BsYoutube } from 'react-icons/bs';
-import { HiMail, HiPhone, HiLocationMarker, HiArrowRight } from 'react-icons/hi';
+import { Twitter, Instagram, Linkedin, Github } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  const footerLinks = {
+  const socialLinks = [
+    { icon: Twitter, href: '#', label: 'Twitter' },
+    { icon: Instagram, href: '#', label: 'Instagram' },
+    { icon: Linkedin, href: '#', label: 'LinkedIn' },
+    { icon: Github, href: '#', label: 'GitHub' },
+  ];
+
+  const navigation = {
     program: [
       { name: 'About Us', href: '#about' },
       { name: 'Curriculum', href: '#curriculum' },
@@ -16,159 +23,147 @@ export default function Footer() {
     community: [
       { name: 'Students', href: '#students' },
       { name: 'Alumni', href: '#alumni' },
-      { name: 'News & Events', href: '#' },
-      { name: 'Partners', href: '#' },
+      { name: 'News & Events', href: '#blog' },
+      { name: 'Partners', href: '#partners' },
     ],
     support: [
-      { name: 'Contact Us', href: '#' },
-      { name: 'FAQ', href: '#' },
-      { name: 'Admissions', href: '#' },
-      { name: 'Career', href: '#' },
-    ]
+      { name: 'Contact Us', href: '#contact' },
+      { name: 'FAQ', href: '#faq' },
+      { name: 'Admissions', href: '#admissions' },
+      { name: 'Career', href: '#career' },
+    ],
   };
 
   return (
-    <footer className="relative bg-polibatam-navy text-white overflow-hidden">
-      {/* Abstract Background Shapes */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-polibatam-orange/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-full h-64 bg-linear-to-t from-black/20 to-transparent" />
-        <div className="absolute top-1/2 -left-24 w-64 h-64 bg-polibatam-peach/5 rounded-full blur-3xl" />
-      </div>
+    <footer className="bg-white py-16 px-6 md:px-8 lg:px-12 relative overflow-hidden">
+      {/* Decorative Frame Elements - Abstract & Dynamic */}
+      <div className="absolute top-6 left-6 w-48 h-48 border-t-4 border-l-4 border-polibatam-orange opacity-15 rounded-tl-3xl hidden lg:block -rotate-2"></div>
+      <div className="absolute top-16 left-24 w-28 h-28 border-t-2 border-l-2 border-polibatam-navy opacity-25 rounded-tl-2xl hidden lg:block"></div>
+      
+      <div className="absolute top-10 right-8 w-40 h-40 border-r-4 border-t-4 border-polibatam-navy opacity-20 rounded-tr-3xl hidden lg:block rotate-3"></div>
+      <div className="absolute top-6 right-28 w-24 h-24 border-r-2 border-t-2 border-polibatam-peach opacity-35 rounded-tr-2xl hidden lg:block"></div>
+      
+      <div className="absolute bottom-6 left-10 w-36 h-36 border-l-4 border-b-4 border-polibatam-orange opacity-20 rounded-bl-3xl hidden lg:block rotate-6"></div>
+      <div className="absolute bottom-16 left-28 w-20 h-20 border-l-2 border-b-2 border-polibatam-peach opacity-40 rounded-bl-2xl hidden lg:block -rotate-3"></div>
+      
+      <div className="absolute bottom-8 right-6 w-52 h-52 border-r-4 border-b-4 border-polibatam-navy opacity-15 rounded-br-3xl hidden lg:block"></div>
+      <div className="absolute bottom-24 right-24 w-24 h-24 border-r-2 border-b-2 border-polibatam-orange opacity-30 rounded-br-2xl hidden lg:block rotate-12"></div>
+      
+      {/* Abstract circles and dots */}
+      <div className="absolute top-1/4 left-1/3 w-4 h-4 bg-polibatam-peach/30 rounded-full hidden lg:block"></div>
+      <div className="absolute top-1/2 right-1/4 w-2 h-2 bg-polibatam-orange/20 rounded-full hidden lg:block"></div>
+      <div className="absolute bottom-1/3 left-1/2 w-3 h-3 bg-polibatam-navy/15 rounded-full hidden lg:block"></div>
+      
+      <div className="max-w-[1720px] mx-auto relative z-10">
+        {/* Main Footer Container */}
+        <div className="bg-white rounded-3xl shadow-lg p-8 md:p-12 lg:p-16">
+          {/* Top Section: Logo, Description, Social */}
+          <div className="mb-12 lg:mb-16">
+            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
+              {/* Logo & Description */}
+              <div className="max-w-md">
+                <h2 className="text-2xl md:text-3xl font-bold text-polibatam-navy mb-4">
+                  Robotika Polibatam
+                </h2>
+                <p className="text-gray-600 leading-relaxed mb-6">
+                  Membentuk generasi inovator teknologi robotika yang unggul dan berdaya saing global melalui pendidikan berkualitas dan praktik industri terkini.
+                </p>
+                
+                {/* Social Icons */}
+                <div className="flex gap-4">
+                  {socialLinks.map((social) => (
+                    <Link
+                      key={social.label}
+                      href={social.href}
+                      aria-label={social.label}
+                      className="w-10 h-10 rounded-full bg-polibatam-light hover:bg-polibatam-peach flex items-center justify-center transition-all hover:scale-110 group"
+                    >
+                      <social.icon className="w-5 h-5 text-polibatam-navy group-hover:text-polibatam-orange transition-colors" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
 
-      {/* Top Border Gradient */}
-      <div className="h-1 w-full bg-linear-to-r from-polibatam-orange via-polibatam-peach to-polibatam-orange" />
+              {/* Navigation Columns */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-12">
+                {/* Program Column */}
+                <div>
+                  <h3 className="text-sm font-semibold text-polibatam-navy uppercase tracking-wider mb-4">
+                    Program
+                  </h3>
+                  <ul className="space-y-3">
+                    {navigation.program.map((item) => (
+                      <li key={item.name}>
+                        <Link
+                          href={item.href}
+                          className="text-gray-600 hover:text-polibatam-orange transition-colors text-sm"
+                        >
+                          {item.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-      <div className="max-w-[1720px] mx-auto px-4 md:px-8 lg:px-12 pt-16 pb-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
-          {/* Brand Column */}
-            <div className="lg:col-span-4 space-y-6">
-            <a href="/" className="inline-block group">
-              <div className="flex items-center gap-3">
-              <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-              <img 
-              src="/logo.png" 
-              alt="Polibatam Robotics Logo" 
-              className="w-full h-full object-contain"
-              />
-              </div>
-              </div>
-            </a>
-            <p className="text-gray-400 leading-relaxed max-w-md">
-              Pioneering the future of robotics technology education in Indonesia. 
-              Empowering students with hands-on skills and innovation-driven learning.
-            </p>
+                {/* Community Column */}
+                <div>
+                  <h3 className="text-sm font-semibold text-polibatam-navy uppercase tracking-wider mb-4">
+                    Community
+                  </h3>
+                  <ul className="space-y-3">
+                    {navigation.community.map((item) => (
+                      <li key={item.name}>
+                        <Link
+                          href={item.href}
+                          className="text-gray-600 hover:text-polibatam-orange transition-colors text-sm"
+                        >
+                          {item.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-            <div className="space-y-4 pt-2">
-              <div className="flex items-start gap-3 text-gray-300 group">
-                <HiLocationMarker className="w-6 h-6 text-polibatam-orange shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-                <span className="text-sm leading-relaxed group-hover:text-white transition-colors">
-                  Jl. Ahmad Yani, Batam Kota,<br />
-                  Kota Batam, Kepulauan Riau 29461
-                </span>
-              </div>
-              <div className="flex items-center gap-3 text-gray-300 group">
-                <HiMail className="w-6 h-6 text-polibatam-orange shrink-0 group-hover:scale-110 transition-transform" />
-                <a href="mailto:info@polibatam.ac.id" className="text-sm group-hover:text-white transition-colors">
-                  info@polibatam.ac.id
-                </a>
-              </div>
-              <div className="flex items-center gap-3 text-gray-300 group">
-                <HiPhone className="w-6 h-6 text-polibatam-orange shrink-0 group-hover:scale-110 transition-transform" />
-                <a href="tel:+62778469858" className="text-sm group-hover:text-white transition-colors">
-                  +62 778 469858
-                </a>
+                {/* Support Column */}
+                <div>
+                  <h3 className="text-sm font-semibold text-polibatam-navy uppercase tracking-wider mb-4">
+                    Support
+                  </h3>
+                  <ul className="space-y-3">
+                    {navigation.support.map((item) => (
+                      <li key={item.name}>
+                        <Link
+                          href={item.href}
+                          className="text-gray-600 hover:text-polibatam-orange transition-colors text-sm"
+                        >
+                          {item.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Links Columns */}
-          <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8">
-            {/* Program Links */}
-            <div>
-              <h4 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-                <span className="w-8 h-1 bg-polibatam-orange rounded-full"></span>
-                Program
-              </h4>
-              <ul className="space-y-4">
-                {footerLinks.program.map((link) => (
-                  <li key={link.name}>
-                    <a 
-                      href={link.href}
-                      className="text-gray-400 hover:text-polibatam-orange transition-colors duration-300 flex items-center gap-2 group"
-                    >
-                      <HiArrowRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">{link.name}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Community Links */}
-            <div>
-              <h4 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-                <span className="w-8 h-1 bg-polibatam-orange rounded-full"></span>
-                Community
-              </h4>
-              <ul className="space-y-4">
-                {footerLinks.community.map((link) => (
-                  <li key={link.name}>
-                    <a 
-                      href={link.href}
-                      className="text-gray-400 hover:text-polibatam-orange transition-colors duration-300 flex items-center gap-2 group"
-                    >
-                      <HiArrowRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">{link.name}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Newsletter / Connect */}
-            <div className="col-span-2 md:col-span-1">
-              <h4 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-                <span className="w-8 h-1 bg-polibatam-orange rounded-full"></span>
-                Connect
-              </h4>
-              <p className="text-sm text-gray-400 mb-4">
-                Stay updated with our latest news and achievements.
-              </p>
-              
-              {/* Social Icons */}
-              <div className="flex flex-wrap gap-3">
-                {[
-                  { icon: BsFacebook, href: '#', label: 'Facebook' },
-                  { icon: BsTwitter, href: '#', label: 'Twitter' },
-                  { icon: BsInstagram, href: '#', label: 'Instagram' },
-                  { icon: BsLinkedin, href: '#', label: 'LinkedIn' },
-                  { icon: BsYoutube, href: '#', label: 'YouTube' },
-                ].map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.href}
-                    aria-label={social.label}
-                    className="w-10 h-10 rounded-lg bg-white/5 hover:bg-polibatam-orange text-gray-400 hover:text-white flex items-center justify-center transition-all duration-300 hover:-translate-y-1"
-                  >
-                    <social.icon className="w-5 h-5" />
-                  </a>
-                ))}
+          {/* Bottom Section: Copyright & Legal Links */}
+          <div className="pt-8 border-t border-gray-200">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm text-gray-600">
+              <p>© {currentYear} Robotika Polibatam. All rights reserved.</p>
+              <div className="flex flex-wrap gap-2 md:gap-6">
+                <Link href="#" className="hover:text-polibatam-orange transition-colors">
+                  Privacy Policy
+                </Link>
+                <span className="hidden md:inline">–</span>
+                <Link href="#" className="hover:text-polibatam-orange transition-colors">
+                  Terms of Service
+                </Link>
+                <span className="hidden md:inline">–</span>
+                <Link href="#" className="hover:text-polibatam-orange transition-colors">
+                  Cookies Settings
+                </Link>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-gray-500 text-center md:text-left">
-            © {currentYear} <span className="text-polibatam-orange font-semibold">Polibatam Robotics</span>. All rights reserved.
-          </p>
-          
-          <div className="flex items-center gap-6 text-sm text-gray-500">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
           </div>
         </div>
       </div>
