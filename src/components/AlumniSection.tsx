@@ -48,20 +48,8 @@ export default function AlumniSection() {
   };
 
   return (
-    <section id="alumni" className="py-20 md:py-28 relative overflow-hidden">
-      {/* White gradient transition from separator */}
-      <div className="absolute top-0 inset-x-0 h-32 bg-linear-to-b from-white via-polibatam-light/10 to-transparent z-0"></div>
-      
-      {/* Circular (radial) gradient glow background */}
-      <div className="absolute inset-0 bg-radial-to-tr from-polibatam-peach/10 via-polibatam-light/15 to-white/5"></div>
-      
-      {/* Soft peach halo - Layer 1 */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-[800px] bg-polibatam-peach/15 rounded-full blur-[150px]"></div>
-      
-      {/* Light cream center fade - Layer 2 */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl h-[600px] bg-polibatam-light/20 rounded-full blur-[100px]"></div>
-      
-      <div className="max-w-[1720px] mx-auto px-4 md:px-8 lg:px-12 relative z-20">
+    <section id="alumni" className="py-20 md:py-28 bg-linear-to-b from-white via-polibatam-light/30 to-white relative overflow-hidden">
+      <div className="max-w-[1720px] mx-auto px-4 md:px-8 lg:px-12 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
           {/* Top Label: peach + light gradient */}

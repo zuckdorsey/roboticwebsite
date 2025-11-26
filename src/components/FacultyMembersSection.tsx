@@ -275,17 +275,8 @@ function FacultyCard({ member, index }: { member: FacultyMember; index: number }
 export default function FacultyMembersSection({ members }: FacultyMembersSectionProps) {
   return (
     <>
-      <section id="faculty" className="py-20 relative overflow-hidden">
-        {/* Multi-layer Background - subtle light-peach UI glow */}
-        <div className="absolute inset-0 bg-polibatam-peach/15"></div>
-        <div className="absolute inset-0 bg-polibatam-light/20"></div>
-        <div className="absolute inset-0 bg-polibatam-light/30"></div>
-        
-        {/* Soft shadows and blurred glow for floating effect */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-polibatam-peach/20 rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-polibatam-light/30 rounded-full blur-[120px]"></div>
-        
-        <div className="max-w-[1720px] mx-auto px-4 md:px-8 lg:px-12 relative z-20">
+      <section id="faculty" className="py-20 bg-linear-to-b from-white via-polibatam-light/30 to-white relative overflow-hidden">
+        <div className="max-w-[1720px] mx-auto px-4 md:px-8 lg:px-12 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
           {/* Top Label: peach soft-gradient with clean rounded pill */}
@@ -305,7 +296,7 @@ export default function FacultyMembersSection({ members }: FacultyMembersSection
           </p>
         </div>
 
-        {/* Faculty Grid */}
+  {/* Faculty Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {members.map((member, index) => (
             <FacultyCard key={index} member={member} index={index} />
@@ -313,14 +304,7 @@ export default function FacultyMembersSection({ members }: FacultyMembersSection
         </div>
       </div>
     </section>
-    
-    {/* White gradient separator between sections */}
-    <div className="h-32 md:h-48 relative overflow-hidden">
-      {/* Gradient from Faculty colors to white */}
-      <div className="absolute inset-0 bg-linear-to-b from-polibatam-light/30 via-white to-white"></div>
-      {/* Subtle overlay for smooth transition */}
-      <div className="absolute inset-0 bg-linear-to-b from-polibatam-peach/10 via-transparent to-transparent"></div>
-    </div>
+
     </>
   );
 }
