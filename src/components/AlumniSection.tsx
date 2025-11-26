@@ -31,42 +31,52 @@ export default function AlumniSection() {
   const getCardStyle = (index: number) => {
     const diff = (index - activeIndex + stories.length) % stories.length;
     
-    // Center card
+    // Center card - Borderless, floating, soft-shadowed (neumorphism-light glow)
     if (diff === 0) {
-      return "z-20 scale-100 opacity-100 translate-x-0 bg-gray-800 border-polibatam-orange";
+      return "z-20 scale-100 opacity-100 translate-x-0 bg-white/80 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.08),0_0_40px_rgba(255,140,66,0.1)] border-0";
     }
-    // Immediate Left
+    // Immediate Left - Soft floating style
     if (diff === stories.length - 1) {
-      return "z-10 scale-90 opacity-60 -translate-x-[15%] md:-translate-x-[60%] bg-gray-900 border-gray-700 blur-[1px]";
+      return "z-10 scale-90 opacity-60 -translate-x-[15%] md:-translate-x-[60%] bg-white/60 backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.05)] border-0 blur-[1px]";
     }
-    // Immediate Right
+    // Immediate Right - Soft floating style
     if (diff === 1) {
-      return "z-10 scale-90 opacity-60 translate-x-[15%] md:translate-x-[60%] bg-gray-900 border-gray-700 blur-[1px]";
+      return "z-10 scale-90 opacity-60 translate-x-[15%] md:translate-x-[60%] bg-white/60 backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.05)] border-0 blur-[1px]";
     }
     // Others hidden
     return "z-0 scale-75 opacity-0 hidden";
   };
 
   return (
-    <section id="alumni" className="py-20 md:py-28 bg-[#111827] relative overflow-hidden text-white">
-      {/* Background Glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-96 bg-polibatam-orange/10 rounded-full blur-[100px] -z-10" />
+    <section id="alumni" className="py-20 md:py-28 relative overflow-hidden">
+      {/* White gradient transition from separator */}
+      <div className="absolute top-0 inset-x-0 h-32 bg-linear-to-b from-white via-polibatam-light/10 to-transparent z-0"></div>
       
-      <div className="max-w-[1720px] mx-auto px-4 md:px-8 lg:px-12">
+      {/* Circular (radial) gradient glow background */}
+      <div className="absolute inset-0 bg-radial-to-tr from-polibatam-peach/10 via-polibatam-light/15 to-white/5"></div>
+      
+      {/* Soft peach halo - Layer 1 */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-[800px] bg-polibatam-peach/15 rounded-full blur-[150px]"></div>
+      
+      {/* Light cream center fade - Layer 2 */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl h-[600px] bg-polibatam-light/20 rounded-full blur-[100px]"></div>
+      
+      <div className="max-w-[1720px] mx-auto px-4 md:px-8 lg:px-12 relative z-20">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-white/5 rounded-full border border-white/10 backdrop-blur-sm">
+          {/* Top Label: peach + light gradient */}
+          <div className="inline-flex items-center gap-2 mb-4 px-5 py-2.5 bg-linear-to-r from-polibatam-peach/15 via-polibatam-light/20 to-polibatam-peach/15 rounded-full border border-polibatam-peach/25 shadow-sm backdrop-blur-sm">
             <HiUserGroup className="w-5 h-5 text-polibatam-orange" />
             <span className="text-sm font-bold text-polibatam-orange uppercase tracking-wide">
               Our Alumni
             </span>
           </div>
           
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tight">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tight text-gray-900">
             {alumniContent.title}
           </h2>
           
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             {alumniContent.description}
           </p>
         </div>
@@ -114,33 +124,33 @@ export default function AlumniSection() {
                 {/* Card Header */}
                 <div className="flex items-start justify-between mb-6">
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-full bg-gray-700 flex items-center justify-center text-xl font-bold text-white border-2 border-white/10">
+                    <div className="w-14 h-14 rounded-full bg-polibatam-navy flex items-center justify-center text-xl font-bold text-white border-2 border-polibatam-orange/20">
                       {story.name.charAt(0)}
                     </div>
                     <div>
-                      <h4 className="text-xl font-bold text-white">{story.name}</h4>
+                      <h4 className="text-xl font-bold text-gray-900">{story.name}</h4>
                       <p className="text-sm text-polibatam-orange font-medium">{story.role}</p>
-                      <p className="text-xs text-gray-400">{story.company}</p>
+                      <p className="text-xs text-gray-600">{story.company}</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Quote */}
                 <blockquote className="flex-1">
-                  <p className="text-lg md:text-xl text-gray-300 leading-relaxed italic">
+                  <p className="text-lg md:text-xl text-gray-700 leading-relaxed italic">
                     "{story.quote}"
                   </p>
                 </blockquote>
 
                 {/* Tags */}
-                <div className="mt-8 pt-6 border-t border-white/10 flex flex-wrap gap-2">
+                <div className="mt-8 pt-6 border-t border-gray-200 flex flex-wrap gap-2">
                   <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider mr-2 py-1">
                     Specialization
                   </span>
                   {story.tags.map((tag, i) => (
                     <span 
                       key={i} 
-                      className="px-3 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10"
+                      className="px-3 py-1 rounded-full bg-polibatam-orange/10 text-xs text-gray-700 border border-polibatam-orange/20"
                     >
                       {tag}
                     </span>
@@ -155,15 +165,15 @@ export default function AlumniSection() {
         <div className="flex justify-center gap-4 mt-8">
           <button
             onClick={handlePrev}
-            className="w-12 h-12 rounded-full bg-white/5 hover:bg-polibatam-orange border border-white/10 flex items-center justify-center transition-all duration-300 group"
+            className="w-12 h-12 rounded-full bg-white hover:bg-polibatam-orange border-2 border-polibatam-navy hover:border-polibatam-orange flex items-center justify-center transition-all duration-300 group shadow-md"
           >
-            <HiArrowLeft className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
+            <HiArrowLeft className="w-6 h-6 text-polibatam-navy group-hover:text-white group-hover:scale-110 transition-all" />
           </button>
           <button
             onClick={handleNext}
-            className="w-12 h-12 rounded-full bg-white/5 hover:bg-polibatam-orange border border-white/10 flex items-center justify-center transition-all duration-300 group"
+            className="w-12 h-12 rounded-full bg-white hover:bg-polibatam-orange border-2 border-polibatam-navy hover:border-polibatam-orange flex items-center justify-center transition-all duration-300 group shadow-md"
           >
-            <HiArrowRight className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
+            <HiArrowRight className="w-6 h-6 text-polibatam-navy group-hover:text-white group-hover:scale-110 transition-all" />
           </button>
         </div>
       </div>

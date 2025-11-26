@@ -274,11 +274,22 @@ function FacultyCard({ member, index }: { member: FacultyMember; index: number }
 
 export default function FacultyMembersSection({ members }: FacultyMembersSectionProps) {
   return (
-    <section id="faculty" className="py-20 bg-linear-to-br from-polibatam-light/30 to-polibatam-peach/20">
-      <div className="max-w-[1720px] mx-auto px-4 md:px-8 lg:px-12">
+    <>
+      <section id="faculty" className="py-20 relative overflow-hidden">
+        {/* Multi-layer Background - subtle light-peach UI glow */}
+        <div className="absolute inset-0 bg-polibatam-peach/15"></div>
+        <div className="absolute inset-0 bg-polibatam-light/20"></div>
+        <div className="absolute inset-0 bg-polibatam-light/30"></div>
+        
+        {/* Soft shadows and blurred glow for floating effect */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-polibatam-peach/20 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-polibatam-light/30 rounded-full blur-[120px]"></div>
+        
+        <div className="max-w-[1720px] mx-auto px-4 md:px-8 lg:px-12 relative z-20">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-polibatam-orange/10 rounded-full border border-polibatam-orange/20">
+          {/* Top Label: peach soft-gradient with clean rounded pill */}
+          <div className="inline-flex items-center gap-2 mb-4 px-5 py-2.5 bg-linear-to-r from-polibatam-peach/20 via-polibatam-orange/15 to-polibatam-peach/20 rounded-full border border-polibatam-peach/30 shadow-sm backdrop-blur-sm">
             <HiUserGroup className="w-5 h-5 text-polibatam-orange" />
             <span className="text-sm font-bold text-polibatam-orange uppercase tracking-wide">
               Our Team
@@ -302,5 +313,14 @@ export default function FacultyMembersSection({ members }: FacultyMembersSection
         </div>
       </div>
     </section>
+    
+    {/* White gradient separator between sections */}
+    <div className="h-32 md:h-48 relative overflow-hidden">
+      {/* Gradient from Faculty colors to white */}
+      <div className="absolute inset-0 bg-linear-to-b from-polibatam-light/30 via-white to-white"></div>
+      {/* Subtle overlay for smooth transition */}
+      <div className="absolute inset-0 bg-linear-to-b from-polibatam-peach/10 via-transparent to-transparent"></div>
+    </div>
+    </>
   );
 }
