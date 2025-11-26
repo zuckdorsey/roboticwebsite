@@ -64,8 +64,6 @@ export default function Home() {
     }
   ];
 
-  ];
-
   // Data untuk Students
   const students = [
     {
