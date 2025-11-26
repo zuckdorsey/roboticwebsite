@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { HiUserGroup, HiMail, HiAcademicCap } from 'react-icons/hi';
 import { FaTwitter, FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { FacultyMember } from "@/types";
@@ -15,14 +15,20 @@ function FacultyCard({ member, index }: { member: FacultyMember; index: number }
   const [isMobile, setIsMobile] = useState(false);
 
   // Check if mobile on mount and resize
-  useState(() => {
+  useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 1024); // lg breakpoint
     };
+    
+    // Initial check
     checkMobile();
+    
+    // Add event listener
     window.addEventListener('resize', checkMobile);
+    
+    // Cleanup
     return () => window.removeEventListener('resize', checkMobile);
-  });
+  }, []);
 
   // Variasi warna untuk setiap card
   const cardStyles = [
