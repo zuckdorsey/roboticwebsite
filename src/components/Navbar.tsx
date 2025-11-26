@@ -9,12 +9,13 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState('home');
 
   const menuItems = [
-    { label: 'HOME', href: '#home' },
-    { label: 'ABOUT', href: '#about' },
-    { label: 'CURRICULUM', href: '#curriculum' },
-    { label: 'FACILITIES', href: '#facilities' },
-    { label: 'FACULTY MEMBERS', href: '#faculty' },
-    { label: 'ALUMNI', href: '#alumni' },
+    { label: 'HOME', href: '/#home' },
+    { label: 'ABOUT', href: '/#about' },
+    { label: 'CURRICULUM', href: '/#curriculum' },
+    { label: 'FACILITIES', href: '/#facilities' },
+    { label: 'STUDENTS', href: '/students' },
+    { label: 'FACULTY MEMBERS', href: '/#faculty' },
+    { label: 'ALUMNI', href: '/#alumni' },
   ];
 
   useEffect(() => {
@@ -25,7 +26,8 @@ export default function Navbar() {
       const scrollPosition = window.scrollY + 300; 
 
       for (const item of menuItems) {
-        const sectionId = item.href.substring(1);
+        if (!item.href.startsWith('/#')) continue;
+        const sectionId = item.href.substring(2);
         const element = document.getElementById(sectionId);
         if (element) {
           const { offsetTop, offsetHeight } = element;
