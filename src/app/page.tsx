@@ -64,53 +64,6 @@ export default function Home() {
     }
   ];
 
-  // Data untuk Students
-  const students = [
-    {
-      name: "Andi Pratama",
-      year: "2023",
-      program: "Robotics Technology"
-    },
-    {
-      name: "Bella Kusuma",
-      year: "2022",
-      program: "Robotics Technology"
-    },
-    {
-      name: "Chairul Anwar",
-      year: "2024",
-      program: "Robotics Technology"
-    }
-  ];
-
-  // Data untuk Alumni
-  const alumni = [
-    {
-      name: "Dedi Setiawan",
-      graduationYear: "2020",
-      currentPosition: "Robotics Engineer",
-      company: "Tech Robotics Indonesia"
-    },
-    {
-      name: "Eka Fitriani",
-      graduationYear: "2019",
-      currentPosition: "AI Specialist",
-      company: "Smart AI Solutions"
-    },
-    {
-      name: "Fajar Ramadhan",
-      graduationYear: "2021",
-      currentPosition: "Automation Engineer",
-      company: "Industrial Automation Corp"
-    },
-    {
-      name: "Gina Marlina",
-      graduationYear: "2018",
-      currentPosition: "Research Scientist",
-      company: "National Robotics Lab"
-    }
-  ];
-
   return (
     <div className="min-h-screen bg-polibatam-light">
       <Navbar />
@@ -127,11 +80,6 @@ export default function Home() {
       <FacilitiesSection facilities={facilities} />
       
       <FacultyMembersSection members={facultyMembers} />
-      
-      <StudentsSection 
-        students={students}
-        totalStudents={150}
-      />
       
       <AlumniSection />
       
