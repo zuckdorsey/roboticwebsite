@@ -64,17 +64,21 @@ export default function Navbar() {
         }
       `}
     >
-      <div className={`
-        flex flex-wrap items-center justify-between mx-auto navbar-glass-transition
-        ${scrolled ? 'px-8 py-3' : 'max-w-[1720px] px-8 md:px-10 lg:px-12 py-5'}
+<div className={`
+        flex flex-wrap items-center justify-between mx-auto md:transition-all md:duration-500 md:ease-in-out
+        ${scrolled ? 'px-6 py-2 justify-center' : 'max-w-[1720px] px-4 py-2 md:px-10 lg:px-12 md:py-3'}
       `}>
-        <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+        <a href="/" className={`flex items-center space-x-3 rtl:space-x-reverse transition-all duration-500 ${scrolled ? 'md:hidden' : 'md:flex'}`}>
           <div className="flex items-center gap-2">
-            <img 
-              src="logo.png" 
-              alt="Robotic Technology Logo" 
-              className="w-32 h-13 object-contain"
-            />
+            <div className="relative w-10 h-10 md:w-20 md:h-20 transition-all duration-500">
+              <Image 
+                src="/logo.png" 
+                alt="Robotic Technology Logo" 
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
           </div>
         </a>
         <button
