@@ -17,6 +17,19 @@ export interface FacultyMember {
   position: string;
   expertise: string;
   image?: string;
+  photo?: string;
+  role?: string;
+  title?: string;
+  nidn?: string;
+  email?: string;
+  education?: string[];
+  specialization?: string;
+  social?: {
+    twitter?: string;
+    facebook?: string;
+    instagram?: string;
+    linkedin?: string;
+  };
 }
 
 export interface Student {
@@ -35,4 +48,16 @@ export interface Alumni {
 export interface MenuItem {
   label: string;
   href: string;
+}
+
+export interface AboutHighlight {
+  title: string;
+  value: string;
+  description: string;
+}
+
+export interface AboutContent {
+  title: string;
+  paragraphs: string[];
+  highlights: AboutHighlight[];
 }

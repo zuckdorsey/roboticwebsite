@@ -7,6 +7,7 @@ import FacultyMembersSection from "@/components/FacultyMembersSection";
 import StudentsSection from "@/components/StudentsSection";
 import AlumniSection from "@/components/AlumniSection";
 import Footer from "@/components/Footer";
+import { facultyMembers } from "@/data/faculty-data";
 
 export default function Home() {
   // Data untuk Curriculum
@@ -63,87 +64,6 @@ export default function Home() {
     }
   ];
 
-  // Data untuk Faculty Members
-  const facultyMembers = [
-    {
-      name: "Dr. Ahmad Rizki",
-      position: "Head of Program",
-      expertise: "Autonomous Systems"
-    },
-    {
-      name: "Dr. Siti Nurhaliza",
-      position: "Senior Lecturer",
-      expertise: "Computer Vision"
-    },
-    {
-      name: "Dr. Budi Santoso",
-      position: "Lecturer",
-      expertise: "AI & Machine Learning"
-    },
-    {
-      name: "Ir. Maya Dewi, M.T.",
-      position: "Lecturer",
-      expertise: "Robot Kinematics"
-    },
-    {
-      name: "Dr. Rudi Hartono",
-      position: "Research Fellow",
-      expertise: "Swarm Robotics"
-    },
-    {
-      name: "Ir. Lina Permata, M.Sc.",
-      position: "Lecturer",
-      expertise: "Embedded Systems"
-    }
-  ];
-
-  // Data untuk Students
-  const students = [
-    {
-      name: "Andi Pratama",
-      year: "2023",
-      program: "Robotics Technology"
-    },
-    {
-      name: "Bella Kusuma",
-      year: "2022",
-      program: "Robotics Technology"
-    },
-    {
-      name: "Chairul Anwar",
-      year: "2024",
-      program: "Robotics Technology"
-    }
-  ];
-
-  // Data untuk Alumni
-  const alumni = [
-    {
-      name: "Dedi Setiawan",
-      graduationYear: "2020",
-      currentPosition: "Robotics Engineer",
-      company: "Tech Robotics Indonesia"
-    },
-    {
-      name: "Eka Fitriani",
-      graduationYear: "2019",
-      currentPosition: "AI Specialist",
-      company: "Smart AI Solutions"
-    },
-    {
-      name: "Fajar Ramadhan",
-      graduationYear: "2021",
-      currentPosition: "Automation Engineer",
-      company: "Industrial Automation Corp"
-    },
-    {
-      name: "Gina Marlina",
-      graduationYear: "2018",
-      currentPosition: "Research Scientist",
-      company: "National Robotics Lab"
-    }
-  ];
-
   return (
     <div className="min-h-screen bg-polibatam-light">
       <Navbar />
@@ -153,22 +73,15 @@ export default function Home() {
         subtitle="The First Robotics Study Program in Indonesia"
       />
       
-      <AboutSection 
-        description="Our Robotics Technology program at Politeknik Negeri Batam offers a comprehensive education in the field of robotics, automation, and intelligent systems. We prepare students to become innovative engineers capable of designing, building, and programming advanced robotic systems for various industries."
-      />
+      <AboutSection />
       
-      <CurriculumSection courses={courses} />
+      <CurriculumSection />
       
       <FacilitiesSection facilities={facilities} />
       
       <FacultyMembersSection members={facultyMembers} />
       
-      <StudentsSection 
-        students={students}
-        totalStudents={150}
-      />
-      
-      <AlumniSection alumni={alumni} />
+      <AlumniSection />
       
       <Footer />
     </div>
