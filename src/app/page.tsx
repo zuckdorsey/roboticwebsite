@@ -7,6 +7,7 @@ import FacultyMembersSection from "@/components/FacultyMembersSection";
 import StudentsSection from "@/components/StudentsSection";
 import AlumniSection from "@/components/AlumniSection";
 import Footer from "@/components/Footer";
+import { facultyMembers } from "@/data/faculty-data";
 
 export default function Home() {
   // Data untuk Curriculum
@@ -60,40 +61,6 @@ export default function Home() {
     {
       name: "Innovation Hub",
       description: "Collaborative space for students to work on innovative robotics projects and startups."
-    }
-  ];
-
-  // Data untuk Faculty Members
-  const facultyMembers = [
-    {
-      name: "Dr. Ahmad Rizki",
-      position: "Head of Program",
-      expertise: "Autonomous Systems"
-    },
-    {
-      name: "Dr. Siti Nurhaliza",
-      position: "Senior Lecturer",
-      expertise: "Computer Vision"
-    },
-    {
-      name: "Dr. Budi Santoso",
-      position: "Lecturer",
-      expertise: "AI & Machine Learning"
-    },
-    {
-      name: "Ir. Maya Dewi, M.T.",
-      position: "Lecturer",
-      expertise: "Robot Kinematics"
-    },
-    {
-      name: "Dr. Rudi Hartono",
-      position: "Research Fellow",
-      expertise: "Swarm Robotics"
-    },
-    {
-      name: "Ir. Lina Permata, M.Sc.",
-      position: "Lecturer",
-      expertise: "Embedded Systems"
     }
   ];
 
