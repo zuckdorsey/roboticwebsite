@@ -166,7 +166,7 @@ export default function Home() {
         totalStudents={150}
       />
       
-      <AlumniSection alumni={alumni} />
+      <AlumniSection />
       
       <Footer />
     </div>
