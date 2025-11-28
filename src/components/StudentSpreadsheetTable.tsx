@@ -81,7 +81,7 @@ export default function StudentSpreadsheetTable() {
       
       
       
-      let values: string[] = [];
+      const values: string[] = [];
       let currentVal = '';
       let inQuotes = false;
       

@@ -1,6 +1,6 @@
 'use client';
 
-import { Card } from 'flowbite-react';
+import { Card, CardHeader, CardBody } from '@heroui/react';
 import { HiOfficeBuilding } from 'react-icons/hi';
 import { Facility } from "@/types";
 
@@ -18,13 +18,17 @@ export default function FacilitiesSection({ facilities }: FacilitiesSectionProps
         </h2>
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {facilities.map((facility, index) => (
-            <Card key={index} className="max-w-sm">
-              <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                {facility.name}
-              </h5>
-              <p className="font-normal text-gray-700 dark:text-gray-400">
-                {facility.description}
-              </p>
+            <Card key={index} className="max-w-sm border-l-4 border-polibatam-orange shadow-md hover:shadow-lg transition-shadow">
+              <CardHeader className="pb-2">
+                <h5 className="text-2xl font-bold tracking-tight text-gray-900">
+                  {facility.name}
+                </h5>
+              </CardHeader>
+              <CardBody className="pt-0">
+                <p className="font-normal text-gray-700">
+                  {facility.description}
+                </p>
+              </CardBody>
             </Card>
           ))}
         </div>

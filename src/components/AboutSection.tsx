@@ -1,21 +1,12 @@
 'use client';
 
-import { Card, Badge, Progress } from 'flowbite-react';
-import { HiInformationCircle, HiLightBulb, HiAcademicCap, HiCog, HiSparkles, HiTrendingUp, HiCheckCircle } from 'react-icons/hi';
+import Image from 'next/image';
+import { Card, CardBody, Chip } from '@heroui/react';
+import { HiLightBulb, HiAcademicCap, HiCog } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { aboutContent } from '@/data/about-content';
 
-interface AboutHighlight {
-  title: string;
-  value: string;
-  description: string;
-}
-
-interface AboutSectionProps {
-  
-}
-
-export default function AboutSection({}: AboutSectionProps) {
+export default function AboutSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeHighlightIndex, setActiveHighlightIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
@@ -23,7 +14,7 @@ export default function AboutSection({}: AboutSectionProps) {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    setIsVisible(true);
+    requestAnimationFrame(() => setIsVisible(true));
   }, []);
 
   
@@ -77,10 +68,6 @@ export default function AboutSection({}: AboutSectionProps) {
       <div className="max-w-[1720px] mx-auto px-4 md:px-8 lg:px-12">
         {/* Section Header */}
         <div className={`text-center mb-12 md:mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          {/* <Badge color="warning" size="lg" className="mb-4 px-4 md:px-6 py-2 backdrop-blur-sm bg-polibatam-peach/60 border border-polibatam-peach">
-            <HiSparkles className="mr-2 h-4 w-4 animate-pulse" />
-            Discover Our Program
-          </Badge> */}
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 bg-linear-to-r from-polibatam-navy to-polibatam-orange bg-clip-text text-transparent px-4">
             {aboutContent.title}
           </h2>
@@ -143,7 +130,7 @@ export default function AboutSection({}: AboutSectionProps) {
                   transitionDelay: `${index * 50}ms`
                 }}
               >
-                <Card className={`border-none shadow-lg bg-white/70 backdrop-blur-xl relative overflow-hidden transition-all duration-700 ease-out rounded-3xl ${isActive ? 'shadow-2xl' : ''}`}>
+                <Card className="border-none shadow-lg bg-white/70 backdrop-blur-xl relative overflow-hidden transition-all duration-700 ease-out">
                   {/* Liquid Glass Effect */}
                   <div className="absolute inset-0 bg-white/40 backdrop-blur-md rounded-3xl"></div>
                   <div className={`absolute inset-0 bg-linear-to-br ${gradients[index]} ${isActive ? 'opacity-20 animate-pulse' : 'opacity-0'} group-hover:opacity-10 transition-all duration-700 ease-out rounded-3xl`}></div>
@@ -156,15 +143,19 @@ export default function AboutSection({}: AboutSectionProps) {
                     <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent animate-shimmer rounded-3xl"></div>
                   )}
                   
-                  <div className="flex flex-col items-center relative z-10 p-4">
+                  <CardBody className="flex flex-col items-center relative z-10 p-4">
                     {/* Icon with Gradient Background and Animation */}
                     <div className={`p-3 rounded-3xl bg-linear-to-br ${gradients[index]} mb-3 ${isActive ? 'scale-110 rotate-6 animate-bounce' : ''} group-hover:scale-110 group-hover:rotate-6 transition-all duration-700 ease-out shadow-lg`}>
                       <Icon className={`h-8 w-8 text-white ${isActive ? 'rotate-12 animate-spin-slow' : ''} transition-transform duration-700 ease-out group-hover:rotate-12`} />
                     </div>
                     
-                    <Badge color="gray" className={`mb-2 uppercase tracking-wider text-xs backdrop-blur-sm bg-polibatam-light/80 rounded-full transition-all duration-500 ${isActive ? 'scale-110 animate-pulse' : ''} group-hover:scale-105`}>
+                    <Chip 
+                      color="default" 
+                      size="sm" 
+                      className={`mb-2 uppercase tracking-wider text-xs backdrop-blur-sm bg-polibatam-light/80 rounded-full transition-all duration-500 ${isActive ? 'scale-110 animate-pulse' : ''} group-hover:scale-105`}
+                    >
                       {highlight.title}
-                    </Badge>
+                    </Chip>
                     
                     <p className={`text-3xl font-black mb-2 transition-all duration-700 ease-out ${isActive ? 'text-polibatam-orange scale-110 animate-pulse' : 'text-polibatam-navy'} group-hover:text-polibatam-orange group-hover:scale-110`}>
                       {highlight.value}
@@ -176,7 +167,7 @@ export default function AboutSection({}: AboutSectionProps) {
                     
                     {/* Bottom Glow Effect */}
                     <div className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-1 bg-linear-to-r ${gradients[index]} ${isActive ? 'opacity-60' : 'opacity-0'} group-hover:opacity-60 transition-all duration-700 ease-out blur-sm rounded-full`}></div>
-                  </div>
+                  </CardBody>
                 </Card>
               </div>
             );
@@ -207,7 +198,7 @@ export default function AboutSection({}: AboutSectionProps) {
                   transform: `translateY(${desktopParallax}px)`
                 }}
               >
-                <Card className="h-full border-none shadow-lg hover:shadow-2xl bg-white/70 backdrop-blur-xl relative overflow-hidden transition-all duration-700 ease-out rounded-3xl group-hover:animate-glow">
+                <Card className="h-full border-none shadow-lg hover:shadow-2xl bg-white/70 backdrop-blur-xl relative overflow-hidden transition-all duration-700 ease-out group-hover:animate-glow">
                   {/* Liquid Glass Effect */}
                   <div className="absolute inset-0 bg-white/40 backdrop-blur-md rounded-3xl"></div>
                   <div className={`absolute inset-0 bg-linear-to-br ${gradients[index]} opacity-0 group-hover:opacity-10 transition-all duration-700 ease-out rounded-3xl`}></div>
@@ -220,15 +211,19 @@ export default function AboutSection({}: AboutSectionProps) {
                   <div className="absolute top-8 right-6 w-1.5 h-1.5 bg-polibatam-peach/40 rounded-full animate-float opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ animationDelay: '0.3s' }}></div>
                   <div className="absolute bottom-6 left-8 w-2.5 h-2.5 bg-polibatam-orange/20 rounded-full animate-float opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ animationDelay: '0.6s' }}></div>
                   
-                  <div className="flex flex-col items-center relative z-10 p-4 md:p-6">
+                  <CardBody className="flex flex-col items-center relative z-10 p-4 md:p-6">
                     {/* Icon with Gradient Background and Animation */}
                     <div className={`p-3 md:p-4 rounded-3xl bg-linear-to-br ${gradients[index]} mb-3 md:mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-700 ease-out shadow-lg group-hover:shadow-2xl`}>
                       <Icon className="h-8 w-8 md:h-10 md:w-10 text-white transition-transform duration-700 ease-out group-hover:rotate-12 group-hover:animate-spin-slow" />
                     </div>
                     
-                    <Badge color="gray" className="mb-2 md:mb-3 uppercase tracking-wider text-xs backdrop-blur-sm bg-polibatam-light/80 rounded-full transition-all duration-500 group-hover:scale-105 group-hover:animate-pulse">
+                    <Chip 
+                      color="default" 
+                      size="sm"
+                      className="mb-2 md:mb-3 uppercase tracking-wider text-xs backdrop-blur-sm bg-polibatam-light/80 rounded-full transition-all duration-500 group-hover:scale-105 group-hover:animate-pulse"
+                    >
                       {highlight.title}
-                    </Badge>
+                    </Chip>
                     
                     <p className="text-3xl md:text-4xl font-black text-polibatam-navy mb-2 group-hover:text-polibatam-orange transition-all duration-700 ease-out group-hover:scale-110">
                       {highlight.value}
@@ -240,7 +235,7 @@ export default function AboutSection({}: AboutSectionProps) {
                     
                     {/* Bottom Glow Effect */}
                     <div className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-1 bg-linear-to-r ${gradients[index]} opacity-0 group-hover:opacity-60 transition-all duration-700 ease-out blur-sm rounded-full`}></div>
-                  </div>
+                  </CardBody>
                 </Card>
               </div>
             );
@@ -294,7 +289,7 @@ export default function AboutSection({}: AboutSectionProps) {
                         <div className="relative">
                           <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center bg-linear-to-br from-polibatam-orange to-polibatam-peach rounded-2xl shadow-lg group-hover/para:shadow-polibatam-orange/50 transition-all duration-500 group-hover/para:rotate-6">
                             <span className="text-4xl md:text-5xl font-bold text-white">
-                              {paragraph.charAt(0)}
+                              &quot;{paragraph.charAt(0)}&quot;
                             </span>
                           </div>
                           {/* Decorative corner accent */}
@@ -372,10 +367,13 @@ export default function AboutSection({}: AboutSectionProps) {
                   <div className="relative w-48 h-48 md:w-full md:h-auto md:aspect-square mx-auto bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl flex items-center justify-center overflow-hidden border-2 border-polibatam-orange/30 group-hover/logo:border-polibatam-orange/50 transition-all duration-500 group-hover/logo:scale-105">
                     
                     <div className="relative w-full h-full p-6 md:p-8">
-                    <img 
-                      src="cdio.png" 
+                    <Image
+                      src="/cdio.png"
                       alt="CDIO Initiative Logo"
-                      className="w-full h-full object-contain group-hover/logo:scale-110 transition-transform duration-500"
+                      fill
+                      className="object-contain group-hover/logo:scale-110 transition-transform duration-500"
+                      sizes="(max-width: 640px) 200px, (max-width: 1024px) 320px, 384px"
+                      priority={false}
                     />
                     </div>
                       
@@ -451,10 +449,12 @@ export default function AboutSection({}: AboutSectionProps) {
                           <div className="flex-1 pt-2">
                             {/* PEO Code */}
                             <div className="mb-3">
-                              <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-polibatam-peach/20 text-polibatam-orange font-black text-base md:text-lg rounded-xl border-2 border-polibatam-orange/30 group-hover/peo:bg-polibatam-orange/20 group-hover/peo:border-polibatam-orange/50 group-hover/peo:scale-105 transition-all duration-300">
-                                <div className="w-1.5 h-1.5 rounded-full bg-polibatam-orange" />
+                              <Chip 
+                                className="px-4 py-1.5 bg-polibatam-peach/20 text-polibatam-orange font-black text-base md:text-lg rounded-xl border-2 border-polibatam-orange/30 group-hover/peo:bg-polibatam-orange/20 group-hover/peo:border-polibatam-orange/50 group-hover/peo:scale-105 transition-all duration-300"
+                                startContent={<div className="w-1.5 h-1.5 rounded-full bg-polibatam-orange" />}
+                              >
                                 {objective.code}
-                              </span>
+                              </Chip>
                             </div>
                             
                             {/* Description */}

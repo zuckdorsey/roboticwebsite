@@ -1,5 +1,6 @@
-'use client';
+ 'use client';
 
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { HiArrowLeft, HiArrowRight, HiUserGroup } from 'react-icons/hi';
 import { alumniContent } from '@/data/alumni-content';
@@ -85,11 +86,21 @@ export default function AlumniSection() {
               <div className={`w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden border-2 ${
                 index === activeIndex ? 'border-polibatam-orange shadow-[0_0_20px_rgba(235,109,17,0.5)]' : 'border-transparent'
               }`}>
-                {/* Placeholder for avatar if image fails or using abstract */}
-                <div className="w-full h-full bg-gray-700 flex items-center justify-center text-xs font-bold">
-                  {story.name.charAt(0)}
-                </div>
-                {/* <img src={story.image} alt={story.name} className="w-full h-full object-cover" /> */}
+                {/* Avatar: fallback initial or image if available */}
+                {story.image ? (
+                  <Image
+                    src={story.image}
+                    alt={story.name}
+                    fill
+                    className="object-cover"
+                    sizes="48px, 64px, 80px"
+                    priority={false}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-700 flex items-center justify-center text-xs font-bold">
+                    {story.name.charAt(0)}
+                  </div>
+                )}
               </div>
               {index === activeIndex && (
                 <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-polibatam-orange rounded-full" />
@@ -126,7 +137,7 @@ export default function AlumniSection() {
                 {/* Quote */}
                 <blockquote className="flex-1">
                   <p className="text-lg md:text-xl text-gray-700 leading-relaxed italic">
-                    "{story.quote}"
+                    &quot;{story.quote}&quot;
                   </p>
                 </blockquote>
 

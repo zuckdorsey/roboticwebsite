@@ -1,10 +1,12 @@
+const { heroui } = require("@heroui/theme");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/flowbite-react/lib/**/*.js",
+    "./node_modules/@heroui/theme/dist/components/(navbar|button|card|chip|avatar|link|dropdown|menu|tabs|progress|accordion|modal|input|select).js",
   ],
   theme: {
     extend: {
@@ -19,7 +21,26 @@ module.exports = {
       },
     },
   },
+  darkMode: "class",
   plugins: [
-    require('flowbite/plugin')
+    heroui({
+      themes: {
+        light: {
+          colors: {
+            primary: {
+              DEFAULT: "#EB6D11",
+              foreground: "#FFFFFF",
+            },
+            secondary: {
+              DEFAULT: "#1E293B",
+              foreground: "#FFFFFF",
+            },
+            background: "#F9ECE3",
+            foreground: "#1E293B",
+            focus: "#EB6D11",
+          },
+        },
+      },
+    }),
   ],
 }

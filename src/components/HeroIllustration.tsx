@@ -9,7 +9,7 @@ interface HeroIllustrationProps {
 }
 
 export function HeroIllustration({ 
-  src = '/hero-2.png', 
+  src = '/hero-1.png',
   alt = 'Robotics Illustration',
   width = 1800,
   height = 1800,
