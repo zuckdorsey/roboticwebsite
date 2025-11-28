@@ -14,6 +14,7 @@ export const facultyMembers: FacultyMember[] = [
       'B.A.Sc. in Electrical Engineering - Politeknik Negeri Batam'
     ],
     specialization: 'Mobile Robot',
+    photo: '/images/faculty/anugerah-wibisana.jpg',
     social: {
       twitter: '#',
       facebook: '#',
@@ -35,6 +36,7 @@ export const facultyMembers: FacultyMember[] = [
       'B.Sc in Physics - Bandung Institute of Technology'
     ],
     specialization: 'Automatic Control Systems, Fuzzy Logic',
+    photo: '/images/faculty/rifi.jpg',
     social: {
       twitter: '#',
       facebook: '#',
@@ -55,6 +57,7 @@ export const facultyMembers: FacultyMember[] = [
       'B.Eng in Electrical Engineering - Malang National Institute of Technology'
     ],
     specialization: 'Robotics, Image Processing, Machine Vision, Artificial Intelligence',
+    photo: '/images/faculty/hendawan.jpg',
     social: {
       twitter: '#',
       facebook: '#',
@@ -75,6 +78,7 @@ export const facultyMembers: FacultyMember[] = [
       'B.A.Sc. in Electrical Engineering - Bandung Institute of Technology'
     ],
     specialization: 'Humanoid Robot, Computer Vision, Deep Learning, Machine Learning',
+    photo: '/images/faculty/eko-rudiawan.jpg',
     social: {
       twitter: '#',
       facebook: '#',
@@ -95,6 +99,7 @@ export const facultyMembers: FacultyMember[] = [
       'B.A.Sc. in Electrical Engineering - Bandung Institute of Technology'
     ],
     specialization: 'Robotics, Automation, Mechatronics, Artificial Intelligence',
+    photo: '/images/faculty/rifqi.jpeg',
     social: {
       twitter: '#',
       facebook: '#',
@@ -115,6 +120,7 @@ export const facultyMembers: FacultyMember[] = [
       'B.A.Sc. in Electrical Engineering - Electronic Engineering Polytechnic Institute of Surabaya'
     ],
     specialization: 'Robotics, Motion Control, Computer Vision, Artificial Intelligence',
+    photo: '/images/faculty/ryan.jpg',
     social: {
       twitter: '#',
       facebook: '#',
@@ -135,6 +141,7 @@ export const facultyMembers: FacultyMember[] = [
       'B.A.Sc. in Electrical Engineering - Sepuluh Nopember Institute of Technology'
     ],
     specialization: 'Robotics, Artificial Intelligence, Biomedical, Control System',
+    photo: '/images/faculty/susanto.jpg',
     social: {
       twitter: '#',
       facebook: '#',
@@ -155,6 +162,7 @@ export const facultyMembers: FacultyMember[] = [
       'B.A.Sc. in Electrical Engineering - Bandung Institute of Technology'
     ],
     specialization: 'Control System, Robotics, Rehabilitation Robot',
+    photo: '/images/faculty/riska.jpg',
     social: {
       twitter: '#',
       facebook: '#',
@@ -175,6 +183,7 @@ export const facultyMembers: FacultyMember[] = [
       'B.Ed in Science Education - Universitas Negeri Surabaya'
     ],
     specialization: 'Instrumentation and Control, Robotics',
+    photo: '/images/faculty/yoga.jpg',
     social: {
       twitter: '#',
       facebook: '#',
@@ -195,6 +204,7 @@ export const facultyMembers: FacultyMember[] = [
       'B.A.Sc. in Electrical Engineering - Politeknik Negeri Batam'
     ],
     specialization: 'Reinforcement Learning, Humanoid Robotics',
+    photo: '/images/faculty/rifky.jpeg',
     social: {
       twitter: '#',
       facebook: '#',
@@ -215,6 +225,7 @@ export const facultyMembers: FacultyMember[] = [
       'B.Comp in Computer Science - University of Lampung'
     ],
     specialization: 'Artificial Intelligence',
+    photo: '/images/faculty/nau.png',
     social: {
       twitter: '#',
       facebook: '#',
@@ -235,6 +246,7 @@ export const facultyMembers: FacultyMember[] = [
       'B.Ed in English Education - State University of Medan'
     ],
     specialization: 'English and Communication',
+    photo: '/images/faculty/emelia.jpeg',
     social: {
       twitter: '#',
       facebook: '#',
@@ -255,6 +267,7 @@ export const facultyMembers: FacultyMember[] = [
       'B.A.Sc. in Electrical Engineering - Politeknik Negeri Batam'
     ],
     specialization: 'Certified Assessor of BNSP (National Professional Certification Agency)',
+    photo: '/images/faculty/dodi.jpg',
     social: {
       twitter: '#',
       facebook: '#',
@@ -274,6 +287,7 @@ export const facultyMembers: FacultyMember[] = [
       'Associate in Electrical Engineering - Bandung Polytechnic of Manufacturing'
     ],
     specialization: '',
+    photo: '/images/faculty/novi.jpeg',
     social: {
       twitter: '#',
       facebook: '#',
