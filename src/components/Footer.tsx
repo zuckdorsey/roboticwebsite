@@ -1,7 +1,7 @@
 'use client';
 
 import { Twitter, Instagram, Linkedin, Github } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@heroui/react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -151,15 +151,15 @@ export default function Footer() {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm text-gray-600">
               <p>© {currentYear} Robotika Polibatam. All rights reserved.</p>
               <div className="flex flex-wrap gap-2 md:gap-6">
-                <Link href="#" className="hover:text-polibatam-orange transition-colors">
+                <Link href="#" className="hover:text-polibatam-orange transition-colors text-sm">
                   Privacy Policy
                 </Link>
                 <span className="hidden md:inline">–</span>
-                <Link href="#" className="hover:text-polibatam-orange transition-colors">
+                <Link href="#" className="hover:text-polibatam-orange transition-colors text-sm">
                   Terms of Service
                 </Link>
                 <span className="hidden md:inline">–</span>
-                <Link href="#" className="hover:text-polibatam-orange transition-colors">
+                <Link href="#" className="hover:text-polibatam-orange transition-colors text-sm">
                   Cookies Settings
                 </Link>
               </div>

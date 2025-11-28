@@ -1,10 +1,9 @@
-'use client';
-
+'use client';;
 import { useState, useEffect } from 'react';
 import { HiUserGroup, HiMail, HiAcademicCap } from 'react-icons/hi';
-import { FaTwitter, FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { FacultyMember } from "@/types";
-import Image from 'next/image';
+import { Card, CardBody, Avatar, Link, Button, Chip } from '@heroui/react';
 
 interface FacultyMembersSectionProps {
   members: FacultyMember[];
@@ -14,23 +13,23 @@ function FacultyCard({ member, index }: { member: FacultyMember; index: number }
   const [isFlipped, setIsFlipped] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Check if mobile on mount and resize
+  
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024); // lg breakpoint
+      setIsMobile(window.innerWidth < 1024); 
     };
     
-    // Initial check
+    
     checkMobile();
     
-    // Add event listener
+    
     window.addEventListener('resize', checkMobile);
     
-    // Cleanup
+    
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Variasi warna untuk setiap card
+  
   const cardStyles = [
     { 
       gradient: 'from-polibatam-light/80 to-polibatam-peach/40',
@@ -101,25 +100,27 @@ function FacultyCard({ member, index }: { member: FacultyMember; index: number }
           isFlipped ? 'rotate-y-180' : ''
         }`}
       >
-        {/* Front Side - Simpel & Clean */}
-        <div className={`absolute inset-0 backface-hidden bg-linear-to-br ${currentStyle.gradient} rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-polibatam-orange/20`}>
+        {/* Front Side - Simple & Clean */}
+        <Card className={`absolute inset-0 backface-hidden bg-linear-to-br ${currentStyle.gradient} rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-polibatam-orange/20`}>
           {/* Simple decorative corner */}
           <div className="absolute top-0 right-0 w-24 h-24 bg-polibatam-orange/5 rounded-bl-full"></div>
           
-          <div className="relative flex flex-col items-center justify-center h-full p-6">
+          <CardBody className="relative flex flex-col items-center justify-center h-full p-6">
             {/* Photo - Simple & Clean */}
-            <div className={`relative w-32 h-32 rounded-2xl overflow-hidden ring-2 ${currentStyle.ring} mb-5 shadow-md transform group-hover:scale-105 transition-transform duration-300`}>
+            <div className={`relative mb-5 ring-2 ${currentStyle.ring} shadow-md transform group-hover:scale-105 transition-transform duration-300`}>
               {member.photo ? (
-                <Image
+                <Avatar
                   src={member.photo}
                   alt={member.name}
-                  fill
-                  className="object-cover"
+                  className="w-32 h-32"
+                  radius="lg"
                 />
               ) : (
-                <div className={`w-full h-full bg-linear-to-br from-polibatam-orange/20 to-polibatam-navy/20 flex items-center justify-center`}>
-                  <HiUserGroup className={`w-16 h-16 ${currentStyle.iconColor}`} />
-                </div>
+                <Avatar
+                  icon={<HiUserGroup className="w-16 h-16" />}
+                  className={`w-32 h-32 bg-linear-to-br from-polibatam-orange/20 to-polibatam-navy/20 ${currentStyle.iconColor}`}
+                  radius="lg"
+                />
               )}
             </div>
 
@@ -129,64 +130,66 @@ function FacultyCard({ member, index }: { member: FacultyMember; index: number }
             </h3>
             
             {member.role && (
-              <p className={`text-xs font-semibold ${currentStyle.textColor} mb-3`}>
+              <Chip 
+                className={`text-xs font-semibold ${currentStyle.textColor} mb-3`}
+                size="sm"
+                variant="flat"
+              >
                 {member.role}
-              </p>
+              </Chip>
             )}
 
             {/* Social Icons - Minimal */}
             {member.social && (
               <div className="flex gap-2 mb-4">
                 {member.social.twitter && (
-                  <a 
+                  <Link 
                     href={member.social.twitter}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    isExternal
                     className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/60 hover:bg-polibatam-navy hover:text-white transition-all duration-300 shadow-sm hover:scale-110"
                   >
                     <FaTwitter className="w-4 h-4" />
-                  </a>
+                  </Link>
                 )}
                 {member.social.instagram && (
-                  <a 
+                  <Link 
                     href={member.social.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    isExternal
                     className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/60 hover:bg-polibatam-orange hover:text-white transition-all duration-300 shadow-sm hover:scale-110"
                   >
                     <FaInstagram className="w-4 h-4" />
-                  </a>
+                  </Link>
                 )}
                 {member.social.linkedin && (
-                  <a 
+                  <Link 
                     href={member.social.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    isExternal
                     className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/60 hover:bg-polibatam-navy hover:text-white transition-all duration-300 shadow-sm hover:scale-110"
                   >
                     <FaLinkedin className="w-4 h-4" />
-                  </a>
+                  </Link>
                 )}
               </div>
             )}
 
             {/* Mobile Button - Compact */}
-            <button
-              onClick={handleButtonClick}
-              className={`lg:hidden px-6 py-2 ${currentStyle.bgColor} text-white rounded-xl text-xs font-bold shadow-md ${currentStyle.hoverBg} transition-all duration-300`}
+            <Button
+              onPress={handleButtonClick}
+              className={`lg:hidden px-6 py-2 ${currentStyle.bgColor} text-white rounded-xl text-xs font-bold shadow-md transition-all duration-300`}
+              size="sm"
             >
               View Details
-            </button>
+            </Button>
 
             {/* Desktop hint - Minimal */}
             <p className="hidden lg:block text-xs text-polibatam-navy/40 mt-2">
               Hover for details
             </p>
-          </div>
-        </div>
+          </CardBody>
+        </Card>
 
         {/* Back Side - Compact, No Scroll Needed */}
-        <div className="absolute inset-0 backface-hidden bg-white rounded-3xl shadow-xl overflow-hidden rotate-y-180 border border-polibatam-orange/20">
+        <Card className="absolute inset-0 backface-hidden bg-white rounded-3xl shadow-xl overflow-hidden rotate-y-180 border border-polibatam-orange/20">
           {/* Compact Header */}
           <div className={`h-16 ${currentStyle.bgColor} flex items-center justify-center`}>
             <h4 className="text-white font-bold text-sm tracking-wide">PROFILE DETAILS</h4>
@@ -218,12 +221,12 @@ function FacultyCard({ member, index }: { member: FacultyMember; index: number }
                 {member.email && (
                   <div className="flex items-center gap-2 text-xs bg-polibatam-light/50 rounded-lg p-2">
                     <HiMail className={`w-4 h-4 ${currentStyle.iconColor} shrink-0`} />
-                    <a 
+                    <Link 
                       href={`mailto:${member.email}`}
                       className="text-gray-700 hover:text-polibatam-orange transition-colors truncate text-xs"
                     >
                       {member.email}
-                    </a>
+                    </Link>
                   </div>
                 )}
               </div>
@@ -253,12 +256,13 @@ function FacultyCard({ member, index }: { member: FacultyMember; index: number }
             {/* Bottom Section */}
             <div>
               {/* Mobile Back Button */}
-              <button
-                onClick={handleButtonClick}
-                className={`lg:hidden w-full py-2 bg-polibatam-circle/60 hover:bg-polibatam-peach text-polibatam-navy rounded-lg text-xs font-bold transition-all duration-300`}
+              <Button
+                onPress={handleButtonClick}
+                className="lg:hidden w-full py-2 bg-polibatam-circle/60 hover:bg-polibatam-peach text-polibatam-navy rounded-lg text-xs font-bold transition-all duration-300"
+                size="sm"
               >
                 ← Back
-              </button>
+              </Button>
 
               {/* Desktop hint */}
               <p className="hidden lg:block text-center text-xs text-polibatam-navy/40">
@@ -266,7 +270,7 @@ function FacultyCard({ member, index }: { member: FacultyMember; index: number }
               </p>
             </div>
           </div>
-        </div>
+        </Card>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
-'use client';
+ 'use client';
 
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
@@ -118,10 +119,13 @@ export default function BlogCarousel() {
         <div className="bg-white rounded-2xl shadow-md relative overflow-hidden">
           {/* Background Image */}
           <div className="absolute inset-0">
-            <img 
+            <Image
               src={currentPost.coverImage}
               alt={currentPost.title}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
+              priority={false}
             />
             {/* Gradient Overlay - Only right 25% */}
             <div className="absolute inset-0 bg-linear-to-l from-polibatam-navy/85 via-polibatam-navy/50 via-25% to-transparent to-30%"></div>
