@@ -14,321 +14,456 @@ export interface Semester {
 export const curriculumContent = {
   title: "Curriculum Structure",
   subtitle: "Comprehensive 8-Semester Program",
-  description: "Our curriculum is designed to provide a solid foundation in robotics engineering technology, combining theoretical knowledge with practical skills.",
-  
+  description:
+    "Our curriculum is designed to provide a solid foundation in robotics engineering technology, combining theoretical knowledge with practical skills.",
+
   semesters: [
     {
       semester: 1,
       courses: [
         {
-          code: "RTI101",
-          name: "Introduction to Robotics",
+          code: "RE101",
+          name: "Introduction to Robotics Engineering",
           credits: 3,
-          description: "This course introduces students to the fundamental concepts of robotics, including robot anatomy, kinematics, and basic programming. Students will learn about different types of robots, their applications in various industries, and the historical development of robotics technology. The course also covers ethical considerations in robotics and future trends in the field.",
-          type: "mandatory" as const
+          description:
+            "This course introduces students to the fundamental concepts of robotics, including robot anatomy, kinematics, and basic programming. Students will learn about different types of robots, their applications in various industries, and the historical development of robotics technology. The course also covers ethical considerations in robotics and future trends in the field.",
+          type: "mandatory",
         },
         {
-          code: "MTH101",
-          name: "Calculus I",
-          credits: 4,
-          description: "A comprehensive introduction to differential and integral calculus. Topics include limits, continuity, derivatives, applications of derivatives, definite and indefinite integrals, and fundamental theorem of calculus. Students will develop problem-solving skills essential for engineering applications and learn to apply calculus concepts to real-world robotics problems.",
-          type: "mandatory" as const
-        },
-        {
-          code: "PHY101",
-          name: "Physics for Engineers I",
+          code: "RE102",
+          name: "Procedural Programming",
           credits: 3,
-          description: "Foundation course covering classical mechanics including kinematics, Newton's laws of motion, work and energy, momentum, rotational motion, and gravitation. Laboratory sessions provide hands-on experience with physical principles that are fundamental to robotics systems. Students will understand how physical laws govern robot motion and interaction with the environment.",
-          type: "mandatory" as const
+          description:
+            "Introduction to programming using Python and C++. Topics include variables, data types, control structures, functions, arrays, and basic object-oriented programming. Students will learn algorithm design, debugging techniques, and best coding practices. The course emphasizes programming skills necessary for robot control and automation systems.",
+          type: "mandatory",
         },
         {
-          code: "PRG101",
-          name: "Programming Fundamentals",
+          code: "RE103",
+          name: "Principles of Electrical and Electronics Engineering",
           credits: 3,
-          description: "Introduction to programming using Python and C++. Topics include variables, data types, control structures, functions, arrays, and basic object-oriented programming. Students will learn algorithm design, debugging techniques, and best coding practices. The course emphasizes programming skills necessary for robot control and automation systems.",
-          type: "mandatory" as const
+          description:
+            "Introduction to fundamental electrical and electronic concepts, including voltage, current, resistance, circuits, power, and semiconductor basics. Students will learn to analyze simple circuits and understand how electronic components are used in robotic systems.",
+          type: "mandatory",
         },
         {
-          code: "ENG101",
-          name: "English for Academic Purposes",
+          code: "RE104",
+          name: "Computer Aided Design and Drafting",
+          credits: 3,
+          description:
+            "Covers the principles of technical drawing and 3D modeling using CAD software. Students will learn to create engineering drawings, assemblies, and digital prototypes used in robot design and manufacturing.",
+          type: "mandatory",
+        },
+        {
+          code: "RE105",
+          name: "Machine Tools Lab",
+          credits: 3,
+          description:
+            "Hands-on laboratory course introducing machining tools such as lathes, milling machines, and drilling equipment. Students practice basic fabrication techniques essential for building mechanical components of robots.",
+          type: "mandatory",
+        },
+        {
+          code: "RE106",
+          name: "Applied Calculus",
+          credits: 3,
+          description:
+            "A comprehensive introduction to differential and integral calculus. Topics include limits, continuity, derivatives, applications of derivatives, definite and indefinite integrals, and fundamental theorem of calculus. Students will develop problem-solving skills essential for engineering applications and learn to apply calculus concepts to real-world robotics problems.",
+          type: "mandatory",
+        },
+        {
+          code: "RE107",
+          name: "Work Health and Safety",
           credits: 2,
-          description: "Development of English language skills for academic and professional contexts. Focus on technical writing, presentation skills, reading comprehension of technical documents, and effective communication in engineering settings. Students will learn to write technical reports and deliver professional presentations.",
-          type: "mandatory" as const
-        }
-      ]
+          description:
+            "Study of workplace safety regulations, risk assessment, personal protective equipment, and emergency procedures. Emphasizes safe practices in laboratories and industrial environments involving robotics and machinery.",
+          type: "mandatory",
+        },
+        {
+          code: "RE108",
+          name: "Physics and Chemistry",
+          credits: 3,
+          description:
+            "Foundation course covering classical mechanics including kinematics, Newton's laws of motion, work and energy, momentum, rotational motion, and gravitation. Laboratory sessions provide hands-on experience with physical principles that are fundamental to robotics systems. Students will understand how physical laws govern robot motion and interaction with the environment.",
+          type: "mandatory",
+        },
+      ],
     },
+
     {
       semester: 2,
       courses: [
         {
-          code: "ELC201",
-          name: "Electronics Engineering",
-          credits: 4,
-          description: "Comprehensive study of electronic components, circuit analysis, and design. Topics include diodes, transistors, operational amplifiers, digital logic gates, and integrated circuits. Laboratory work involves building and testing electronic circuits used in robotic systems. Students will gain practical skills in circuit design and troubleshooting.",
-          type: "mandatory" as const
-        },
-        {
-          code: "MTH201",
-          name: "Linear Algebra",
+          code: "RE201",
+          name: "Rapid Prototyping Project",
           credits: 3,
-          description: "Study of vectors, matrices, linear transformations, eigenvalues, and eigenvectors. Applications to robotics include transformation matrices for robot kinematics, computer graphics, and machine learning algorithms. Students will develop mathematical foundation essential for advanced robotics concepts.",
-          type: "mandatory" as const
+          description:
+            "Project-based course focusing on rapid fabrication techniques including 3D printing, laser cutting, and CNC prototyping. Students collaborate to design, build, and iterate functional prototypes for robotic applications.",
+          type: "mandatory",
         },
         {
-          code: "MCH201",
-          name: "Mechanics and Materials",
+          code: "RE202",
+          name: "Object Oriented Programming",
           credits: 3,
-          description: "Introduction to strength of materials, stress-strain relationships, mechanical properties of engineering materials, and structural analysis. Topics relevant to robot design include material selection, load analysis, and mechanical component design. Students will learn to design robust mechanical structures for robotic applications.",
-          type: "mandatory" as const
+          description:
+            "Introduction to programming using Python and C++. Topics include variables, data types, control structures, functions, arrays, and basic object-oriented programming. Students will learn algorithm design, debugging techniques, and best coding practices. The course emphasizes programming skills necessary for robot control and automation systems.",
+          type: "mandatory",
         },
         {
-          code: "CAD201",
-          name: "Computer-Aided Design",
+          code: "RE203",
+          name: "Actuators and Drive Sytems",
           credits: 3,
-          description: "Practical training in 3D modeling and CAD software for engineering design. Students will learn to create detailed robot component designs, assemblies, and technical drawings. The course covers parametric modeling, simulation, and design optimization using industry-standard CAD tools like SolidWorks or Fusion 360.",
-          type: "mandatory" as const
+          description:
+            "Introduction to the mechanisms that generate robot motion, including DC motors, servo motors, stepper motors, pneumatic systems, and mechanical drive trains. Students learn selection criteria and control strategies for various actuators.",
+          type: "mandatory",
         },
         {
-          code: "COM201",
-          name: "Digital Communication",
+          code: "RE204",
+          name: "Statics and Dynamics",
+          credits: 3,
+          description:
+            "Covers forces, equilibrium, motion, and energy in mechanical systems. Students develop analytical skills to understand the behavior of robotic components under different mechanical loads.",
+          type: "mandatory",
+        },
+        {
+          code: "RE205",
+          name: "Engineering Math",
+          credits: 3,
+          description:
+            "Study of vectors, matrices, linear transformations, eigenvalues, and eigenvectors. Applications to robotics include transformation matrices for robot kinematics, computer graphics, and machine learning algorithms. Students will develop mathematical foundation essential for advanced robotics concepts.",
+          type: "mandatory",
+        },
+        {
+          code: "RE206",
+          name: "Electronics Systems",
+          credits: 3,
+          description:
+            "Comprehensive study of electronic components, circuit analysis, and design. Topics include diodes, transistors, operational amplifiers, digital logic gates, and integrated circuits. Laboratory work involves building and testing electronic circuits used in robotic systems. Students will gain practical skills in circuit design and troubleshooting.",
+          type: "mandatory",
+        },
+        {
+          code: "RE207",
+          name: "Design Thinking",
           credits: 2,
-          description: "Study of digital communication systems, protocols, and networking fundamentals. Topics include serial communication, wireless protocols, network topologies, and data transmission in robotics systems. Students will learn to implement communication between robot components and external systems.",
-          type: "mandatory" as const
-        }
-      ]
+          description:
+            "Explores user-centered design frameworks including empathy, ideation, prototyping, and testing. Students learn creative problem-solving strategies commonly used in robotics product development.",
+          type: "mandatory",
+        },
+      ],
     },
+
     {
       semester: 3,
       courses: [
         {
-          code: "MCT301",
-          name: "Microcontroller Systems",
-          credits: 4,
-          description: "In-depth study of microcontroller architecture, programming, and interfacing. Focus on ARM Cortex and AVR microcontrollers commonly used in robotics. Topics include I/O programming, interrupts, timers, ADC/DAC, and peripheral interfacing. Extensive laboratory work with real-world robotic applications and sensor integration.",
-          type: "mandatory" as const
-        },
-        {
-          code: "SNS301",
-          name: "Sensors and Actuators",
-          credits: 4,
-          description: "Comprehensive coverage of sensors (ultrasonic, infrared, encoders, IMU, vision) and actuators (DC motors, servo motors, stepper motors, pneumatics) used in robotics. Students will learn sensor calibration, signal conditioning, motor control techniques, and how to select appropriate sensors and actuators for specific applications.",
-          type: "mandatory" as const
-        },
-        {
-          code: "CTR301",
-          name: "Control Systems",
+          code: "RE301",
+          name: "Robotics Design and Fabrication",
           credits: 3,
-          description: "Introduction to feedback control theory including PID control, transfer functions, system stability, and frequency response. Applications to robot motion control, trajectory planning, and system optimization. Students will design and implement control systems for various robotic mechanisms.",
-          type: "mandatory" as const
+          description:
+            "Study of mechanical design principles for robotic systems, including materials selection, structural analysis, and fabrication techniques. Students design mechanical assemblies and build functional robot components.",
+          type: "mandatory",
         },
         {
-          code: "SIG301",
-          name: "Signal Processing",
+          code: "RE302",
+          name: "Introduction to Robotics",
           credits: 3,
-          description: "Fundamentals of analog and digital signal processing. Topics include sampling, filtering, Fourier transforms, and signal analysis techniques. Applications in robotics include sensor signal processing, noise reduction, and feature extraction for robot perception systems.",
-          type: "mandatory" as const
+          description:
+            "This course introduces students to the fundamental concepts of robotics, including robot anatomy, kinematics, and basic programming. Students will learn about different types of robots, their applications in various industries, and the historical development of robotics technology. The course also covers ethical considerations in robotics and future trends in the field.",
+          type: "mandatory",
         },
         {
-          code: "PRO301",
-          name: "Project Management",
+          code: "RE303",
+          name: "Design and Simulation",
+          credits: 3,
+          description:
+            "Introduction to engineering simulation tools for analyzing mechanical and robotic systems. Students use CAD/CAE software to simulate movement, stress, and performance before physical fabrication.",
+          type: "mandatory",
+        },
+        {
+          code: "RE304",
+          name: "Computer Aided Manufacturing",
+          credits: 3,
+          description:
+            "Covers CNC machining concepts, toolpath generation, and CAM workflows. Students learn how digital designs are translated into automated manufacturing processes.",
+          type: "mandatory",
+        },
+        {
+          code: "RE305",
+          name: "Control System",
+          credits: 3,
+          description:
+            "Introduction to feedback control theory including PID control, transfer functions, system stability, and frequency response. Applications to robot motion control, trajectory planning, and system optimization. Students will design and implement control systems for various robotic mechanisms.",
+          type: "mandatory",
+        },
+        {
+          code: "RE306",
+          name: "Engineering Project Management",
           credits: 2,
-          description: "Introduction to project management methodologies, planning, scheduling, budgeting, and team coordination. Students will learn Agile and Waterfall methodologies, risk management, and documentation practices essential for managing robotics development projects.",
-          type: "mandatory" as const
-        }
-      ]
+          description:
+            "Introduction to project management methodologies, planning, scheduling, budgeting, and team coordination. Students will learn Agile and Waterfall methodologies, risk management, and documentation practices essential for managing robotics development projects.",
+          type: "mandatory",
+        },
+        {
+          code: "PK4RE",
+          name: "Indonesian",
+          credits: 2,
+          description:
+            "Course focusing on Indonesian language skills for academic and professional communication, emphasizing clarity, structure, and technical writing fundamentals.",
+          type: "mandatory",
+        },
+      ],
     },
+
     {
       semester: 4,
       courses: [
         {
-          code: "KIN401",
-          name: "Robot Kinematics",
-          credits: 4,
-          description: "Advanced study of robot kinematics including forward kinematics, inverse kinematics, Denavit-Hartenberg notation, and Jacobian matrices. Students will analyze and simulate various robot configurations including articulated arms, SCARA robots, and parallel manipulators. Extensive use of mathematical tools and simulation software.",
-          type: "mandatory" as const
-        },
-        {
-          code: "EMB401",
-          name: "Embedded Systems",
-          credits: 4,
-          description: "Design and development of embedded systems for robotics applications. Topics include real-time operating systems (RTOS), embedded Linux, device drivers, and system integration. Students will develop complete embedded solutions for autonomous robots with multiple sensors and actuators.",
-          type: "mandatory" as const
-        },
-        {
-          code: "PWR401",
-          name: "Power Electronics",
+          code: "RE401",
+          name: "Agile Innovation Project",
           credits: 3,
-          description: "Study of power conversion, motor drives, and power management for robotic systems. Topics include DC-DC converters, inverters, motor control circuits, and battery management systems. Laboratory work involves designing and testing power electronics circuits for various robot applications.",
-          type: "mandatory" as const
+          description:
+            "Team-based project using Agile methodologies to design and implement innovative robotics solutions. Students practice sprints, backlog planning, and iterative development.",
+          type: "mandatory",
         },
         {
-          code: "VIS401",
-          name: "Computer Vision",
+          code: "RE402",
+          name: "Robot Operating System (ROS)",
           credits: 3,
-          description: "Introduction to image processing and computer vision for robotics. Topics include image filtering, edge detection, object recognition, feature extraction, and camera calibration. Students will implement vision systems using OpenCV and apply them to robot navigation and object manipulation tasks.",
-          type: "mandatory" as const
+          description:
+            "Design and development of autonomous mobile robots. Topics include path planning, obstacle avoidance, localization, SLAM, and navigation algorithms. Students will implement autonomous behaviors using ROS and work with real mobile robot platforms.",
+          type: "mandatory",
         },
         {
-          code: "ETH401",
-          name: "Engineering Ethics",
+          code: "RE403",
+          name: "Programmable Logic Controllers",
+          credits: 3,
+          description:
+            "Study of PLC architecture, ladder logic programming, and industrial automation systems. Students design control logic to operate robotic and manufacturing processes.",
+          type: "mandatory",
+        },
+        {
+          code: "RE404",
+          name: "Sensor and Data Acquisition",
+          credits: 3,
+          description:
+            "Comprehensive coverage of sensors and actuators used in robotics. Students learn sensor calibration, signal conditioning, motor control techniques, and selection of appropriate components for specific applications.",
+          type: "mandatory",
+        },
+        {
+          code: "RE405",
+          name: "Cloud Robotics",
+          credits: 3,
+          description:
+            "Explores cloud-based robotic systems, remote computation, data streaming, and distributed control. Students learn how robotics can leverage cloud infrastructure for scalability and real-time processing.",
+          type: "mandatory",
+        },
+        {
+          code: "RE406",
+          name: "English for Written Communication",
           credits: 2,
-          description: "Study of ethical issues in engineering practice, professional responsibility, and societal impact of technology. Focus on ethical considerations in robotics development including safety, privacy, autonomous systems, and AI ethics.",
-          type: "mandatory" as const
-        }
-      ]
+          description:
+            "Development of professional technical writing skills in English, including reports, documentation, and academic communication tailored to engineering contexts.",
+          type: "mandatory",
+        },
+        {
+          code: "RE407",
+          name: "Technical Writing",
+          credits: 2,
+          description:
+            "Focuses on clear, structured, and precise writing for engineering purposes, such as manuals, specifications, proposals, and research papers.",
+          type: "mandatory",
+        },
+      ],
     },
+
     {
       semester: 5,
       courses: [
         {
-          code: "AUT501",
-          name: "Autonomous Systems",
-          credits: 4,
-          description: "Design and development of autonomous mobile robots. Topics include path planning, obstacle avoidance, localization, SLAM (Simultaneous Localization and Mapping), and navigation algorithms. Students will implement autonomous behaviors using ROS (Robot Operating System) and work with real mobile robot platforms.",
-          type: "mandatory" as const
-        },
-        {
-          code: "AIR501",
-          name: "Artificial Intelligence for Robotics",
-          credits: 4,
-          description: "Application of AI techniques to robotics problems. Topics include machine learning, neural networks, reinforcement learning, decision trees, and genetic algorithms. Students will implement intelligent behaviors for robots including learning from experience, pattern recognition, and adaptive control.",
-          type: "mandatory" as const
-        },
-        {
-          code: "MAN501",
-          name: "Robot Manipulation",
+          code: "RE501",
+          name: "Application of Robotics",
           credits: 3,
-          description: "Study of robotic manipulation including grasp planning, force control, compliance, and dexterous manipulation. Topics include end-effector design, trajectory generation, and object recognition for manipulation. Students will program industrial robots for pick-and-place and assembly tasks.",
-          type: "mandatory" as const
+          description:
+            "Overview of real-world robotic applications across industries including manufacturing, healthcare, logistics, and service robotics. Students analyze case studies and system integration concepts.",
+          type: "mandatory",
         },
         {
-          code: "IND501",
-          name: "Industrial Automation",
+          code: "RE502",
+          name: "Data Flow Programming",
           credits: 3,
-          description: "Introduction to industrial automation systems including PLCs, SCADA, manufacturing execution systems, and Industry 4.0 concepts. Students will learn to program PLCs, design automated production lines, and integrate robots into manufacturing processes.",
-          type: "mandatory" as const
+          description:
+            "Study of visual and node-based programming systems used in robotics, enabling students to design workflows, control pipelines, and develop modular automation logic.",
+          type: "mandatory",
         },
         {
-          code: "RES501",
-          name: "Research Methodology",
+          code: "RE503",
+          name: "Manipulator Robots",
+          credits: 3,
+          description:
+            "Introduction to robotic arms, kinematics, workspace analysis, trajectory planning, and end-effector design. Students learn principles behind industrial manipulators and collaborative robots.",
+          type: "mandatory",
+        },
+        {
+          code: "RE504",
+          name: "English for Presentation",
           credits: 2,
-          description: "Introduction to research methods in engineering. Topics include literature review, research design, data collection and analysis, technical writing, and presentation of research findings. Preparation for final year project and academic research.",
-          type: "mandatory" as const
-        }
-      ]
+          description:
+            "Training in delivering technical presentations, pitching engineering ideas, and communicating robotics concepts effectively to diverse audiences.",
+          type: "mandatory",
+        },
+        {
+          code: "RE505",
+          name: "Quality Engineering Principles",
+          credits: 2,
+          description:
+            "Covers quality control, process optimization, statistical analysis, and industry standards used in robotics manufacturing and system integration.",
+          type: "mandatory",
+        },
+        {
+          code: "RE506",
+          name: "Elective Course 1",
+          credits: 3,
+          description:
+            "Elective course allowing students to explore specialized robotics topics such as AI, embedded systems, or advanced fabrication based on interest and career goals.",
+          type: "mandatory",
+        },
+        {
+          code: "PK2RE",
+          name: "Character Building: Pancasila",
+          credits: 2,
+          description:
+            "Course discussing national values, ethics, and character development based on Pancasila principles.",
+          type: "mandatory",
+        },
+      ],
     },
+
     {
       semester: 6,
       courses: [
         {
-          code: "DLN601",
-          name: "Deep Learning",
-          credits: 4,
-          description: "Advanced study of deep neural networks and their applications in robotics. Topics include CNNs for vision, RNNs for sequence learning, GANs for data generation, and transfer learning. Students will implement deep learning models for robot perception, object detection, and autonomous decision-making using TensorFlow and PyTorch.",
-          type: "mandatory" as const
-        },
-        {
-          code: "HRI601",
-          name: "Human-Robot Interaction",
+          code: "RE601",
+          name: "Industrial Robotics Project",
           credits: 3,
-          description: "Study of interaction between humans and robots including natural language processing, gesture recognition, social robotics, and collaborative robots (cobots). Topics include safety in HRI, user interface design, and emotion recognition. Students will develop interactive robot systems.",
-          type: "mandatory" as const
+          description:
+            "Capstone project focused on designing and integrating industrial robotic systems. Students work on real-world problems involving automation cells and production workflows.",
+          type: "mandatory",
         },
         {
-          code: "SWM601",
-          name: "Swarm Robotics",
+          code: "RE602",
+          name: "Industrial Data Communication",
           credits: 3,
-          description: "Introduction to multi-robot systems and swarm intelligence. Topics include distributed control, collective behavior, coordination algorithms, and applications in search and rescue, surveillance, and environmental monitoring. Students will simulate and implement swarm robotics algorithms.",
-          type: "elective" as const
+          description:
+            "Focuses on communication protocols used in industrial automation, such as Modbus, Profinet, CAN bus, and Ethernet/IP. Students learn how robots communicate within factory networks.",
+          type: "mandatory",
         },
         {
-          code: "MED601",
-          name: "Medical Robotics",
+          code: "RE603",
+          name: "Machine Learning",
           credits: 3,
-          description: "Study of robotics applications in healthcare including surgical robots, rehabilitation robots, prosthetics, and assistive devices. Topics include safety standards, precision control, haptic feedback, and medical imaging integration. Overview of current medical robotics technologies and future trends.",
-          type: "elective" as const
+          description:
+            "Application of AI techniques to robotics problems. Topics include machine learning, neural networks, reinforcement learning, decision trees, and genetic algorithms.",
+          type: "mandatory",
         },
         {
-          code: "INT601",
-          name: "Industrial Internship",
-          credits: 4,
-          description: "Practical work experience in industry or research institution. Students will apply their knowledge and skills in real-world robotics projects, gain professional experience, and develop industry connections. Internship report and presentation required.",
-          type: "mandatory" as const
-        }
-      ]
+          code: "RE604",
+          name: "Computer Vision",
+          credits: 3,
+          description:
+            "Introduction to image processing and computer vision for robotics. Topics include image filtering, edge detection, object recognition, feature extraction, and camera calibration.",
+          type: "mandatory",
+        },
+        {
+          code: "RE605",
+          name: "Motion Planning",
+          credits: 3,
+          description:
+            "Study of algorithms for robotic movement, including configuration spaces, graph-based planning, sampling techniques, and optimization-based planning.",
+          type: "mandatory",
+        },
+        {
+          code: "RE606",
+          name: "Professional Skills and Attitudes",
+          credits: 2,
+          description:
+            "Develops workplace professionalism, ethics, communication, and collaboration skills essential for engineering roles.",
+          type: "mandatory",
+        },
+        {
+          code: "RE607",
+          name: "Elective Course 2",
+          credits: 3,
+          description:
+            "Second elective slot enabling exploration of advanced robotics subfields aligned with student interests.",
+          type: "mandatory",
+        },
+      ],
     },
+
     {
       semester: 7,
       courses: [
         {
-          code: "PRJ701",
-          name: "Capstone Project I",
-          credits: 4,
-          description: "First part of the final year project. Students will identify a robotics problem, conduct literature review, design a solution, and develop a project proposal. Work includes problem definition, system design, component selection, and preliminary implementation. Regular progress presentations and documentation required.",
-          type: "mandatory" as const
-        },
-        {
-          code: "AER701",
-          name: "Aerial Robotics",
+          code: "RE701",
+          name: "Final Project: Advanced Robotics",
           credits: 3,
-          description: "Study of unmanned aerial vehicles (UAVs) and drone technology. Topics include flight dynamics, stabilization, autonomous navigation, computer vision for drones, and applications in mapping, inspection, and delivery. Students will program and fly quadcopters in simulation and real environments.",
-          type: "elective" as const
+          description:
+            "Advanced capstone project focused on designing, building, and evaluating a complex robotics system. Students demonstrate technical mastery, innovation, and problem-solving.",
+          type: "mandatory",
         },
         {
-          code: "BIO701",
-          name: "Bioinspired Robotics",
+          code: "RE702",
+          name: "Localization and Mapping",
           credits: 3,
-          description: "Exploration of robots inspired by biological systems. Topics include legged locomotion, soft robotics, artificial muscles, bio-inspired sensing, and evolutionary robotics. Students will study nature's solutions to engineering problems and apply biomimicry principles to robot design.",
-          type: "elective" as const
+          description:
+            "Study of algorithms that enable robots to understand their environment, including SLAM, probabilistic mapping, and sensor fusion techniques.",
+          type: "mandatory",
         },
         {
-          code: "IOT701",
-          name: "IoT and Cloud Robotics",
+          code: "RE703",
+          name: "Robotics Control",
           credits: 3,
-          description: "Integration of robotics with Internet of Things and cloud computing. Topics include cloud-based robot services, distributed sensing and computing, fog robotics, and robot fleet management. Students will develop IoT-enabled robots with cloud connectivity for data processing and storage.",
-          type: "elective" as const
+          description:
+            "Advanced control techniques for robotic systems, including nonlinear control, adaptive control, and real-time system optimization.",
+          type: "mandatory",
         },
         {
-          code: "ENT701",
-          name: "Entrepreneurship in Tech",
+          code: "RE704",
+          name: "Entrepreneurship",
           credits: 2,
-          description: "Introduction to technology entrepreneurship and startup development. Topics include business model canvas, market analysis, funding strategies, intellectual property, and pitching. Students will develop business plans for robotics startups and learn to commercialize technology innovations.",
-          type: "elective" as const
-        }
-      ]
+          description:
+            "Introduction to technology entrepreneurship and startup development. Topics include business model canvas, market analysis, funding strategies, intellectual property, and pitching.",
+          type: "mandatory",
+        },
+        {
+          code: "PK1RE",
+          name: "Character Building: Religion",
+          credits: 2,
+          description:
+            "Study of religious values, ethics, and character development to support responsible professional behavior.",
+          type: "mandatory",
+        },
+        {
+          code: "PK3RE",
+          name: "Character Building: Citizenship",
+          credits: 2,
+          description:
+            "Course focusing on civic responsibility, national identity, and ethical participation in society.",
+          type: "mandatory",
+        },
+      ],
     },
+
     {
       semester: 8,
       courses: [
         {
-          code: "PRJ801",
-          name: "Capstone Project II",
-          credits: 6,
-          description: "Continuation and completion of the final year project. Students will implement, test, and refine their robotics system. Work includes hardware/software integration, system testing, performance evaluation, and comprehensive documentation. Final presentation and demonstration to industry panel required.",
-          type: "mandatory" as const
+          code: "RE801",
+          name: "Industrial Attachment",
+          credits: 20,
+          description:
+            "Full-semester internship placing students in robotics-related industries. Students gain hands-on experience with real engineering processes, teamwork, and industrial practices.",
+          type: "mandatory",
         },
-        {
-          code: "ADV801",
-          name: "Advanced Topics in Robotics",
-          credits: 3,
-          description: "Study of cutting-edge topics in robotics research including quantum robotics, neuromorphic computing for robots, advanced AI techniques, and emerging applications. Seminar-style course with guest lectures from industry experts and researchers. Students will present on recent robotics innovations.",
-          type: "elective" as const
-        },
-        {
-          code: "SPC801",
-          name: "Space Robotics",
-          credits: 3,
-          description: "Introduction to robotics for space exploration. Topics include space environment challenges, satellite robotics, planetary rovers, orbital manipulation, and future of space automation. Students will study case studies of successful space missions and design concepts for space robotics applications.",
-          type: "elective" as const
-        },
-        {
-          code: "SEC801",
-          name: "Cybersecurity for Robotics",
-          credits: 3,
-          description: "Study of security threats and protection methods for robotic systems. Topics include secure communication, authentication, encryption, vulnerability assessment, and safety-critical systems. Students will learn to identify and mitigate security risks in connected and autonomous robots.",
-          type: "elective" as const
-        }
-      ]
-    }
-  ]
+      ],
+    },
+  ],
 };
