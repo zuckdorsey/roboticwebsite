@@ -11,64 +11,64 @@ export interface AlumniStory {
 }
 
 export const alumniContent = {
-  title: "Our Success Stories",
-  subtitle: "Real leaders share how they crushed dead-end leads and boosted sales with our game-changing AI solutions.", // I will adapt this text to be relevant to Robotics Alumni
-  description: "Hear from our graduates who are now leading innovation in top technology companies around the world.",
+  title: "Lorem Ipsum Dolor",
+  subtitle: "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  description: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
   
   stories: [
     {
       id: 1,
-      name: "Sarah Jenkins",
-      role: "Robotics Engineer",
-      company: "Tesla",
+      name: "Lorem Ipsum",
+      role: "Dolor Sit Amet",
+      company: "Consectetur",
       image: "/images/alumni/sarah.jpg",
-      quote: "The hands-on experience at Polibatam gave me the confidence to tackle complex automation challenges. I'm now designing the next generation of assembly robots.",
+      quote: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
       rating: 5,
-      tags: ["Automation", "Industrial Robotics", "Control Systems"],
+      tags: ["Lorem", "Ipsum", "Dolor"],
       graduationYear: "2019"
     },
     {
       id: 2,
-      name: "Michael Chen",
-      role: "AI Researcher",
-      company: "Google DeepMind",
+      name: "Amet Consectetur",
+      role: "Adipiscing Elit",
+      company: "Eiusmod Tempore",
       image: "/images/alumni/michael.jpg",
-      quote: "The curriculum's focus on both hardware and software was crucial. Understanding the physical constraints of robots helped me build better AI models.",
+      quote: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.",
       rating: 5,
-      tags: ["Artificial Intelligence", "Computer Vision", "Deep Learning"],
+      tags: ["Sit", "Amet", "Elit"],
       graduationYear: "2020"
     },
     {
       id: 3,
-      name: "Jessica Pratama",
-      role: "System Architect",
-      company: "Boston Dynamics",
+      name: "Magna Aliqua",
+      role: "Minim Veniam",
+      company: "Ullamco Laboris",
       image: "/images/alumni/jessica.jpg",
-      quote: "Polibatam didn't just teach me code; they taught me how to think like an engineer. The collaborative projects were exactly like what I do now in the industry.",
+      quote: "Sunt in culpa qui officia deserunt mollit anim id est laborum. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.",
       rating: 5,
-      tags: ["System Architecture", "Mobile Robots", "Team Leadership"],
+      tags: ["Quis", "Nostrud", "Exercitation"],
       graduationYear: "2018"
     },
     {
       id: 4,
-      name: "David Santoso",
-      role: "Founder & CEO",
-      company: "RoboTech Indonesia",
+      name: "Voluptate Velit",
+      role: "Cillum Dolore",
+      company: "Excepteur Sint",
       image: "/images/alumni/david.jpg",
-      quote: "Starting my own robotics company was a dream that started in the university labs. The mentorship from faculty was invaluable in my journey.",
+      quote: "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.",
       rating: 5,
-      tags: ["Entrepreneurship", "IoT", "Product Design"],
+      tags: ["Fugiat", "Nulla", "Pariatur"],
       graduationYear: "2017"
     },
     {
       id: 5,
-      name: "Emily Nguyen",
-      role: "Operations Manager",
-      company: "CloudSync Ltd.",
+      name: "Est Laborum",
+      role: "Officia Deserunt",
+      company: "Mollit Anim",
       image: "/images/alumni/emily.jpg",
-      quote: "Manual tasks vanished overnight. AI automation saved us countless hours and revolutionized our entire workflow process!",
+      quote: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.",
       rating: 5,
-      tags: ["Operations", "Automation", "Efficiency"],
+      tags: ["Ipsam", "Voluptatem", "Aspernatur"],
       graduationYear: "2021"
     }
   ]

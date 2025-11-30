@@ -2,11 +2,12 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import CurriculumSection from "@/components/CurriculumSection";
-import FacilitiesSection from "@/components/FacilitiesSection";
+import GallerySection, { GalleryItem } from "@/components/GallerySection";
 import FacultyMembersSection from "@/components/FacultyMembersSection";
 import StudentsSection from "@/components/StudentsSection";
 import AlumniSection from "@/components/AlumniSection";
 import BlogCarousel from "@/components/BlogCarousel";
+import JobOpportunitiesSection from "@/components/JobOpportunitiesSection";
 import Footer from "@/components/Footer";
 import { facultyMembers } from "@/data/faculty-data";
 
@@ -45,47 +46,71 @@ export default function Home() {
     }
   ];
 
-  // Data untuk Facilities
-  const facilities = [
+  // Data untuk Gallery
+  const galleryItems: GalleryItem[] = [
     {
-      name: "Robotics Laboratory",
-      description: "State-of-the-art lab equipped with industrial robots, 3D printers, and testing equipment."
+      id: "1",
+      title: "Robotics Laboratory",
+      category: "facilities",
+      image: "/images/gallery/robotics-lab.png",
+      description: "State-of-the-art lab equipped with industrial robots, 3D printers, and testing equipment.",
+      size: "large"
     },
     {
-      name: "AI Research Center",
-      description: "Advanced computing facilities for artificial intelligence and machine learning research."
+      id: "4",
+      title: "AI Research Center",
+      category: "facilities",
+      image: "/images/gallery/ai-center.png",
+      description: "Advanced computing facilities for artificial intelligence and machine learning research.",
+      size: "medium"
     },
     {
-      name: "Prototyping Workshop",
-      description: "Complete workshop with CNC machines, laser cutters, and electronic assembly stations."
+      id: "6",
+      title: "Prototyping Workshop",
+      category: "facilities",
+      image: "/images/gallery/workshop.png",
+      description: "Complete workshop with CNC machines, laser cutters, and electronic assembly stations.",
+      size: "small"
     },
     {
-      name: "Innovation Hub",
-      description: "Collaborative space for students to work on innovative robotics projects and startups."
+      id: "7",
+      title: "Innovation Hub",
+      category: "facilities",
+      image: "/images/gallery/innovation-hub.png",
+      description: "Collaborative space for students to work on innovative robotics projects and startups.",
+      size: "medium"
     }
   ];
 
   return (
     <div className="min-h-screen bg-polibatam-light">
       <Navbar />
-      
-      <HeroSection 
+
+      <HeroSection
         title="Learn Robotics Technology in Polibatam"
         subtitle="The First Robotics Study Program in Indonesia"
       />
-      
+
       <AboutSection />
-      
+
+      <JobOpportunitiesSection />
+
       <CurriculumSection />
-      
-      <FacilitiesSection facilities={facilities} />
-      
+
+
+
+      <GallerySection items={galleryItems} />
+
       <FacultyMembersSection members={facultyMembers} />
-      
+
+
+
       <AlumniSection />
-      
+
       <BlogCarousel />
-      
+
+
+
       <Footer />
     </div>
   );

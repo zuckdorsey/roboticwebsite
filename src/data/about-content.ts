@@ -2,9 +2,9 @@ export const aboutContent = {
   title: "About Robotics Engineering Technology Program",
   paragraphs: [
     "The Robotics Engineering Technology program at Politeknik Negeri Batam is an applied bachelor's degree program established in 2018. This program is centered around developing students' robotics and artificial intelligence (AI) competencies. Students who enroll in this program will gain a profound understanding of robotic technology and the applications of artificial intelligence in various contexts.",
-    
+
     "The program aims to train students to possess the skills and expertise to design, develop, and operate advanced robotic systems. Additionally, they will learn how to implement artificial intelligence in robotics to achieve innovative and efficient solutions across various industries.",
-    
+
     "With a focus on continually evolving future technologies, the Robotics Engineering Technology program at Politeknik Negeri Batam offers students the opportunity to become experts in this field, preparing them to make significant contributions in the ever-growing and developing area of robotics."
   ],
   highlights: [
@@ -77,5 +77,25 @@ export const aboutContent = {
         description: "Our graduates are able to adapt to new technologies through quality, open, and relevant applied research, and in close collaboration with society and industry."
       }
     ]
-  }
+  },
+  accreditations: [
+    {
+      status: "Unggul",
+      title: "Terakreditasi Unggul",
+      description: "Program Studi Teknologi Rekayasa Robotika telah meraih predikat akreditasi tertinggi",
+      institution: "LAM TEKNIK",
+      certificateUrl: "/accreditation-cert.jpg",
+      grade: "Unggul",
+      program: "Sarjana Terapan"
+    },
+    {
+      status: "Accredited",
+      title: "Internationally Accredited",
+      description: "Accredited by the Engineering Technology Accreditation Commission of ABET",
+      institution: "ABET",
+      certificateUrl: "/abet-cert.jpg", 
+      grade: "Full",
+      program: "Bachelor Degree"
+    }
+  ]
 };
