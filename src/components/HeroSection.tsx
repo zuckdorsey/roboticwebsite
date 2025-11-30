@@ -20,20 +20,24 @@ export default function HeroSection({ title, subtitle }: HeroSectionProps) {
       <div className="absolute bottom-24 right-10 w-48 h-48 border-r-4 border-b-4 border-polibatam-navy opacity-25 rounded-br-3xl -rotate-2 hidden lg:block" />
       <div className="absolute bottom-36 right-32 w-24 h-24 border-r-2 border-b-2 border-polibatam-peach opacity-40 rounded-br-2xl rotate-12 hidden lg:block" />
 
-      <div className="max-w-[1720px] mx-auto px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16 lg:py-20 relative z-10">
+      <div className="max-w-[1720px] mx-auto px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20 lg:py-24 relative z-10">
         {/* Responsive grid: stacks on mobile, side-by-side on md+ */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-end">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 lg:gap-16 items-center md:items-end min-h-[60vh] md:min-h-[70vh]">
           {/* Left Content - centered on mobile, left-aligned on desktop */}
-          <div className="md:col-span-6 flex flex-col justify-end w-full text-center md:text-left">
-            <div className="space-y-6 sm:space-y-8">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-gray-900 uppercase tracking-tight font-['Roboto_Slab']">
-                {title}
+          <div className="md:col-span-7 lg:col-span-6 flex flex-col justify-center md:justify-end w-full text-center md:text-left pt-8 md:pt-0">
+            <div className="space-y-8 sm:space-y-10 md:space-y-12">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] tracking-tight">
+                <span className="text-polibatam-navy block mb-3 sm:mb-4">LEARN</span>
+                <span className="bg-linear-to-r from-polibatam-orange via-[#FF8F4C] to-polibatam-peach bg-clip-text text-transparent block mb-3 sm:mb-4">
+                  ROBOTICS TECHNOLOGY
+                </span>
+                <span className="text-polibatam-navy block">IN POLIBATAM</span>
               </h1>
 
               {/* Accreditation buttons removed - restored original clean layout */}
 
               {subtitle && (
-                <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto md:mx-0">
+                <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto md:mx-0 font-medium">
                   {subtitle}
                 </p>
               )}
@@ -41,14 +45,14 @@ export default function HeroSection({ title, subtitle }: HeroSectionProps) {
           </div>
 
           {/* Right Illustration - large and prominent on mobile */}
-          <div className="md:col-span-6 flex items-end justify-center w-full">
+          <div className="md:col-span-5 lg:col-span-6 flex items-center md:items-end justify-center w-full mt-8 md:mt-0">
             {/* Illustration wrapper - keeps outline fully inside viewport and scales responsively */}
-            <div className="relative w-full max-w-[90vw] sm:max-w-lg md:max-w-3xl lg:max-w-4xl xl:max-w-5xl p-4 sm:p-6 mx-auto overflow-visible">
+            <div className="relative w-full max-w-[85vw] sm:max-w-md md:max-w-full lg:max-w-2xl p-4 sm:p-6 mx-auto overflow-visible">
               {/* Outline scales down on small screens and returns to full scale on md+; origin-center keeps it contained */}
-              <div className="absolute inset-0 rounded-3xl border-2 sm:border-4 md:border-6 border-polibatam-orange/20 shadow-lg pointer-events-none transform origin-center scale-90 sm:scale-95 md:scale-100" />
+              <div className="absolute inset-0 rounded-[2rem] sm:rounded-[2.5rem] border-2 sm:border-4 border-polibatam-orange/20 shadow-2xl shadow-polibatam-orange/10 pointer-events-none transform origin-center scale-95 sm:scale-100" />
 
-              <div className="relative z-10 w-full h-auto overflow-hidden rounded-2xl">
-                <HeroIllustration className="w-full h-auto object-contain block" />
+              <div className="relative z-10 w-full h-auto overflow-hidden rounded-2xl sm:rounded-3xl transform hover:scale-[1.02] transition-transform duration-500">
+                <HeroIllustration className="w-full h-auto object-contain block drop-shadow-xl" />
               </div>
             </div>
           </div>

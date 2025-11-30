@@ -51,15 +51,6 @@ export const aboutContent = {
       value: 92
     }
   ],
-  vision: {
-    title: "Our Vision",
-    description: "To become a leading center of excellence in robotics and AI education, producing innovative engineers ready to shape the future of technology."
-  },
-  mission: {
-    title: "Our Mission",
-    description: "To provide world-class education and hands-on experience in robotics engineering, empowering students to design innovative solutions for real-world challenges."
-  },
-  journeyTitle: "Our Journey",
   peo: {
     title: "Program Educational Objectives (PEO)",
     introduction: "Robotics Engineering Technology Program curriculum, developed in 2021 apart from referring to BAN-PT accreditation. Therefore, it is required to determine goals for educational programs or Program Educational Objectives (PEO), a general statement describing career and professional achievements when graduates have worked for 3-5 years. The Robotics Engineering Technology program has determined the following PEO:",
@@ -93,7 +84,7 @@ export const aboutContent = {
       title: "Internationally Accredited",
       description: "Accredited by the Engineering Technology Accreditation Commission of ABET",
       institution: "ABET",
-      certificateUrl: "/abet-cert.jpg", 
+      certificateUrl: "/abet-cert.jpg",
       grade: "Full",
       program: "Bachelor Degree"
     }
