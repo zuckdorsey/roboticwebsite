@@ -11,7 +11,12 @@ export interface Semester {
   courses: Course[];
 }
 
-export const curriculumContent = {
+export const curriculumContent: {
+  title: string;
+  subtitle: string;
+  description: string;
+  semesters: Semester[];
+} = {
   title: "Curriculum Structure",
   subtitle: "Comprehensive 8-Semester Program",
   description:
