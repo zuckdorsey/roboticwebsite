@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
-import { HiUserGroup, HiMail, HiAcademicCap } from 'react-icons/hi';
-import { FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { HiUserGroup, HiMail, HiAcademicCap, HiSparkles, HiIdentification } from 'react-icons/hi';
+import { FaTwitter, FaInstagram, FaLinkedin, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { FacultyMember } from "@/types";
-import { Card, CardBody, Avatar, Link, Button, Chip } from '@heroui/react';
+import { Card, CardBody, Link, Chip } from '@heroui/react';
 
 interface FacultyCardProps {
     member: FacultyMember;
@@ -13,261 +13,161 @@ interface FacultyCardProps {
 }
 
 export default function FacultyCard({ member, index }: FacultyCardProps) {
-    const [isFlipped, setIsFlipped] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth < 1024);
-        };
-
-        checkMobile();
-
-        window.addEventListener('resize', checkMobile);
-
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
-
-    const cardStyles = [
-        {
-            gradient: 'from-polibatam-light/80 to-polibatam-peach/40',
-            accentColor: 'polibatam-orange',
-            ring: 'ring-polibatam-orange/30',
-            bgColor: 'bg-polibatam-orange',
-            textColor: 'text-polibatam-orange',
-            iconColor: 'text-polibatam-orange',
-            hoverBg: 'hover:bg-polibatam-orange'
-        },
-        {
-            gradient: 'from-polibatam-peach/60 to-white',
-            accentColor: 'polibatam-navy',
-            ring: 'ring-polibatam-navy/30',
-            bgColor: 'bg-polibatam-navy',
-            textColor: 'text-polibatam-navy',
-            iconColor: 'text-polibatam-navy',
-            hoverBg: 'hover:bg-polibatam-navy'
-        },
-        {
-            gradient: 'from-white to-polibatam-light/60',
-            accentColor: 'polibatam-orange',
-            ring: 'ring-polibatam-orange/40',
-            bgColor: 'bg-polibatam-orange',
-            textColor: 'text-polibatam-orange',
-            iconColor: 'text-polibatam-orange',
-            hoverBg: 'hover:bg-polibatam-orange'
-        },
-        {
-            gradient: 'from-polibatam-circle/40 to-polibatam-peach/30',
-            accentColor: 'polibatam-navy',
-            ring: 'ring-polibatam-navy/40',
-            bgColor: 'bg-polibatam-navy',
-            textColor: 'text-polibatam-navy',
-            iconColor: 'text-polibatam-navy',
-            hoverBg: 'hover:bg-polibatam-navy'
-        },
-    ];
-
-    const currentStyle = cardStyles[index % cardStyles.length];
-
-    const handleMouseEnter = () => {
-        if (!isMobile) {
-            setIsFlipped(true);
-        }
-    };
-
-    const handleMouseLeave = () => {
-        if (!isMobile) {
-            setIsFlipped(false);
-        }
-    };
-
-    const handleButtonClick = () => {
-        if (isMobile) {
-            setIsFlipped(!isFlipped);
-        }
-    };
+    const [isEducationExpanded, setIsEducationExpanded] = useState(false);
 
     return (
-        <div
-            className="perspective-1000 h-[480px] group cursor-pointer"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-        >
-            <div
-                className={`relative w-full h-full transition-all duration-600 ease-out transform-style-3d ${isFlipped ? 'rotate-y-180' : ''
-                    }`}
-            >
-                {/* Front Side - Simple & Clean */}
-                <Card className={`absolute inset-0 backface-hidden bg-linear-to-br ${currentStyle.gradient} rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-polibatam-orange/20`}>
-                    {/* Simple decorative corner */}
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-polibatam-orange/5 rounded-bl-full"></div>
+        <div className="h-full">
+            <Card className="h-full bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-3xl overflow-visible group">
+                <CardBody className="p-0 flex flex-col h-full">
+                    {/* Header Section with Gradient & Photo */}
+                    <div className="relative h-32 bg-linear-to-r from-polibatam-navy to-polibatam-navy/90 rounded-t-3xl overflow-hidden">
+                        {/* Decorative Patterns */}
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-10 -mt-10" />
+                        <div className="absolute bottom-0 left-0 w-24 h-24 bg-polibatam-orange/10 rounded-full -ml-8 -mb-8" />
 
-                    <CardBody className="relative flex flex-col items-center justify-center h-full p-6">
-                        {/* Photo - Simple & Clean */}
-                        <div className={`relative mb-5 ring-2 ${currentStyle.ring} shadow-md transform group-hover:scale-105 transition-transform duration-300 rounded-2xl overflow-hidden w-32 h-32 bg-white`}>
-                            {member.photo ? (
-                                <Image
-                                    src={member.photo}
-                                    alt={member.name}
-                                    fill
-                                    className="object-cover"
-                                    sizes="(max-width: 768px) 128px, 128px"
-                                />
-                            ) : (
-                                <div className={`w-full h-full flex items-center justify-center bg-linear-to-br from-polibatam-orange/20 to-polibatam-navy/20 ${currentStyle.iconColor}`}>
-                                    <HiUserGroup className="w-16 h-16" />
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Info - Compact */}
-                        <h3 className="text-xl font-bold text-polibatam-navy mb-1 text-center leading-tight">
-                            {member.name}
-                        </h3>
-
-                        {member.role && (
-                            <Chip
-                                className={`text-xs font-semibold ${currentStyle.textColor} mb-3`}
-                                size="sm"
-                                variant="flat"
-                            >
-                                {member.role}
-                            </Chip>
-                        )}
-
-                        {/* Social Icons - Minimal */}
+                        {/* Social Links (Absolute Top Right) */}
                         {member.social && (
-                            <div className="flex gap-2 mb-4">
-                                {member.social.twitter && (
+                            <div className="absolute top-4 right-4 flex gap-2 z-10">
+                                {member.social.linkedin && (
                                     <Link
-                                        href={member.social.twitter}
+                                        href={member.social.linkedin}
                                         isExternal
-                                        className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/60 hover:bg-polibatam-navy hover:text-white transition-all duration-300 shadow-sm hover:scale-110"
+                                        className="text-white/70 hover:text-white hover:scale-110 transition-all"
                                     >
-                                        <FaTwitter className="w-4 h-4" />
+                                        <FaLinkedin className="w-5 h-5" />
                                     </Link>
                                 )}
                                 {member.social.instagram && (
                                     <Link
                                         href={member.social.instagram}
                                         isExternal
-                                        className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/60 hover:bg-polibatam-orange hover:text-white transition-all duration-300 shadow-sm hover:scale-110"
+                                        className="text-white/70 hover:text-white hover:scale-110 transition-all"
                                     >
-                                        <FaInstagram className="w-4 h-4" />
-                                    </Link>
-                                )}
-                                {member.social.linkedin && (
-                                    <Link
-                                        href={member.social.linkedin}
-                                        isExternal
-                                        className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/60 hover:bg-polibatam-navy hover:text-white transition-all duration-300 shadow-sm hover:scale-110"
-                                    >
-                                        <FaLinkedin className="w-4 h-4" />
+                                        <FaInstagram className="w-5 h-5" />
                                     </Link>
                                 )}
                             </div>
                         )}
-
-                        {/* Mobile Button - Compact */}
-                        <Button
-                            onPress={handleButtonClick}
-                            className={`lg:hidden px-6 py-2 ${currentStyle.bgColor} text-white rounded-xl text-xs font-bold shadow-md transition-all duration-300`}
-                            size="sm"
-                        >
-                            View Details
-                        </Button>
-
-                        {/* Desktop hint - Minimal */}
-                        <p className="hidden lg:block text-xs text-polibatam-navy/40 mt-2">
-                            Hover for details
-                        </p>
-                    </CardBody>
-                </Card>
-
-                {/* Back Side - Compact, No Scroll Needed */}
-                <Card className="absolute inset-0 backface-hidden bg-white rounded-3xl shadow-xl overflow-hidden rotate-y-180 border border-polibatam-orange/20">
-                    {/* Compact Header */}
-                    <div className={`h-16 ${currentStyle.bgColor} flex items-center justify-center`}>
-                        <h4 className="text-white font-bold text-sm tracking-wide">PROFILE DETAILS</h4>
                     </div>
 
-                    {/* Content - Fit without scroll */}
-                    <div className="p-5 h-[calc(100%-4rem)] flex flex-col justify-between overflow-y-auto custom-scrollbar">
-                        {/* Top Section */}
-                        <div className="space-y-3">
-                            {/* Name */}
-                            <div className="text-center pb-3 border-b border-polibatam-light">
-                                <h3 className="text-lg font-bold text-polibatam-navy mb-0.5">
-                                    {member.name}
-                                </h3>
-                                <p className="text-xs text-polibatam-orange font-semibold">{member.role}</p>
-                            </div>
-
-                            {/* Compact Contact */}
-                            <div className="space-y-2">
-                                {member.nidn && (
-                                    <div className="flex items-center gap-2 text-xs bg-polibatam-light/50 rounded-lg p-2">
-                                        <HiAcademicCap className={`w-4 h-4 ${currentStyle.iconColor} shrink-0`} />
-                                        <div className="flex-1 min-w-0">
-                                            <span className="font-bold text-polibatam-navy">NIDN: </span>
-                                            <span className="text-gray-700">{member.nidn}</span>
-                                        </div>
-                                    </div>
-                                )}
-                                {member.email && (
-                                    <div className="flex items-center gap-2 text-xs bg-polibatam-light/50 rounded-lg p-2">
-                                        <HiMail className={`w-4 h-4 ${currentStyle.iconColor} shrink-0`} />
-                                        <Link
-                                            href={`mailto:${member.email}`}
-                                            className="text-gray-700 hover:text-polibatam-orange transition-colors truncate text-xs"
-                                        >
-                                            {member.email}
-                                        </Link>
+                    {/* Profile Photo - Overlapping */}
+                    <div className="px-6 -mt-16 mb-4 relative z-10">
+                        <div className="w-32 h-32 rounded-2xl bg-white p-1.5 shadow-lg ring-1 ring-gray-100 mx-auto md:mx-0">
+                            <div className="relative w-full h-full rounded-xl overflow-hidden bg-gray-50">
+                                {member.photo ? (
+                                    <Image
+                                        src={member.photo}
+                                        alt={member.name}
+                                        fill
+                                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                        sizes="(max-width: 768px) 128px, 128px"
+                                    />
+                                ) : (
+                                    <div className="w-full h-full flex items-center justify-center bg-polibatam-light">
+                                        <HiUserGroup className="w-12 h-12 text-gray-300" />
                                     </div>
                                 )}
                             </div>
-
-                            {/* Compact Education - Show only highest */}
-                            {member.education && member.education.length > 0 && (
-                                <div className="bg-polibatam-peach/30 rounded-lg p-3">
-                                    <p className="text-xs font-bold text-polibatam-navy mb-1">Education</p>
-                                    <p className="text-xs text-polibatam-navy/80 leading-snug">
-                                        {member.education[0]}
-                                    </p>
-                                    {member.education.length > 1 && (
-                                        <p className="text-xs text-polibatam-orange mt-1">+{member.education.length - 1} more</p>
-                                    )}
-                                </div>
-                            )}
-
-                            {/* Compact Specialization */}
-                            {member.specialization && (
-                                <div className="bg-polibatam-light/50 rounded-lg p-3">
-                                    <p className="text-xs font-bold text-polibatam-navy mb-1">Specialization</p>
-                                    <p className="text-xs text-polibatam-navy/80 leading-snug">{member.specialization}</p>
-                                </div>
-                            )}
                         </div>
+                    </div>
 
-                        {/* Bottom Section */}
-                        <div>
-                            {/* Mobile Back Button */}
-                            <Button
-                                onPress={handleButtonClick}
-                                className="lg:hidden w-full py-2 bg-polibatam-circle/60 hover:bg-polibatam-peach text-polibatam-navy rounded-lg text-xs font-bold transition-all duration-300"
-                                size="sm"
-                            >
-                                ← Back
-                            </Button>
-
-                            {/* Desktop hint */}
-                            <p className="hidden lg:block text-center text-xs text-polibatam-navy/40">
-                                Hover away to return
+                    {/* Content Section */}
+                    <div className="px-6 pb-6 flex-1 flex flex-col">
+                        {/* Name & Role */}
+                        <div className="mb-6 text-center md:text-left">
+                            <h3 className="text-xl font-bold text-polibatam-navy mb-1 leading-tight">
+                                {member.name}
+                            </h3>
+                            <p className="text-polibatam-orange font-medium text-sm">
+                                {member.role}
                             </p>
                         </div>
+
+                        {/* Details List */}
+                        <div className="space-y-4 flex-1">
+                            {/* Education */}
+                            {member.education && member.education.length > 0 && (
+                                <div className="flex gap-3 items-start">
+                                    <div className="w-8 h-8 rounded-lg bg-polibatam-peach/20 flex items-center justify-center shrink-0 mt-0.5">
+                                        <HiAcademicCap className="w-4 h-4 text-polibatam-orange" />
+                                    </div>
+                                    <div className="flex-1">
+                                        <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Education</p>
+
+                                        <div className="space-y-2">
+                                            {/* First Item - Always Visible */}
+                                            <p className="text-sm text-gray-700 leading-snug">
+                                                {member.education[0]}
+                                            </p>
+
+                                            {/* Expanded Items */}
+                                            {isEducationExpanded && member.education.slice(1).map((edu, idx) => (
+                                                <p key={idx} className="text-sm text-gray-700 leading-snug pt-2 border-t border-dashed border-gray-100 animate-appearance-in">
+                                                    {edu}
+                                                </p>
+                                            ))}
+                                        </div>
+
+                                        {/* Toggle Button */}
+                                        {member.education.length > 1 && (
+                                            <button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    setIsEducationExpanded(!isEducationExpanded);
+                                                }}
+                                                className="flex items-center gap-1 text-xs text-polibatam-orange mt-2 font-bold hover:text-polibatam-navy transition-colors focus:outline-none"
+                                            >
+                                                {isEducationExpanded ? (
+                                                    <>Show Less <FaChevronUp className="w-2.5 h-2.5" /></>
+                                                ) : (
+                                                    <>Read More <FaChevronDown className="w-2.5 h-2.5" /></>
+                                                )}
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Specialization */}
+                            {member.specialization && (
+                                <div className="flex gap-3 items-start">
+                                    <div className="w-8 h-8 rounded-lg bg-polibatam-light flex items-center justify-center shrink-0 mt-0.5">
+                                        <HiSparkles className="w-4 h-4 text-polibatam-navy" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Expertise</p>
+                                        <div className="flex flex-wrap gap-1">
+                                            {member.specialization.split(',').slice(0, 3).map((spec, i) => (
+                                                <span key={i} className="inline-block px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded-md">
+                                                    {spec.trim()}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Footer / Contact */}
+                        <div className="mt-6 pt-4 border-t border-gray-100 grid grid-cols-1 gap-2">
+                            {member.email && (
+                                <div className="flex items-center gap-2 text-sm text-gray-600 hover:text-polibatam-orange transition-colors group/link">
+                                    <HiMail className="w-4 h-4 text-gray-400 group-hover/link:text-polibatam-orange" />
+                                    <a href={`mailto:${member.email}`} className="truncate">
+                                        {member.email}
+                                    </a>
+                                </div>
+                            )}
+                            {member.nidn && (
+                                <div className="flex items-center gap-2 text-sm text-gray-600">
+                                    <HiIdentification className="w-4 h-4 text-gray-400" />
+                                    <span>NIDN: {member.nidn}</span>
+                                </div>
+                            )}
+                        </div>
                     </div>
-                </Card>
-            </div>
+                </CardBody>
+            </Card>
         </div>
     );
 }

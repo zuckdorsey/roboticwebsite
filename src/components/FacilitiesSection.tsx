@@ -31,10 +31,13 @@ export default function FacilitiesSection({ facilities }: FacilitiesSectionProps
           </p>
         </div>
 
-        {/* Gallery Grid */}
-        <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+        {/* Gallery Grid / Carousel */}
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-8 -mx-4 px-4 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:pb-0 md:mx-auto md:px-0 scrollbar-hide">
           {facilities.map((facility, index) => (
-            <Card key={index} className="w-full h-[400px] group cursor-pointer overflow-hidden border-none shadow-xl">
+            <Card
+              key={index}
+              className="min-w-[85vw] md:min-w-0 snap-center w-full h-[320px] md:h-[400px] group cursor-pointer overflow-hidden border-none shadow-xl shrink-0"
+            >
               {/* Image Background */}
               <div className="absolute inset-0 w-full h-full">
                 {facility.image ? (
@@ -43,7 +46,7 @@ export default function FacilitiesSection({ facilities }: FacilitiesSectionProps
                     alt={facility.name}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    sizes="(max-width: 768px) 85vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 ) : (
                   <div className="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -55,8 +58,8 @@ export default function FacilitiesSection({ facilities }: FacilitiesSectionProps
               </div>
 
               {/* Content Overlay */}
-              <CardFooter className="absolute bottom-0 z-10 flex-col items-start p-8 w-full">
-                <h4 className="text-2xl font-bold text-white mb-3 transform transition-transform duration-300 group-hover:-translate-y-2">
+              <CardFooter className="absolute bottom-0 z-10 flex-col items-start p-6 md:p-8 w-full">
+                <h4 className="text-xl md:text-2xl font-bold text-white mb-2 md:mb-3 transform transition-transform duration-300 group-hover:-translate-y-2">
                   {facility.name}
                 </h4>
                 <p className="text-gray-200 text-sm leading-relaxed line-clamp-2 group-hover:line-clamp-none transition-all duration-300 opacity-90 group-hover:opacity-100">
