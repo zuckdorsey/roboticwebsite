@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Twitter, Instagram, Linkedin, Github, ChevronDown } from 'lucide-react';
-import { Link } from '@heroui/react';
+import { Twitter, Instagram, Linkedin, Github, ChevronDown, Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
+import { Link, Input, Button } from '@heroui/react';
 
 interface FooterSectionProps {
   title: string;
@@ -153,10 +153,60 @@ export default function Footer() {
               </div>
 
               {/* Navigation Columns - Accordion on Mobile */}
-              <div className="w-full lg:w-auto grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-8 lg:gap-12">
+              <div className="w-full lg:w-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
                 <FooterSection title="Program" links={navigation.program} />
                 <FooterSection title="Community" links={navigation.community} />
                 <FooterSection title="Support" links={navigation.support} />
+
+                {/* Contact Info Column */}
+                <div className="space-y-4">
+                  <h3 className="text-sm font-semibold text-polibatam-navy uppercase tracking-wider mb-4 hidden md:block">
+                    Contact Us
+                  </h3>
+                  <ul className="space-y-4">
+                    <li className="flex items-start gap-3 text-gray-600 text-sm">
+                      <MapPin className="w-5 h-5 text-polibatam-orange shrink-0 mt-0.5" />
+                      <span>Jl. Ahmad Yani Batam Kota, Kota Batam, Kepulauan Riau, Indonesia</span>
+                    </li>
+                    <li className="flex items-center gap-3 text-gray-600 text-sm">
+                      <Phone className="w-5 h-5 text-polibatam-orange shrink-0" />
+                      <span>+62 778 469858</span>
+                    </li>
+                    <li className="flex items-center gap-3 text-gray-600 text-sm">
+                      <Mail className="w-5 h-5 text-polibatam-orange shrink-0" />
+                      <span>info@polibatam.ac.id</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Newsletter Section */}
+            <div className="mt-12 p-6 md:p-8 bg-polibatam-navy/5 rounded-2xl border border-polibatam-navy/10">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="text-center md:text-left">
+                  <h3 className="text-lg font-bold text-polibatam-navy mb-2">Subscribe to our Newsletter</h3>
+                  <p className="text-gray-600 text-sm">Get the latest updates on robotics, events, and student achievements.</p>
+                </div>
+                <div className="w-full md:w-auto flex-1 max-w-md">
+                  <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
+                    <Input
+                      type="email"
+                      placeholder="Enter your email"
+                      classNames={{
+                        inputWrapper: "bg-white border border-gray-200 shadow-sm hover:border-polibatam-orange focus-within:border-polibatam-orange transition-colors",
+                      }}
+                      className="flex-1"
+                    />
+                    <Button
+                      isIconOnly
+                      className="bg-polibatam-orange text-white shadow-lg shadow-polibatam-orange/20"
+                      aria-label="Subscribe"
+                    >
+                      <ArrowRight className="w-4 h-4" />
+                    </Button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
