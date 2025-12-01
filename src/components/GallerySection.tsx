@@ -55,7 +55,7 @@ export default function GallerySection({ items }: GallerySectionProps) {
                                     alt={item.title}
                                     fill
                                     className="object-cover"
-                                    sizes="(max-width: 768px) 85vw"
+                                    sizes="(max-width: 768px) 90vw, (max-width: 1200px) 50vw, 33vw"
                                 />
                                 {/* Gradient Overlay */}
                                 <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent opacity-60" />
