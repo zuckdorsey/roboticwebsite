@@ -5,6 +5,7 @@ import { FacultyMember } from "@/types";
 import { Button } from '@heroui/react';
 import FacultyCard from './FacultyCard';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 interface FacultyMembersSectionProps {
   members: FacultyMember[];
@@ -64,7 +65,15 @@ export default function FacultyMembersSection({ members }: FacultyMembersSection
           {/* Faculty Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {visibleMembers.map((member, index) => (
-              <FacultyCard key={index} member={member} index={index} />
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <FacultyCard member={member} index={index} />
+              </motion.div>
             ))}
           </div>
 

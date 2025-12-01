@@ -1,6 +1,7 @@
 'use client';
 
 import { HeroIllustration } from './HeroIllustration';
+import { motion } from 'framer-motion';
 
 interface HeroSectionProps {
   title: string;
@@ -27,19 +28,43 @@ export default function HeroSection({ title, subtitle }: HeroSectionProps) {
           <div className="md:col-span-7 lg:col-span-6 flex flex-col justify-center md:justify-end w-full text-center md:text-left pt-8 md:pt-0">
             <div className="space-y-8 sm:space-y-10 md:space-y-12">
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] tracking-tight">
-                <span className="text-polibatam-navy block mb-3 sm:mb-4">LEARN</span>
-                <span className="bg-linear-to-r from-polibatam-orange via-[#FF8F4C] to-polibatam-peach bg-clip-text text-transparent block mb-3 sm:mb-4">
+                <motion.span
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className="text-polibatam-navy block mb-3 sm:mb-4"
+                >
+                  LEARN
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="bg-linear-to-r from-polibatam-orange via-[#FF8F4C] to-polibatam-peach bg-clip-text text-transparent block mb-3 sm:mb-4"
+                >
                   ROBOTICS TECHNOLOGY
-                </span>
-                <span className="text-polibatam-navy block">IN POLIBATAM</span>
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="text-polibatam-navy block"
+                >
+                  IN POLIBATAM
+                </motion.span>
               </h1>
 
               {/* Accreditation buttons removed - restored original clean layout */}
 
               {subtitle && (
-                <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto md:mx-0 font-medium">
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                  className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto md:mx-0 font-medium"
+                >
                   {subtitle}
-                </p>
+                </motion.p>
               )}
             </div>
           </div>
@@ -47,14 +72,19 @@ export default function HeroSection({ title, subtitle }: HeroSectionProps) {
           {/* Right Illustration - large and prominent on mobile */}
           <div className="md:col-span-5 lg:col-span-6 flex items-center md:items-end justify-center w-full mt-8 md:mt-0">
             {/* Illustration wrapper - keeps outline fully inside viewport and scales responsively */}
-            <div className="relative w-full max-w-[85vw] sm:max-w-md md:max-w-full lg:max-w-2xl p-4 sm:p-6 mx-auto overflow-visible">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="relative w-full max-w-[85vw] sm:max-w-md md:max-w-full lg:max-w-2xl p-4 sm:p-6 mx-auto overflow-visible"
+            >
               {/* Outline scales down on small screens and returns to full scale on md+; origin-center keeps it contained */}
               <div className="absolute inset-0 rounded-[2rem] sm:rounded-[2.5rem] border-2 sm:border-4 border-polibatam-orange/20 shadow-2xl shadow-polibatam-orange/10 pointer-events-none transform origin-center scale-95 sm:scale-100" />
 
               <div className="relative z-10 w-full h-auto overflow-hidden rounded-2xl sm:rounded-3xl transform hover:scale-[1.02] transition-transform duration-500">
                 <HeroIllustration className="w-full h-auto object-contain block drop-shadow-xl" />
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
