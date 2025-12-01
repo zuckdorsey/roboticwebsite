@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { HiTable, HiRefresh, HiExclamationCircle, HiSearch } from 'react-icons/hi';
 
 interface StudentData {
@@ -22,22 +22,22 @@ const COLUMN_MAPPING: { [key: string]: string } = {
   'STUDENT ID': 'NIM',
   'STUDENT NAME': 'Nama Lengkap',
   'ENROLLMENT DATE': 'Tanggal Masuk',
-  'ENROLMENT DATE': 'Tanggal Masuk', 
-    'GENDER': 'Jenis Kelamin',
-    'TINGKAT': 'KELAS',
+  'ENROLMENT DATE': 'Tanggal Masuk',
+  'GENDER': 'Jenis Kelamin',
+  'TINGKAT': 'KELAS',
   'PARAREL': 'KELAS'
 };
 
 
 const HIDDEN_COLUMNS = [
-  'TIMESTAMP', 
-    'EMAIL ADDRESS',
-    'NKELAS',
-    'TMPLAHIR',
-    'TGLLAHIR',
-    'DOSEN_WALI',
-    'TINGKAT'
-  
+  'TIMESTAMP',
+  'EMAIL ADDRESS',
+  'NKELAS',
+  'TMPLAHIR',
+  'TGLLAHIR',
+  'DOSEN_WALI',
+  'TINGKAT'
+
 ];
 
 const YEARS = Object.keys(YEAR_GIDS).sort((a, b) => Number(b) - Number(a));
@@ -52,39 +52,39 @@ export default function StudentSpreadsheetTable() {
 
   const BASE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS6HWd6n9Ay5vBNwHl8XEfAX8GLdGsQgCIqVLqPcp4CIF9LcAGpW7PpLW_YvHRnBAdsgizpqjzhW7JH/pub';
 
-  
-  const filteredData = data.filter(student => 
-    Object.values(student).some(value => 
+
+  const filteredData = data.filter(student =>
+    Object.values(student).some(value =>
       value.toLowerCase().includes(searchQuery.toLowerCase())
     )
   );
 
-  
+
   const parseCSV = (text: string) => {
     const lines = text.split('\n');
     if (lines.length === 0) return { headers: [], data: [] };
 
-    
-    const headers = lines[0].split(',').map(header => 
+
+    const headers = lines[0].split(',').map(header =>
       header.trim().replace(/^"|"$/g, '').replace(/""/g, '"')
     );
 
     const result = [];
 
-    
+
     for (let i = 1; i < lines.length; i++) {
       const line = lines[i].trim();
       if (!line) continue;
 
-      
-      const matches = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
-      
-      
-      
+
+
+
+
+
       const values: string[] = [];
       let currentVal = '';
       let inQuotes = false;
-      
+
       for (let j = 0; j < line.length; j++) {
         const char = line[j];
         if (char === '"') {
@@ -98,8 +98,8 @@ export default function StudentSpreadsheetTable() {
       }
       values.push(currentVal.trim().replace(/^"|"$/g, '').replace(/""/g, '"'));
 
-      
-      
+
+
       if (values.length >= headers.length) {
         const obj: StudentData = {};
         headers.forEach((header, index) => {
@@ -112,25 +112,25 @@ export default function StudentSpreadsheetTable() {
     return { headers, data: result };
   };
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
       const gid = YEAR_GIDS[selectedYear];
       const url = `${BASE_URL}?gid=${gid}&single=true&output=csv`;
-      
+
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
       const text = await response.text();
       const { headers: rawHeaders, data } = parseCSV(text);
-      
-      
-      const displayHeaders = rawHeaders.filter(header => 
+
+
+      const displayHeaders = rawHeaders.filter(header =>
         !HIDDEN_COLUMNS.includes(header.toUpperCase())
       );
-      
+
       setHeaders(displayHeaders);
       setData(data);
     } catch (err) {
@@ -138,7 +138,7 @@ export default function StudentSpreadsheetTable() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedYear]);
 
   useEffect(() => {
     fetchData();
@@ -152,11 +152,10 @@ export default function StudentSpreadsheetTable() {
           <button
             key={year}
             onClick={() => setSelectedYear(year)}
-            className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-              selectedYear === year
-                ? 'bg-polibatam-orange text-white shadow-lg shadow-polibatam-orange/20'
-                : 'bg-[#111827] text-gray-400 border border-gray-800 hover:border-polibatam-orange/50 hover:text-white'
-            }`}
+            className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${selectedYear === year
+              ? 'bg-polibatam-orange text-white shadow-lg shadow-polibatam-orange/20'
+              : 'bg-[#111827] text-gray-400 border border-gray-800 hover:border-polibatam-orange/50 hover:text-white'
+              }`}
           >
             {year}
           </button>
@@ -172,7 +171,7 @@ export default function StudentSpreadsheetTable() {
         <div className="w-full p-8 flex flex-col items-center justify-center bg-[#111827] rounded-xl border border-red-900/50 min-h-[200px]">
           <HiExclamationCircle className="w-10 h-10 text-red-500 mb-3" />
           <p className="text-red-400 mb-4 text-center">Failed to load data: {error}</p>
-          <button 
+          <button
             onClick={fetchData}
             className="px-4 py-2 bg-red-900/30 hover:bg-red-900/50 text-red-300 rounded-lg transition-colors flex items-center gap-2"
           >
@@ -196,7 +195,7 @@ export default function StudentSpreadsheetTable() {
             <div className="flex items-center gap-3 w-full md:w-auto">
               <div className="relative w-full md:w-64">
                 <HiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4" />
-                <input 
+                <input
                   type="text"
                   placeholder="Search students..."
                   value={searchQuery}
@@ -204,7 +203,7 @@ export default function StudentSpreadsheetTable() {
                   className="w-full pl-9 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-polibatam-orange focus:ring-1 focus:ring-polibatam-orange transition-all"
                 />
               </div>
-              <button 
+              <button
                 onClick={fetchData}
                 className="p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-all"
                 title="Refresh Data"
@@ -220,7 +219,7 @@ export default function StudentSpreadsheetTable() {
               <thead>
                 <tr className="bg-gray-900/80 border-b border-gray-800">
                   {headers.map((header, index) => (
-                    <th 
+                    <th
                       key={index}
                       className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap sticky top-0 bg-gray-900/95 backdrop-blur-sm z-10"
                     >
@@ -231,12 +230,12 @@ export default function StudentSpreadsheetTable() {
               </thead>
               <tbody className="divide-y divide-gray-800">
                 {filteredData.map((row, rowIndex) => (
-                  <tr 
-                    key={rowIndex} 
+                  <tr
+                    key={rowIndex}
                     className="group hover:bg-gray-800/50 transition-colors duration-200"
                   >
                     {headers.map((header, colIndex) => (
-                      <td 
+                      <td
                         key={`${rowIndex}-${colIndex}`}
                         className="px-6 py-4 text-sm text-gray-300 whitespace-nowrap group-hover:text-white transition-colors"
                       >

@@ -1,16 +1,18 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
-import CurriculumSection from "@/components/CurriculumSection";
-import GallerySection, { GalleryItem } from "@/components/GallerySection";
-import FacultyMembersSection from "@/components/FacultyMembersSection";
-import StudentsSection from "@/components/StudentsSection";
-import AlumniSection from "@/components/AlumniSection";
-import BlogCarousel from "@/components/BlogCarousel";
-import JobOpportunitiesSection from "@/components/JobOpportunitiesSection";
 import Footer from "@/components/Footer";
 import { facultyMembers } from "@/data/faculty-data";
 import { galleryItems } from "@/data/gallery-data";
+import dynamic from 'next/dynamic';
+
+const CurriculumSection = dynamic(() => import("@/components/CurriculumSection"));
+const GallerySection = dynamic(() => import("@/components/GallerySection"));
+const FacultyMembersSection = dynamic(() => import("@/components/FacultyMembersSection"));
+const StudentsSection = dynamic(() => import("@/components/StudentsSection"));
+const AlumniSection = dynamic(() => import("@/components/AlumniSection"));
+const BlogCarousel = dynamic(() => import("@/components/BlogCarousel"));
+const JobOpportunitiesSection = dynamic(() => import("@/components/JobOpportunitiesSection"));
 
 export default function Home() {
   // Data untuk Curriculum

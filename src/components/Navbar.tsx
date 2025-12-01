@@ -13,20 +13,20 @@ import {
 } from '@heroui/react';
 import Image from 'next/image';
 
+const menuItems = [
+  { label: 'HOME', href: '/#home', id: 'home' },
+  { label: 'ABOUT', href: '/#about', id: 'about' },
+  { label: 'CURRICULUM', href: '/#curriculum', id: 'curriculum' },
+  { label: 'FACILITIES', href: '/#facilities', id: 'facilities' },
+  { label: 'STUDENTS', href: '/students', id: 'students' },
+  { label: 'FACULTY MEMBERS', href: '/#faculty', id: 'faculty' },
+  { label: 'ALUMNI', href: '/#alumni', id: 'alumni' },
+];
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-
-  const menuItems = [
-    { label: 'HOME', href: '/#home', id: 'home' },
-    { label: 'ABOUT', href: '/#about', id: 'about' },
-    { label: 'CURRICULUM', href: '/#curriculum', id: 'curriculum' },
-    { label: 'FACILITIES', href: '/#facilities', id: 'facilities' },
-    { label: 'STUDENTS', href: '/students', id: 'students' },
-    { label: 'FACULTY MEMBERS', href: '/#faculty', id: 'faculty' },
-    { label: 'ALUMNI', href: '/#alumni', id: 'alumni' },
-  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -104,6 +104,7 @@ export default function Navbar() {
                 fill
                 className="object-contain"
                 priority
+                sizes="(max-width: 768px) 112px, 144px"
               />
             </div>
           </Link>
@@ -129,6 +130,7 @@ export default function Navbar() {
                 fill
                 className="object-contain"
                 priority
+                sizes="144px"
               />
             </div>
           </Link>
