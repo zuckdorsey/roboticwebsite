@@ -3,9 +3,12 @@ import ScrollAnimation from "@/components/ScrollAnimation";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import Footer from "@/components/Footer";
-import { facultyMembers } from "@/data/faculty-data";
 import { galleryItems } from "@/data/gallery-data";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
+import { getCurriculumCourses, groupCoursesBySemester } from "@/lib/curriculum";
+import { getFacultyMembers } from "@/lib/faculty";
+import { getAlumniStories } from "@/lib/alumni";
+
 
 const CurriculumSection = dynamic(() => import("@/components/CurriculumSection"));
 const GallerySection = dynamic(() => import("@/components/GallerySection"));
@@ -15,40 +18,14 @@ const AlumniSection = dynamic(() => import("@/components/AlumniSection"));
 const BlogCarousel = dynamic(() => import("@/components/BlogCarousel"));
 const JobOpportunitiesSection = dynamic(() => import("@/components/JobOpportunitiesSection"));
 
-export default function Home() {
-  // Data untuk Curriculum
-  const courses = [
-    {
-      title: "Introduction to Robotics",
-      description: "Learn the fundamentals of robotics, including mechanical design, sensors, and actuators.",
-      duration: "Semester 1-2"
-    },
-    {
-      title: "Programming for Robotics",
-      description: "Master programming languages like Python, C++, and ROS for robot control.",
-      duration: "Semester 2-3"
-    },
-    {
-      title: "Artificial Intelligence",
-      description: "Explore AI and machine learning techniques for intelligent robot systems.",
-      duration: "Semester 4-5"
-    },
-    {
-      title: "Computer Vision",
-      description: "Learn image processing and computer vision for robot perception.",
-      duration: "Semester 5-6"
-    },
-    {
-      title: "Robot Manipulation",
-      description: "Study kinematics, dynamics, and control of robotic manipulators.",
-      duration: "Semester 6-7"
-    },
-    {
-      title: "Autonomous Systems",
-      description: "Design and implement autonomous navigation and decision-making systems.",
-      duration: "Semester 7-8"
-    }
-  ];
+export default async function Home() {
+  const [facultyMembers, alumniStories, curriculumCourses] = await Promise.all([
+    getFacultyMembers(),
+    getAlumniStories(),
+    getCurriculumCourses(),
+  ]);
+
+  const curriculumSemesters = groupCoursesBySemester(curriculumCourses);
 
   return (
     <div className="min-h-screen bg-polibatam-light">
@@ -70,7 +47,22 @@ export default function Home() {
       </ScrollAnimation>
 
       <ScrollAnimation animation="fade-up" delay={0.4}>
-        <CurriculumSection />
+        <CurriculumSection
+          title="Curriculum Structure"
+          subtitle="Comprehensive 8-Semester Program"
+          description="Our curriculum is designed to provide a solid foundation in robotics engineering technology, combining theoretical knowledge with practical skills."
+          semesters={curriculumSemesters.map((semester) => ({
+            semester: semester.semester,
+            courses: semester.courses.map((course) => ({
+              id: course.id,
+              code: course.code,
+              name: course.name,
+              credits: course.credits,
+              description: course.description,
+              type: course.type === "elective" ? "elective" : "mandatory",
+            })),
+          }))}
+        />
       </ScrollAnimation>
 
       <ScrollAnimation animation="scale-up" delay={0.2}>
@@ -82,7 +74,11 @@ export default function Home() {
       </ScrollAnimation>
 
       <ScrollAnimation animation="fade-up" delay={0.2}>
-        <AlumniSection />
+        <AlumniSection
+          title="Lorem Ipsum Dolor"
+          description="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+          stories={alumniStories}
+        />
       </ScrollAnimation>
 
       <ScrollAnimation animation="fade-in" delay={0.3}>

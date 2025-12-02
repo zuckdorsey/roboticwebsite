@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, ArrowRight, Calendar, Clock } from 'lucide-react';
 import Link from 'next/link';
 
@@ -115,33 +115,44 @@ export default function BlogCarousel() {
     };
   }, []);
 
+  const changeSlide = useCallback(
+    (newIndex: number) => {
+      if (isAnimating) return;
+      setIsAnimating(true);
+      setCurrentIndex(newIndex);
+      window.setTimeout(() => setIsAnimating(false), 500);
+    },
+    [isAnimating]
+  );
+
+  const handlePrev = useCallback(() => {
+    if (posts.length === 0) {
+      return;
+    }
+    setIsAutoPlaying(false);
+    changeSlide((currentIndex - 1 + posts.length) % posts.length);
+  }, [changeSlide, currentIndex, posts.length]);
+
+  const handleNext = useCallback(() => {
+    if (posts.length === 0) {
+      return;
+    }
+    setIsAutoPlaying(false);
+    changeSlide((currentIndex + 1) % posts.length);
+  }, [changeSlide, currentIndex, posts.length]);
+
   // Auto-slide every 6 seconds
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (!isAutoPlaying || posts.length < 2) {
+      return;
+    }
 
-    const interval = setInterval(() => {
+    const interval = window.setInterval(() => {
       handleNext();
     }, 6000);
 
-    return () => clearInterval(interval);
-  }, [isAutoPlaying, posts.length]);
-
-  const changeSlide = (newIndex: number) => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setCurrentIndex(newIndex);
-    setTimeout(() => setIsAnimating(false), 500); // Match transition duration
-  };
-
-  const handlePrev = () => {
-    setIsAutoPlaying(false);
-    changeSlide((currentIndex - 1 + posts.length) % posts.length);
-  };
-
-  const handleNext = () => {
-    setIsAutoPlaying(false);
-    changeSlide((currentIndex + 1) % posts.length);
-  };
+    return () => window.clearInterval(interval);
+  }, [handleNext, isAutoPlaying, posts.length]);
 
   const currentPost = posts[currentIndex];
   // Fix for local images

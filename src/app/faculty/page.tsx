@@ -1,14 +1,15 @@
-'use client';
+import FacultyCard from "@/components/FacultyCard";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { Button } from "@heroui/react";
+import Link from "next/link";
+import { HiUserGroup } from "react-icons/hi";
+import { getFacultyMembers } from "@/lib/faculty";
 
-import { facultyMembers } from '@/data/faculty-data';
-import FacultyCard from '@/components/FacultyCard';
-import { HiUserGroup } from 'react-icons/hi';
-import { Button } from '@heroui/react';
-import Link from 'next/link';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 
-export default function FacultyPage() {
+export default async function FacultyPage() {
+    const facultyMembers = await getFacultyMembers();
+
     return (
         <div className="min-h-screen bg-polibatam-light">
             <Navbar />
@@ -44,7 +45,7 @@ export default function FacultyPage() {
                     {/* Faculty Grid */}
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
                         {facultyMembers.map((member, index) => (
-                            <FacultyCard key={index} member={member} index={index} />
+                            <FacultyCard key={member.id ?? index} member={member} index={index} />
                         ))}
                     </div>
                 </div>

@@ -1,14 +1,16 @@
-'use client';;
-import { useState, useEffect } from 'react';
+
+'use client';
+
+import { useEffect, useState } from 'react';
 import { HiUserGroup } from 'react-icons/hi';
-import { FacultyMember } from "@/types";
+import type { FacultyMemberDTO } from "@/lib/faculty";
 import { Button } from '@heroui/react';
 import FacultyCard from './FacultyCard';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 interface FacultyMembersSectionProps {
-  members: FacultyMember[];
+  members: FacultyMemberDTO[];
 }
 
 
@@ -66,7 +68,7 @@ export default function FacultyMembersSection({ members }: FacultyMembersSection
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {visibleMembers.map((member, index) => (
               <motion.div
-                key={index}
+                key={member.id ?? index}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

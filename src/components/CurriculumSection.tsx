@@ -1,12 +1,32 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useRef, useState, useMemo } from 'react';
 import { Card, CardBody, Chip, Button } from '@heroui/react';
 import { HiAcademicCap, HiBookOpen, HiChevronDown, HiChevronUp, HiCheckCircle, HiChevronLeft, HiChevronRight } from 'react-icons/hi';
-import { curriculumContent, Course } from '@/data/curriculum-content';
+
+type SectionCourse = {
+  id: string;
+  code: string;
+  name: string;
+  credits: number;
+  description: string;
+  type: 'mandatory' | 'elective';
+};
+
+type SectionSemester = {
+  semester: number;
+  courses: SectionCourse[];
+};
+
+interface CurriculumSectionProps {
+  title: string;
+  subtitle: string;
+  description: string;
+  semesters: SectionSemester[];
+}
 
 interface CourseCardProps {
-  course: Course;
+  course: SectionCourse;
 }
 
 function CourseCard({ course }: CourseCardProps) {
@@ -101,14 +121,22 @@ function CourseCard({ course }: CourseCardProps) {
   );
 }
 
-export default function CurriculumSection() {
+export default function CurriculumSection({ title, subtitle, description, semesters }: CurriculumSectionProps) {
   const [activeSemester, setActiveSemester] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  
-  const currentSemester = curriculumContent.semesters[activeSemester];
-  const totalCredits = currentSemester.courses.reduce((sum, course) => sum + course.credits, 0);
-  const mandatoryCourses = currentSemester.courses.filter(c => c.type === 'mandatory').length;
-  const electiveCourses = currentSemester.courses.filter(c => c.type === 'elective').length;
+
+  const safeActiveSemester = useMemo(() => {
+    if (semesters.length === 0) {
+      return 0;
+    }
+    return Math.min(activeSemester, semesters.length - 1);
+  }, [activeSemester, semesters.length]);
+
+  const currentSemester = semesters[safeActiveSemester];
+  const courses = currentSemester?.courses ?? [];
+  const totalCredits = courses.reduce((sum, course) => sum + course.credits, 0);
+  const mandatoryCourses = courses.filter((course) => course.type === 'mandatory').length;
+  const electiveCourses = courses.filter((course) => course.type === 'elective').length;
   
   // Scroll functions for mobile tabs
   const scrollLeft = () => {
@@ -140,11 +168,11 @@ export default function CurriculumSection() {
           </div>
           
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-2 sm:mb-3 md:mb-4 bg-linear-to-r from-polibatam-navy to-polibatam-orange bg-clip-text text-transparent">
-            {curriculumContent.title}
+            {title}
           </h2>
           
           <p className="text-base sm:text-lg md:text-xl text-polibatam-orange font-semibold mb-2 sm:mb-3 md:mb-4">
-            {curriculumContent.subtitle}
+            {subtitle}
           </p>
           
           <div className="flex items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-6">
@@ -154,7 +182,7 @@ export default function CurriculumSection() {
           </div>
           
           <p className="text-sm sm:text-base md:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
-            {curriculumContent.description}
+            {description}
           </p>
         </div>
         
@@ -175,13 +203,13 @@ export default function CurriculumSection() {
             ref={scrollContainerRef}
             className="flex gap-2 sm:gap-3 md:gap-4 overflow-x-auto scrollbar-hide scroll-smooth md:flex-wrap md:justify-center px-4 sm:px-8 md:px-0"
           >
-            {curriculumContent.semesters.map((sem, index) => (
+            {semesters.map((sem: SectionSemester, index: number) => (
               <Button
                 key={sem.semester}
                 onPress={() => setActiveSemester(index)}
                 className={`
                   shrink-0 px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm md:text-base transition-all duration-300
-                  ${activeSemester === index
+                  ${safeActiveSemester === index
                     ? 'bg-linear-to-r from-polibatam-orange to-polibatam-peach text-white shadow-lg scale-105'
                     : 'bg-white/60 backdrop-blur-xl text-gray-700 border-2 border-polibatam-peach/30 hover:border-polibatam-orange/50'
                   }
@@ -204,65 +232,75 @@ export default function CurriculumSection() {
         </div>
         
         {/* Semester Info */}
-        <Card className="mb-6 sm:mb-8 bg-white/60 backdrop-blur-xl border-2 border-polibatam-orange/30 shadow-xl">
-          <CardBody className="p-4 sm:p-6">
-            <div className="flex flex-wrap items-center justify-between gap-4 sm:gap-6">
-              <div>
-                <h3 className="text-lg sm:text-xl md:text-2xl font-black bg-linear-to-r from-polibatam-navy to-polibatam-orange bg-clip-text text-transparent mb-1 sm:mb-2">
-                  Semester {currentSemester.semester}
-                </h3>
-                <p className="text-gray-600 text-xs sm:text-sm md:text-base">
-                  Academic semester {currentSemester.semester} of 8
-                </p>
-              </div>
-              
-              <div className="flex flex-wrap gap-6">
-                {/* Total Credits */}
-                <div className="text-center">
-                  <div className="text-xl sm:text-2xl md:text-3xl font-black bg-linear-to-r from-polibatam-orange to-polibatam-peach bg-clip-text text-transparent">
-                    {totalCredits}
-                  </div>
-                  <div className="text-xs md:text-sm text-gray-600 font-semibold">Total Credits</div>
+  {currentSemester ? (
+          <Card className="mb-6 sm:mb-8 bg-white/60 backdrop-blur-xl border-2 border-polibatam-orange/30 shadow-xl">
+            <CardBody className="p-4 sm:p-6">
+              <div className="flex flex-wrap items-center justify-between gap-4 sm:gap-6">
+                <div>
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-black bg-linear-to-r from-polibatam-navy to-polibatam-orange bg-clip-text text-transparent mb-1 sm:mb-2">
+                    Semester {currentSemester.semester}
+                  </h3>
+                  <p className="text-gray-600 text-xs sm:text-sm md:text-base">
+                    Academic semester {currentSemester.semester} of 8
+                  </p>
                 </div>
                 
-                {/* Mandatory Courses */}
-                <div className="text-center">
-                  <div className="text-xl sm:text-2xl md:text-3xl font-black text-polibatam-orange">
-                    {mandatoryCourses}
-                  </div>
-                  <div className="text-xs md:text-sm text-gray-600 font-semibold">Mandatory</div>
-                </div>
-                
-                {/* Elective Courses */}
-                {electiveCourses > 0 && (
+                <div className="flex flex-wrap gap-6">
+                  {/* Total Credits */}
                   <div className="text-center">
-                    <div className="text-xl sm:text-2xl md:text-3xl font-black text-polibatam-peach">
-                      {electiveCourses}
+                    <div className="text-xl sm:text-2xl md:text-3xl font-black bg-linear-to-r from-polibatam-orange to-polibatam-peach bg-clip-text text-transparent">
+                      {totalCredits}
                     </div>
-                    <div className="text-xs md:text-sm text-gray-600 font-semibold">Elective</div>
+                    <div className="text-xs md:text-sm text-gray-600 font-semibold">Total Credits</div>
                   </div>
-                )}
+                  
+                  {/* Mandatory Courses */}
+                  <div className="text-center">
+                    <div className="text-xl sm:text-2xl md:text-3xl font-black text-polibatam-orange">
+                      {mandatoryCourses}
+                    </div>
+                    <div className="text-xs md:text-sm text-gray-600 font-semibold">Mandatory</div>
+                  </div>
+                  
+                  {/* Elective Courses */}
+                  {electiveCourses > 0 && (
+                    <div className="text-center">
+                      <div className="text-xl sm:text-2xl md:text-3xl font-black text-polibatam-peach">
+                        {electiveCourses}
+                      </div>
+                      <div className="text-xs md:text-sm text-gray-600 font-semibold">Elective</div>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          </CardBody>
-        </Card>
+            </CardBody>
+          </Card>
+        ) : (
+          <Card className="mb-6 sm:mb-8 bg-white/60 backdrop-blur-xl border-2 border-dashed border-polibatam-orange/30 shadow-xl">
+            <CardBody className="p-4 sm:p-6 text-center text-gray-600">
+              Curriculum courses will appear here once you add them in the admin dashboard.
+            </CardBody>
+          </Card>
+        )}
         
         {/* Courses Grid */}
-  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
-          {currentSemester.courses.map((course, index) => (
-            <CourseCard key={course.code} course={course} />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+          {courses.map((course) => (
+            <CourseCard key={course.id ?? course.code} course={course} />
           ))}
         </div>
         
         {/* Bottom Note */}
-  <div className="mt-8 sm:mt-10 md:mt-12 text-center">
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-polibatam-light/50 rounded-full border border-polibatam-orange/20">
-            <HiCheckCircle className="w-5 h-5 text-polibatam-orange" />
-            <span className="text-sm md:text-base text-gray-700">
-              <span className="font-bold text-polibatam-orange">{currentSemester.courses.length}</span> courses in Semester {currentSemester.semester}
-            </span>
+        {currentSemester && (
+          <div className="mt-8 sm:mt-10 md:mt-12 text-center">
+            <div className="inline-flex items-center gap-2 px-6 py-3 bg-polibatam-light/50 rounded-full border border-polibatam-orange/20">
+              <HiCheckCircle className="w-5 h-5 text-polibatam-orange" />
+              <span className="text-sm md:text-base text-gray-700">
+                <span className="font-bold text-polibatam-orange">{courses.length}</span> courses in Semester {currentSemester.semester}
+              </span>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

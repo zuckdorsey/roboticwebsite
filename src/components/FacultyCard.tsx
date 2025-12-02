@@ -4,11 +4,11 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { HiUserGroup, HiMail, HiAcademicCap, HiSparkles, HiIdentification } from 'react-icons/hi';
 import { FaTwitter, FaInstagram, FaLinkedin, FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import { FacultyMember } from "@/types";
+import type { FacultyMemberDTO } from "@/lib/faculty";
 import { Card, CardBody, Link, Chip } from '@heroui/react';
 
 interface FacultyCardProps {
-    member: FacultyMember;
+    member: FacultyMemberDTO;
     index: number;
 }
 
@@ -101,7 +101,7 @@ export default function FacultyCard({ member, index }: FacultyCardProps) {
                                             </p>
 
                                             {/* Expanded Items */}
-                                            {isEducationExpanded && member.education.slice(1).map((edu, idx) => (
+                                            {isEducationExpanded && member.education.slice(1).map((edu: string, idx: number) => (
                                                 <p key={idx} className="text-sm text-gray-700 leading-snug pt-2 border-t border-dashed border-gray-100 animate-appearance-in">
                                                     {edu}
                                                 </p>
@@ -137,7 +137,7 @@ export default function FacultyCard({ member, index }: FacultyCardProps) {
                                     <div>
                                         <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Expertise</p>
                                         <div className="flex flex-wrap gap-1">
-                                            {member.specialization.split(',').slice(0, 3).map((spec, i) => (
+                                            {member.specialization.split(',').slice(0, 3).map((spec: string, i: number) => (
                                                 <span key={i} className="inline-block px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded-md">
                                                     {spec.trim()}
                                                 </span>

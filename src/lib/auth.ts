@@ -48,17 +48,14 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }: { token: JWT; user?: any }): Promise<JWT> {
+    async jwt({ token, user }): Promise<JWT> {
       if (user && typeof user === "object") {
-        const id = "id" in user ? (user.id as string | undefined) : undefined;
-        const email = "email" in user ? (user.email as string | undefined) : undefined;
-
-        if (id) {
-          token.id = id;
+        if ("id" in user && typeof user.id === "string") {
+          token.id = user.id;
         }
 
-        if (email) {
-          token.email = email;
+        if ("email" in user && typeof user.email === "string") {
+          token.email = user.email;
         }
       }
       return token;

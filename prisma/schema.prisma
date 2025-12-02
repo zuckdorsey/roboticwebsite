@@ -42,3 +42,55 @@ model AdminUser {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model FacultyMember {
+  id             String   @id @default(uuid())
+  name           String
+  role           String
+  title          String?
+  position       String?
+  nidn           String?
+  email          String?
+  expertise      String?
+  education      String[] @default([])
+  specialization String?
+  photo          String?
+  social         Json?
+  displayOrder   Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([displayOrder, name])
+}
+
+model AlumniStory {
+  id             String   @id @default(uuid())
+  name           String
+  role           String
+  company        String?
+  image          String?
+  quote          String
+  rating         Int      @default(5)
+  tags           String[] @default([])
+  graduationYear String
+  displayOrder   Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([displayOrder, graduationYear])
+}
+
+model CurriculumCourse {
+  id           String   @id @default(uuid())
+  semester     Int
+  code         String
+  name         String
+  credits      Int
+  description  String
+  type         String
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([semester, displayOrder])
+}

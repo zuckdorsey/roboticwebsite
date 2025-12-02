@@ -1,36 +1,52 @@
  'use client';
 
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { HiArrowLeft, HiArrowRight, HiUserGroup } from 'react-icons/hi';
-import { alumniContent } from '@/data/alumni-content';
+import type { AlumniStoryDTO } from '@/lib/alumni';
 
-export default function AlumniSection() {
-  const [activeIndex, setActiveIndex] = useState(2); // Start with the 3rd item (center)
+interface AlumniSectionProps {
+  title: string;
+  description: string;
+  stories: AlumniStoryDTO[];
+}
+
+export default function AlumniSection({ title, description, stories }: AlumniSectionProps) {
+  const [activeIndex, setActiveIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  const stories = alumniContent.stories;
+  const totalStories = stories.length;
 
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (!totalStories || !isAutoPlaying) return;
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % stories.length);
+      setActiveIndex((prev) => (prev + 1) % totalStories);
     }, 5000);
     return () => clearInterval(interval);
-  }, [isAutoPlaying, stories.length]);
+  }, [isAutoPlaying, totalStories]);
 
   const handlePrev = () => {
+    if (totalStories < 2) {
+      return;
+    }
     setIsAutoPlaying(false);
-    setActiveIndex((prev) => (prev - 1 + stories.length) % stories.length);
+    setActiveIndex((prev) => (prev - 1 + totalStories) % totalStories);
   };
 
   const handleNext = () => {
+    if (totalStories < 2) {
+      return;
+    }
     setIsAutoPlaying(false);
-    setActiveIndex((prev) => (prev + 1) % stories.length);
+    setActiveIndex((prev) => (prev + 1) % totalStories);
   };
 
   const getCardStyle = (index: number) => {
-    const diff = (index - activeIndex + stories.length) % stories.length;
+    if (!totalStories) {
+      return "z-0 opacity-0 hidden";
+    }
+
+    const diff = (index - activeIndex + totalStories) % totalStories;
     
     // Center card - Borderless, floating, soft-shadowed (neumorphism-light glow)
     if (diff === 0) {
@@ -62,14 +78,20 @@ export default function AlumniSection() {
           </div>
           
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tight text-gray-900">
-            {alumniContent.title}
+            {title}
           </h2>
           
           <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            {alumniContent.description}
+            {description}
           </p>
         </div>
 
+        {totalStories === 0 ? (
+          <div className="rounded-3xl border border-dashed border-gray-200 bg-white p-16 text-center text-gray-500">
+            Alumni testimonials will appear here once you create them in the admin dashboard.
+          </div>
+        ) : (
+        <>
         {/* Avatars Row */}
         <div className="flex justify-center items-center gap-4 mb-16 flex-wrap">
           {stories.map((story, index) => (
@@ -146,7 +168,7 @@ export default function AlumniSection() {
                   <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider mr-2 py-1">
                     Specialization
                   </span>
-                  {story.tags.map((tag, i) => (
+                  {story.tags.map((tag: string, i: number) => (
                     <span 
                       key={i} 
                       className="px-3 py-1 rounded-full bg-polibatam-orange/10 text-xs text-gray-700 border border-polibatam-orange/20"
@@ -164,17 +186,21 @@ export default function AlumniSection() {
         <div className="flex justify-center gap-4 mt-8">
           <button
             onClick={handlePrev}
-            className="w-12 h-12 rounded-full bg-white hover:bg-polibatam-orange border-2 border-polibatam-navy hover:border-polibatam-orange flex items-center justify-center transition-all duration-300 group shadow-md"
+            disabled={totalStories < 2}
+            className="w-12 h-12 rounded-full bg-white hover:bg-polibatam-orange border-2 border-polibatam-navy hover:border-polibatam-orange flex items-center justify-center transition-all duration-300 group shadow-md disabled:cursor-not-allowed disabled:opacity-50"
           >
             <HiArrowLeft className="w-6 h-6 text-polibatam-navy group-hover:text-white group-hover:scale-110 transition-all" />
           </button>
           <button
             onClick={handleNext}
-            className="w-12 h-12 rounded-full bg-white hover:bg-polibatam-orange border-2 border-polibatam-navy hover:border-polibatam-orange flex items-center justify-center transition-all duration-300 group shadow-md"
+            disabled={totalStories < 2}
+            className="w-12 h-12 rounded-full bg-white hover:bg-polibatam-orange border-2 border-polibatam-navy hover:border-polibatam-orange flex items-center justify-center transition-all duration-300 group shadow-md disabled:cursor-not-allowed disabled:opacity-50"
           >
             <HiArrowRight className="w-6 h-6 text-polibatam-navy group-hover:text-white group-hover:scale-110 transition-all" />
           </button>
         </div>
+        </>
+        )}
       </div>
     </section>
   );

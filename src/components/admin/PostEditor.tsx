@@ -50,8 +50,15 @@ interface PostEditorProps {
 
 export default function PostEditor({ value, onChange }: PostEditorProps) {
   // Configure CKEditor features once to avoid unnecessary re-instantiations.
-  const editorConfig = useMemo(
-    () => ({
+  const editorConfig = useMemo(() => {
+    const headingOptions = [
+      { model: "paragraph" as const, title: "Paragraph", class: "ck-heading_paragraph" },
+      { model: "heading2" as const, view: "h2" as const, title: "Heading 2", class: "ck-heading_heading2" },
+      { model: "heading3" as const, view: "h3" as const, title: "Heading 3", class: "ck-heading_heading3" },
+      { model: "heading4" as const, view: "h4" as const, title: "Heading 4", class: "ck-heading_heading4" },
+    ];
+
+    return {
       licenseKey: "GPL",
       plugins: [
         Essentials,
@@ -124,12 +131,7 @@ export default function PostEditor({ value, onChange }: PostEditorProps) {
         shouldNotGroupWhenFull: true,
       },
       heading: {
-        options: [
-          { model: "paragraph", title: "Paragraph", class: "ck-heading_paragraph" },
-          { model: "heading2", view: "h2", title: "Heading 2", class: "ck-heading_heading2" },
-          { model: "heading3", view: "h3", title: "Heading 3", class: "ck-heading_heading3" },
-          { model: "heading4", view: "h4", title: "Heading 4", class: "ck-heading_heading4" },
-        ] as any,
+        options: headingOptions,
       },
       list: {
         properties: {
@@ -174,9 +176,8 @@ export default function PostEditor({ value, onChange }: PostEditorProps) {
         },
       },
       placeholder: "Write your post content here...",
-    }),
-    []
-  );
+    };
+  }, []);
 
   return (
     <CKEditor
