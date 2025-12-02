@@ -1,18 +1,56 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getPaginatedPosts } from "@/lib/posts";
-import { estimateReadingTime } from "@/lib/reading-time";
-import { formatDate } from "@/lib/format";
+import { ArrowRight, Calendar, Clock, Search } from "lucide-react";
 import type { Post } from "@prisma/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ArrowRight, Calendar, Clock, Search } from "lucide-react";
+import { getPaginatedPosts } from "@/lib/posts";
+import { estimateReadingTime } from "@/lib/reading-time";
+import { formatDate } from "@/lib/format";
+import { buildAbsoluteUrl, getSiteUrl, toIsoString } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Blog",
-  description: "Latest stories, tutorials, and updates from the Polibatam Robotics community.",
-};
+export async function generateMetadata({ searchParams }: BlogPageProps): Promise<Metadata> {
+  const params = await searchParams;
+  const currentPage = Number(params?.page ?? "1");
+  const page = Number.isFinite(currentPage) && currentPage > 0 ? currentPage : 1;
+
+  const siteUrl = getSiteUrl();
+  const canonicalPath = page > 1 ? `/blog?page=${page}` : "/blog";
+  const pageTitle = page > 1 ? `Blog - Page ${page}` : "Blog";
+
+  return {
+    title: pageTitle,
+    description: "Latest stories, tutorials, and updates from the Polibatam Robotics community.",
+    alternates: {
+      canonical: canonicalPath,
+    },
+    openGraph: {
+      title: "Polibatam Robotics Blog",
+      description: "Explore the latest research highlights, project tutorials, and inspiring stories from our robotics innovators.",
+      url: `${siteUrl}${canonicalPath}`,
+      type: "website",
+      images: [
+        {
+          url: buildAbsoluteUrl("/og-image.jpg"),
+          width: 1200,
+          height: 630,
+          alt: "Polibatam Robotics Blog",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Polibatam Robotics Blog",
+      description: "Latest stories, tutorials, and updates from the Polibatam Robotics community.",
+      images: [buildAbsoluteUrl("/og-image.jpg")],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -29,10 +67,79 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const page = Number.isFinite(currentPage) && currentPage > 0 ? currentPage : 1;
 
   const { posts, totalPages, totalPosts } = await getPaginatedPosts(page, PAGE_SIZE);
+  const siteUrl = getSiteUrl();
+  const canonicalUrl = page > 1 ? `${siteUrl}/blog?page=${page}` : `${siteUrl}/blog`;
+
+  const blogListSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "@id": `${siteUrl}/blog#blog`,
+    url: canonicalUrl,
+    name: "Polibatam Robotics Blog",
+    description: "Latest stories, tutorials, and updates from the Polibatam Robotics community.",
+    inLanguage: "en",
+    publisher: {
+      "@type": "Organization",
+      name: "Polibatam Robotics",
+      logo: {
+        "@type": "ImageObject",
+        url: buildAbsoluteUrl("/logo.png"),
+      },
+    },
+    blogPost: posts.map((post: Post, index: number) => {
+      const sanitizedCover = post.coverImage.replace(/^https?:\/\/localhost:3000/, "");
+      const coverImage = buildAbsoluteUrl(sanitizedCover);
+      const postUrl = `${siteUrl}/blog/${post.slug}`;
+
+      return {
+        "@type": "BlogPosting",
+        "@id": `${postUrl}#blog-post`,
+        mainEntityOfPage: postUrl,
+        headline: post.title,
+        description: post.description,
+        image: coverImage,
+  datePublished: toIsoString(post.createdAt),
+  dateModified: toIsoString(post.updatedAt ?? post.createdAt),
+        author: {
+          "@type": "Organization",
+          name: "Polibatam Robotics Team",
+        },
+        position: index + 1,
+        url: postUrl,
+      };
+    }),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: page > 1 ? `Blog (Page ${page})` : "Blog",
+        item: canonicalUrl,
+      },
+    ],
+  };
 
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogListSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
 
       {/* Hero Section */}
       <div className="relative bg-polibatam-navy pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
@@ -91,7 +198,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="absolute top-4 left-4">
                       <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-polibatam-orange text-xs font-bold uppercase tracking-wider shadow-sm">
                         Insight
@@ -139,7 +246,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                 <Search className="w-8 h-8 text-gray-400" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-2">No articles found</h3>
-              <p className="text-gray-500">We couldn't find any posts at the moment. Please check back later.</p>
+              <p className="text-gray-500">We couldn&apos;t find any posts at the moment. Please check back later.</p>
             </div>
           )}
 

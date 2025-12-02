@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getPostBySlug } from "@/lib/posts";
 import { formatDate } from "@/lib/format";
 import { estimateReadingTime } from "@/lib/reading-time";
+import { buildAbsoluteUrl, getSiteUrl, toIsoString } from "@/lib/seo";
 import { Calendar, Clock, User, Share2, ArrowLeft, ArrowRight, Facebook, Twitter, Linkedin } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -24,24 +25,38 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     return {};
   }
 
-  const ogImage = post.coverImage.startsWith("http")
-    ? post.coverImage
-    : `${process.env.NEXT_PUBLIC_SITE_URL ?? ""}${post.coverImage}`;
+  const siteUrl = getSiteUrl();
+  const canonicalPath = `/blog/${post.slug}`;
+  const canonicalUrl = `${siteUrl}${canonicalPath}`;
+  const sanitizedCover = post.coverImage.replace(/^https?:\/\/localhost:3000/, "");
+  const ogImage = buildAbsoluteUrl(sanitizedCover);
+  const authorName = post.author?.name ?? "Polibatam Robotics Team";
 
   return {
     title: post.title,
     description: post.description,
+    alternates: {
+      canonical: canonicalPath,
+    },
     openGraph: {
       title: post.title,
       description: post.description,
+      url: canonicalUrl,
       images: ogImage ? [{ url: ogImage }] : undefined,
       type: "article",
+      publishedTime: toIsoString(post.createdAt),
+      modifiedTime: toIsoString(post.updatedAt ?? post.createdAt),
+      authors: [authorName],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
       images: ogImage ? [ogImage] : undefined,
+    },
+    robots: {
+      index: true,
+      follow: true,
     },
   };
 }
@@ -55,14 +70,79 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   const readingTime = estimateReadingTime(post.content);
+  const siteUrl = getSiteUrl();
+  const canonicalUrl = `${siteUrl}/blog/${post.slug}`;
+  const sanitizedCover = post.coverImage.replace(/^https?:\/\/localhost:3000/, "");
+  const coverImageAbsolute = buildAbsoluteUrl(sanitizedCover);
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    mainEntityOfPage: canonicalUrl,
+    headline: post.title,
+    description: post.description,
+    image: [coverImageAbsolute],
+    datePublished: toIsoString(post.createdAt),
+    dateModified: toIsoString(post.updatedAt ?? post.createdAt),
+    author: post.author
+      ? {
+          "@type": "Person",
+          name: post.author.name,
+        }
+      : {
+          "@type": "Organization",
+          name: "Polibatam Robotics Team",
+        },
+    publisher: {
+      "@type": "Organization",
+      name: "Polibatam Robotics",
+      logo: {
+        "@type": "ImageObject",
+        url: buildAbsoluteUrl("/logo.png"),
+      },
+    },
+    url: canonicalUrl,
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Blog",
+        item: `${siteUrl}/blog`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: canonicalUrl,
+      },
+    ],
+  };
 
   // Convert absolute URL to relative if it's from localhost/uploads
   // This ensures Next.js Image optimization works correctly without remotePatterns issues for local files
-  const coverImageSrc = post.coverImage.replace(/^http:\/\/localhost:3000/, '');
+  const coverImageSrc = post.coverImage.replace(/^https?:\/\/localhost:3000/, '');
 
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <article className="pb-20">
         {/* Hero Section */}
         <div className="relative h-[60vh] min-h-[500px] w-full overflow-hidden">
@@ -74,7 +154,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               className="object-cover"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/30" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-black/30" />
           </div>
 
           <div className="absolute inset-0 flex items-end">
