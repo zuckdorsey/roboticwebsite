@@ -9,29 +9,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 
 export default function AboutSection() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    requestAnimationFrame(() => setIsVisible(true));
-  }, []);
-
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-
-
-
-
-
-
   const [selectedCertificate, setSelectedCertificate] = useState<string | null>(null);
 
   return (
@@ -46,17 +23,30 @@ export default function AboutSection() {
 
       <div className="max-w-[1720px] mx-auto px-4 md:px-8 lg:px-12">
         {/* Section Header */}
-        <div className={`text-center mb-12 md:mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-12 md:mb-16"
+        >
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 bg-linear-to-r from-polibatam-navy to-polibatam-orange bg-clip-text text-transparent px-4">
             {aboutContent.title}
           </h2>
           <div className="w-20 md:w-24 h-1.5 bg-linear-to-r from-polibatam-orange to-polibatam-peach mx-auto rounded-full"></div>
-        </div>
+        </motion.div>
 
         {/* Accreditation Cards */}
-        <div className={`grid md:grid-cols-2 gap-8 mb-12 md:mb-16 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="grid md:grid-cols-2 gap-8 mb-12 md:mb-16">
           {aboutContent.accreditations.map((accreditation, index) => (
-            <div key={index} className="group relative h-full">
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              className="group relative h-full"
+            >
               {/* Card Container */}
               <div className="relative h-full bg-white/80 backdrop-blur-xl rounded-[2.5rem] p-8 border border-white/50 shadow-xl shadow-polibatam-orange/5 hover:shadow-2xl hover:shadow-polibatam-orange/10 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
 
@@ -121,13 +111,17 @@ export default function AboutSection() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Main Content - Modern Magazine Layout */}
-        <div
-          className={`mb-16 md:mb-24 max-w-7xl mx-auto transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mb-16 md:mb-24 max-w-7xl mx-auto"
         >
           <div className="relative">
             {/* Decorative Quote Mark */}
@@ -165,13 +159,17 @@ export default function AboutSection() {
               ))}
             </div>
           )}
-        </div>
+        </motion.div>
 
 
         {/* Program Educational Objectives (PEO) - Modern Magazine Layout */}
         {aboutContent.peo && (
-          <div
-            className={`mb-16 md:mb-24 max-w-7xl mx-auto transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="mb-16 md:mb-24 max-w-7xl mx-auto"
           >
             <div className="grid md:grid-cols-12 gap-8 md:gap-12">
               {/* Left Column: Title & Intro */}
@@ -224,7 +222,7 @@ export default function AboutSection() {
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
 

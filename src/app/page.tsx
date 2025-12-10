@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import ScrollAnimation from "@/components/ScrollAnimation";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import Footer from "@/components/Footer";
@@ -53,30 +54,40 @@ export default function Home() {
     <div className="min-h-screen bg-polibatam-light">
       <Navbar />
 
-      <HeroSection
-        title="Learn Robotics Technology in Polibatam"
-        subtitle="The First Robotics Study Program in Indonesia"
-      />
+      <ScrollAnimation animation="fade-down">
+        <HeroSection
+          title="Learn Robotics Technology in Polibatam"
+          subtitle="The First Robotics Study Program in Indonesia"
+        />
+      </ScrollAnimation>
 
-      <AboutSection />
+      <ScrollAnimation animation="fade-up" delay={0.2}>
+        <AboutSection />
+      </ScrollAnimation>
 
-      <JobOpportunitiesSection />
+      <ScrollAnimation animation="fade-up" delay={0.3}>
+        <JobOpportunitiesSection />
+      </ScrollAnimation>
 
-      <CurriculumSection />
+      <ScrollAnimation animation="fade-up" delay={0.4}>
+        <CurriculumSection />
+      </ScrollAnimation>
 
+      <ScrollAnimation animation="scale-up" delay={0.2}>
+        <GallerySection items={galleryItems} />
+      </ScrollAnimation>
 
+      <ScrollAnimation animation="fade-up" delay={0.2}>
+        <FacultyMembersSection members={facultyMembers} />
+      </ScrollAnimation>
 
-      <GallerySection items={galleryItems} />
+      <ScrollAnimation animation="fade-up" delay={0.2}>
+        <AlumniSection />
+      </ScrollAnimation>
 
-      <FacultyMembersSection members={facultyMembers} />
-
-
-
-      <AlumniSection />
-
-      <BlogCarousel />
-
-
+      <ScrollAnimation animation="fade-in" delay={0.3}>
+        <BlogCarousel />
+      </ScrollAnimation>
 
       <Footer />
     </div>
