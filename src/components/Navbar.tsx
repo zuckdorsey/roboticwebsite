@@ -140,7 +140,8 @@ export default function Navbar() {
       return;
     }
     closeMenu();
-  }, [pathname, closeMenu, isMenuOpen]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   const routeActive = useMemo(
     () =>
