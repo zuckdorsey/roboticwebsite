@@ -6,12 +6,12 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  NavbarMenuToggle,
   Link
 } from '@heroui/react';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
+import { HiMenu, HiX } from 'react-icons/hi';
 
 type MenuItem = {
   label: string;
@@ -39,6 +39,7 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState(() => (pathname === '/' ? 'home' : ''));
 
   const closeMenu = useCallback(() => setIsMenuOpen(false), []);
+  const toggleMenu = useCallback(() => setIsMenuOpen(prev => !prev), []);
 
   const handleMenuItemPress = useCallback(
     (item: MenuItem) => {
@@ -138,10 +139,8 @@ export default function Navbar() {
     if (!isMenuOpen) {
       return;
     }
-
-    const rafId = requestAnimationFrame(() => closeMenu());
-    return () => cancelAnimationFrame(rafId);
-  }, [pathname, isMenuOpen, closeMenu]);
+    closeMenu();
+  }, [pathname]);
 
   const routeActive = useMemo(
     () =>
@@ -158,156 +157,139 @@ export default function Navbar() {
 
   const showFloatingNavbar = scrolled && !isMenuOpen;
 
-  const navbarClassName = [
-    'fixed z-50 transition-all duration-300 ease-out',
-    showFloatingNavbar
-      ? 'top-3 md:top-6 left-1/2 -translate-x-1/2 w-[92%] md:w-[90%] md:max-w-7xl rounded-full bg-white/70 backdrop-blur-xl border border-white/40 shadow-lg md:shadow-xl'
-      : 'top-0 left-0 right-0 w-full translate-x-0 bg-transparent border-transparent shadow-none',
-    isMenuOpen
-      ? 'top-0 left-0 right-0 mx-0 w-full rounded-none border-b border-white/30 bg-white/85 backdrop-blur-xl shadow-lg h-full max-h-screen transform-none'
-      : '',
-  ].join(' ');
-
   return (
     <>
-      <HeroNavbar
-        isMenuOpen={isMenuOpen}
-        onMenuOpenChange={setIsMenuOpen}
-        maxWidth="full"
-        shouldHideOnScroll={false}
-        className={navbarClassName}
-        classNames={{
-          wrapper: `px-6 md:px-8 lg:px-12 h-16 md:h-20 transition-colors duration-300 ${
-            showFloatingNavbar || isMenuOpen
-              ? 'bg-transparent'
-              : 'bg-gradient-to-b from-white/40 via-white/10 to-transparent'
-          }`,
-          item: [
-            'flex',
-            'relative',
-            'h-full',
-            'items-center',
-            "data-[active=true]:after:content-['']",
-            "data-[active=true]:after:absolute",
-            "data-[active=true]:after:bottom-0",
-            "data-[active=true]:after:left-0",
-            "data-[active=true]:after:right-0",
-            "data-[active=true]:after:h-[2px]",
-            "data-[active=true]:after:rounded-[2px]",
-            "data-[active=true]:after:bg-primary",
-          ],
-        }}
+      {/* Main Navbar */}
+      <nav
+        className={`
+          fixed z-50 transition-all duration-300 ease-out
+          ${showFloatingNavbar
+            ? 'top-3 md:top-6 left-1/2 -translate-x-1/2 w-[92%] md:w-[90%] md:max-w-7xl rounded-full bg-white/80 backdrop-blur-xl border border-white/50 shadow-lg'
+            : 'top-0 left-0 right-0 w-full bg-gradient-to-b from-white/60 to-transparent'
+          }
+          ${isMenuOpen ? '!top-0 !left-0 !right-0 !w-full !translate-x-0 !rounded-none bg-white shadow-lg' : ''}
+        `}
       >
-        {/* Mobile Brand (Left) */}
-        <NavbarContent className="md:hidden z-50" justify="start">
-          <NavbarBrand>
-            <Link href="/" className="flex items-center gap-2" onPress={closeMenu}>
-              <div className="relative w-28 h-10">
-                <Image
-                  src="/logo.png"
-                  alt="Robotic Technology Logo"
-                  fill
-                  className="object-contain"
-                  priority
-                  sizes="(max-width: 768px) 112px, 144px"
-                />
-              </div>
-            </Link>
-          </NavbarBrand>
-        </NavbarContent>
+        <div className="flex items-center justify-between px-4 md:px-8 h-16 md:h-20">
+          {/* Brand/Logo */}
+          <Link href="/" className="flex items-center gap-2" onClick={closeMenu}>
+            <div className="relative w-28 md:w-36 h-10 md:h-12">
+              <Image
+                src="/logo.png"
+                alt="Robotic Technology Logo"
+                fill
+                className="object-contain"
+                priority
+                sizes="(max-width: 768px) 112px, 144px"
+              />
+            </div>
+          </Link>
 
-        {/* Mobile Menu Toggle (Right) */}
-        <NavbarContent className="md:hidden" justify="end">
-          <NavbarMenuToggle
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            className="text-black dark:text-white z-50"
-          />
-        </NavbarContent>
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center gap-1">
+            {menuItems.map((item) => {
+              const activeAnchor = pathname === '/' && activeSection === item.id;
+              const activeRoute = item.type === 'route' && routeActive.get(item.id);
+              const isActive = activeAnchor || Boolean(activeRoute);
 
-        {/* Desktop Brand */}
-        <NavbarContent className="hidden md:flex" justify="start">
-          <NavbarBrand>
-            <Link href="/" className="flex items-center gap-2" onPress={closeMenu}>
-              <div className="relative w-36 h-12">
-                <Image
-                  src="/logo.png"
-                  alt="Robotic Technology Logo"
-                  fill
-                  className="object-contain"
-                  priority
-                  sizes="144px"
-                />
-              </div>
-            </Link>
-          </NavbarBrand>
-        </NavbarContent>
-
-        <NavbarContent className="hidden md:flex gap-1" justify="end">
-          {menuItems.map((item) => {
-            const activeAnchor = pathname === '/' && activeSection === item.id;
-            const activeRoute = item.type === 'route' && routeActive.get(item.id);
-            const isActive = activeAnchor || Boolean(activeRoute);
-
-            return (
-              <NavbarItem key={item.label} isActive={isActive}>
+              return (
                 <Link
+                  key={item.label}
                   href={item.href}
                   className={`
-                  px-4 py-2 text-sm font-medium rounded-full transition-all duration-300
-                  ${
-                    isActive
+                    px-4 py-2 text-sm font-medium rounded-full transition-all duration-300
+                    ${isActive
                       ? 'text-white bg-polibatam-navy shadow-md'
                       : 'text-gray-600 hover:text-polibatam-navy hover:bg-gray-100'
-                  }
-                `}
+                    }
+                  `}
                   aria-current={isActive ? 'page' : undefined}
                 >
                   {item.label}
                 </Link>
-              </NavbarItem>
-            );
-          })}
-        </NavbarContent>
-      </HeroNavbar>
+              );
+            })}
+          </div>
 
+          {/* Mobile Hamburger Button */}
+          <button
+            onClick={toggleMenu}
+            className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-polibatam-navy/10 hover:bg-polibatam-navy/20 active:scale-95 transition-all"
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMenuOpen}
+          >
+            {isMenuOpen ? (
+              <HiX className="w-6 h-6 text-polibatam-navy" />
+            ) : (
+              <HiMenu className="w-6 h-6 text-polibatam-navy" />
+            )}
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.nav
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 16 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="fixed inset-0 z-70 bg-white/90 backdrop-blur-xl px-6 pb-12 pt-24 overflow-y-auto md:hidden"
-          >
-            <div className="flex flex-col gap-3">
-              {menuItems.map((item) => {
-                const activeAnchor = pathname === '/' && activeSection === item.id;
-                const activeRoute = item.type === 'route' && routeActive.get(item.id);
-                const isActive = activeAnchor || Boolean(activeRoute);
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm md:hidden"
+              onClick={closeMenu}
+            />
 
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className={`
-                      w-full text-left
-                      py-4 px-4 text-lg font-semibold rounded-2xl transition-all duration-300 flex items-center justify-between group
-                      ${
-                        isActive
-                          ? 'text-white bg-polibatam-navy shadow-lg shadow-polibatam-navy/20'
-                          : 'text-gray-800/80 bg-white/40 backdrop-blur-sm hover:bg-white/60'
-                      }
-                    `}
-                    aria-current={isActive ? 'page' : undefined}
-                    onClick={() => handleMenuItemPress(item)}
-                  >
-                    {item.label}
-                    {isActive && <span className="w-2 h-2 bg-white rounded-full animate-pulse" />}
-                  </button>
-                );
-              })}
-            </div>
-          </motion.nav>
+            {/* Mobile Menu Panel */}
+            <motion.nav
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              className="fixed top-16 left-0 right-0 z-50 bg-white shadow-xl rounded-b-3xl px-4 pb-6 pt-4 max-h-[80vh] overflow-y-auto md:hidden"
+            >
+              <div className="flex flex-col gap-2">
+                {menuItems.map((item, index) => {
+                  const activeAnchor = pathname === '/' && activeSection === item.id;
+                  const activeRoute = item.type === 'route' && routeActive.get(item.id);
+                  const isActive = activeAnchor || Boolean(activeRoute);
+
+                  return (
+                    <motion.button
+                      key={item.id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                      type="button"
+                      className={`
+                        w-full text-left
+                        py-3.5 px-4 text-base font-semibold rounded-xl transition-all duration-200 flex items-center justify-between
+                        ${isActive
+                          ? 'text-white bg-gradient-to-r from-polibatam-navy to-polibatam-navy/90 shadow-lg'
+                          : 'text-gray-700 bg-gray-50 hover:bg-gray-100 active:bg-gray-200'
+                        }
+                      `}
+                      aria-current={isActive ? 'page' : undefined}
+                      onClick={() => handleMenuItemPress(item)}
+                    >
+                      <span>{item.label}</span>
+                      {isActive && (
+                        <span className="w-2 h-2 bg-white rounded-full" />
+                      )}
+                    </motion.button>
+                  );
+                })}
+              </div>
+
+              {/* Bottom decoration */}
+              <div className="mt-6 pt-4 border-t border-gray-100 text-center">
+                <p className="text-xs text-gray-400">
+                  Robotics Technology - Polibatam
+                </p>
+              </div>
+            </motion.nav>
+          </>
         )}
       </AnimatePresence>
     </>

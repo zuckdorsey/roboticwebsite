@@ -1,7 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import GallerySection from "@/components/GallerySection";
-import { galleryItems } from "@/data/gallery-data";
 
 export default function FacilitiesPage() {
     return (
@@ -13,7 +12,7 @@ export default function FacilitiesPage() {
                         All Facilities
                     </h1>
                 </div>
-                <GallerySection items={galleryItems} />
+                <GallerySection />
             </div>
             <Footer />
         </div>

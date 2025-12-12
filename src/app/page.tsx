@@ -4,7 +4,7 @@ import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import Footer from "@/components/Footer";
 import { facultyMembers } from "@/data/faculty-data";
-import { galleryItems } from "@/data/gallery-data";
+
 import dynamic from 'next/dynamic';
 
 const CurriculumSection = dynamic(() => import("@/components/CurriculumSection"));
@@ -74,7 +74,7 @@ export default function Home() {
       </ScrollAnimation>
 
       <ScrollAnimation animation="scale-up" delay={0.2}>
-        <GallerySection items={galleryItems} />
+        <GallerySection />
       </ScrollAnimation>
 
       <ScrollAnimation animation="fade-up" delay={0.2}>
