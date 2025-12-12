@@ -112,13 +112,13 @@ export default function GalleryAdminPage() {
             {error && (
                 <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg flex items-center justify-between">
                     <span>{error}</span>
-                    <button onClick={() => setError(null)} className="text-red-600 hover:text-red-800">×</button>
+                    <button onClick={() => setError(null)} className="text-red-600 hover:text-red-800" aria-label="Close error message">×</button>
                 </div>
             )}
             {success && (
                 <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg flex items-center justify-between">
                     <span>{success}</span>
-                    <button onClick={() => setSuccess(null)} className="text-green-600 hover:text-green-800">×</button>
+                    <button onClick={() => setSuccess(null)} className="text-green-600 hover:text-green-800" aria-label="Close success message">×</button>
                 </div>
             )}
 

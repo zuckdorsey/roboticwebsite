@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { uploadBufferToCloudinary } from "@/lib/cloudinary";
+import cloudinary from "@/lib/cloudinary";
 import { getAuthSession } from "@/lib/auth";
 
 export async function GET() {
@@ -97,8 +98,7 @@ export async function POST(request: Request) {
             // If database insert fails, clean up the uploaded image
             console.error("Database insert failed:", dbError);
             try {
-                const cloudinary = await import("@/lib/cloudinary");
-                await cloudinary.default.uploader.destroy(uploadResult.public_id);
+                await cloudinary.uploader.destroy(uploadResult.public_id);
             } catch (cleanupError) {
                 console.error("Failed to cleanup Cloudinary image:", cleanupError);
             }
