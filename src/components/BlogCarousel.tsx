@@ -2,8 +2,9 @@
 
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, ArrowRight, Calendar, Clock } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface BlogPost {
   id: string;
@@ -61,7 +62,6 @@ export default function BlogCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [posts, setPosts] = useState<BlogPost[]>(fallbackPosts);
-  const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -74,9 +74,7 @@ export default function BlogCarousel() {
           cache: 'no-store',
         });
 
-        if (!response.ok) {
-          return;
-        }
+        if (!response.ok) return;
 
         const data = (await response.json()) as Array<{
           id: string;
@@ -86,9 +84,7 @@ export default function BlogCarousel() {
           coverImage: string;
         }>;
 
-        if (!Array.isArray(data) || data.length === 0) {
-          return;
-        }
+        if (!Array.isArray(data) || data.length === 0) return;
 
         if (isMounted) {
           const formatted: BlogPost[] = data.map((post) => ({
@@ -115,155 +111,196 @@ export default function BlogCarousel() {
     };
   }, []);
 
-  // Auto-slide every 6 seconds
   useEffect(() => {
     if (!isAutoPlaying) return;
 
     const interval = setInterval(() => {
-      handleNext();
-    }, 6000);
+      setCurrentIndex((prev) => (prev + 1) % posts.length);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [isAutoPlaying, posts.length]);
 
-  const changeSlide = (newIndex: number) => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setCurrentIndex(newIndex);
-    setTimeout(() => setIsAnimating(false), 500); // Match transition duration
-  };
-
   const handlePrev = () => {
     setIsAutoPlaying(false);
-    changeSlide((currentIndex - 1 + posts.length) % posts.length);
+    setCurrentIndex((prev) => (prev - 1 + posts.length) % posts.length);
   };
 
   const handleNext = () => {
     setIsAutoPlaying(false);
-    changeSlide((currentIndex + 1) % posts.length);
+    setCurrentIndex((prev) => (prev + 1) % posts.length);
   };
 
   const currentPost = posts[currentIndex];
-  // Fix for local images
   const coverImageSrc = currentPost.coverImage.replace(/^http:\/\/localhost:3000/, '');
 
   return (
-    <section className="py-20 bg-gray-50 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-polibatam-orange/5 rounded-full blur-3xl -mr-32 -mt-32" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-polibatam-navy/5 rounded-full blur-3xl -ml-20 -mb-20" />
+    <section className="py-16 md:py-24 bg-gradient-to-b from-white via-slate-50/50 to-white relative overflow-hidden">
+      {/* Background decorations */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-polibatam-orange/10 to-transparent rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-polibatam-navy/5 to-transparent rounded-full blur-3xl translate-y-1/3 -translate-x-1/4" />
+      </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col md:flex-row items-end justify-between mb-12 gap-6">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 md:mb-14">
           <div>
-            <span className="text-polibatam-orange font-bold uppercase tracking-wider text-sm mb-2 block">
-              From the Blog
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-polibatam-navy">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-polibatam-orange/10 rounded-full border border-polibatam-orange/20 mb-4">
+              <Sparkles className="w-4 h-4 text-polibatam-orange" />
+              <span className="text-sm font-semibold text-polibatam-orange">Blog & Artikel</span>
+            </div>
+            <h2 className="text-2xl md:text-4xl font-black text-polibatam-navy">
               Latest Insights & Updates
             </h2>
           </div>
 
-          <div className="flex gap-2">
+          {/* Navigation */}
+          <div className="flex items-center gap-3">
             <button
               onClick={handlePrev}
-              className="w-12 h-12 rounded-full border border-gray-200 bg-white flex items-center justify-center text-polibatam-navy hover:bg-polibatam-navy hover:text-white hover:border-polibatam-navy transition-all duration-300 shadow-sm hover:shadow-lg"
-              aria-label="Previous slide"
+              className="w-11 h-11 rounded-full bg-white border border-gray-200 flex items-center justify-center text-polibatam-navy hover:bg-polibatam-navy hover:text-white hover:border-polibatam-navy transition-all duration-300 shadow-sm"
+              aria-label="Previous"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={handleNext}
-              className="w-12 h-12 rounded-full border border-gray-200 bg-white flex items-center justify-center text-polibatam-navy hover:bg-polibatam-navy hover:text-white hover:border-polibatam-navy transition-all duration-300 shadow-sm hover:shadow-lg"
-              aria-label="Next slide"
+              className="w-11 h-11 rounded-full bg-white border border-gray-200 flex items-center justify-center text-polibatam-navy hover:bg-polibatam-navy hover:text-white hover:border-polibatam-navy transition-all duration-300 shadow-sm"
+              aria-label="Next"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
         </div>
 
-        <div className="bg-white rounded-[2.5rem] shadow-xl overflow-hidden border border-gray-100">
-          <div className="grid lg:grid-cols-2 min-h-[500px]">
-            {/* Image Section */}
-            <div className="relative h-[300px] lg:h-full overflow-hidden group">
-              <div className={`absolute inset-0 transition-transform duration-700 ease-in-out ${isAnimating ? 'scale-110 blur-sm' : 'scale-100 blur-0'}`}>
-                <Image
-                  src={coverImageSrc}
-                  alt={currentPost.title}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent lg:bg-linear-to-r lg:from-transparent lg:to-black/20" />
-              </div>
+        {/* Main Card */}
+        <div className="relative">
+          <div className="bg-white rounded-2xl md:rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+            <div className="grid lg:grid-cols-2 min-h-[400px] md:min-h-[450px]">
+              {/* Image */}
+              <div className="relative h-[250px] md:h-[300px] lg:h-full overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentPost.id}
+                    initial={{ opacity: 0, scale: 1.1 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.5 }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={coverImageSrc}
+                      alt={currentPost.title}
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-black/10" />
+                  </motion.div>
+                </AnimatePresence>
 
-              {/* Floating Badge */}
-              <div className="absolute top-6 left-6 z-10">
-                <span className="px-4 py-2 bg-white/90 backdrop-blur-md rounded-full text-sm font-bold text-polibatam-navy shadow-lg flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-polibatam-orange animate-pulse" />
-                  {currentPost.category}
-                </span>
-              </div>
-            </div>
-
-            {/* Content Section */}
-            <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-center relative bg-white">
-              {/* Decorative Quote Icon */}
-              <div className="absolute top-8 right-8 text-polibatam-light/30 hidden lg:block">
-                <svg width="100" height="100" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M14.017 21L14.017 18C14.017 16.896 14.321 15.923 14.929 15.081C15.537 14.239 16.313 13.533 17.257 12.963C18.201 12.393 19.261 12.108 20.437 12.108V7C19.063 7 17.813 7.428 16.687 8.284C15.561 9.14 14.673 10.276 14.023 11.692C13.373 13.108 13.048 14.716 13.048 16.516H14.017V21ZM5.017 21L5.017 18C5.017 16.896 5.321 15.923 5.929 15.081C6.537 14.239 7.313 13.533 8.257 12.963C9.201 12.393 10.261 12.108 11.437 12.108V7C10.063 7 8.813 7.428 7.687 8.284C6.561 9.14 5.673 10.276 5.023 11.692C4.373 13.108 4.048 14.716 4.048 16.516H5.017V21Z" />
-                </svg>
-              </div>
-
-              <div className={`transition-all duration-500 transform ${isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
-                <div className="flex items-center gap-4 text-sm text-gray-500 mb-6 font-medium">
-                  <div className="flex items-center gap-1.5">
-                    <Calendar className="w-4 h-4 text-polibatam-orange" />
-                    <span>Latest Post</span>
-                  </div>
-                  <div className="w-1 h-1 rounded-full bg-gray-300" />
-                  <div className="flex items-center gap-1.5">
-                    <Clock className="w-4 h-4 text-polibatam-orange" />
-                    <span>5 min read</span>
-                  </div>
+                {/* Category badge */}
+                <div className="absolute top-4 left-4 md:top-6 md:left-6 z-10">
+                  <span className="px-4 py-2 bg-white/95 backdrop-blur-sm rounded-full text-xs md:text-sm font-bold text-polibatam-navy shadow-lg flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-polibatam-orange animate-pulse" />
+                    {currentPost.category}
+                  </span>
                 </div>
 
-                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-polibatam-navy mb-6 leading-tight">
-                  <Link href={`/blog/${currentPost.slug}`} className="hover:text-polibatam-orange transition-colors">
-                    {currentPost.title}
-                  </Link>
-                </h3>
-
-                <p className="text-gray-600 text-lg leading-relaxed mb-8 line-clamp-3">
-                  {currentPost.excerpt}
-                </p>
-
-                <div className="flex items-center gap-6">
-                  <Link
-                    href={`/blog/${currentPost.slug}`}
-                    className="inline-flex items-center gap-2 px-8 py-3.5 bg-polibatam-navy text-white rounded-full font-semibold hover:bg-polibatam-orange transition-all duration-300 shadow-lg hover:shadow-polibatam-orange/30 group"
-                  >
-                    Read Full Article
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-
-                  <Link
-                    href="/blog"
-                    className="text-polibatam-navy font-semibold hover:text-polibatam-orange transition-colors"
-                  >
-                    View All Posts
-                  </Link>
+                {/* Slide indicators - Mobile only */}
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 lg:hidden">
+                  {posts.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => {
+                        setIsAutoPlaying(false);
+                        setCurrentIndex(idx);
+                      }}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentIndex
+                          ? 'w-6 bg-white'
+                          : 'w-1.5 bg-white/50 hover:bg-white/70'
+                        }`}
+                    />
+                  ))}
                 </div>
               </div>
 
-              {/* Progress Bar */}
-              <div className="absolute bottom-0 left-0 w-full h-1 bg-gray-100">
-                <div
-                  className="h-full bg-polibatam-orange transition-all duration-500 ease-out"
-                  style={{ width: `${((currentIndex + 1) / posts.length) * 100}%` }}
-                />
+              {/* Content */}
+              <div className="p-6 md:p-10 lg:p-12 flex flex-col justify-center relative">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentPost.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    {/* Post number */}
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-5xl md:text-6xl font-black text-polibatam-orange/10">
+                        {String(currentIndex + 1).padStart(2, '0')}
+                      </span>
+                      <div className="h-px flex-1 bg-gradient-to-r from-polibatam-orange/20 to-transparent" />
+                    </div>
+
+                    <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-polibatam-navy mb-4 leading-tight">
+                      <Link href={`/blog/${currentPost.slug}`} className="hover:text-polibatam-orange transition-colors">
+                        {currentPost.title}
+                      </Link>
+                    </h3>
+
+                    <p className="text-gray-600 leading-relaxed mb-6 line-clamp-2 md:line-clamp-3">
+                      {currentPost.excerpt}
+                    </p>
+
+                    <div className="flex flex-wrap items-center gap-4">
+                      <Link
+                        href={`/blog/${currentPost.slug}`}
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-polibatam-orange to-polibatam-peach text-white rounded-xl font-semibold text-sm shadow-lg shadow-polibatam-orange/20 hover:shadow-xl hover:shadow-polibatam-orange/30 transition-all duration-300 group"
+                      >
+                        Baca Selengkapnya
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+
+                      <Link
+                        href="/blog"
+                        className="text-polibatam-navy font-semibold text-sm hover:text-polibatam-orange transition-colors"
+                      >
+                        Lihat Semua →
+                      </Link>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* Progress bar */}
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-100">
+                  <motion.div
+                    className="h-full bg-gradient-to-r from-polibatam-orange to-polibatam-peach"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${((currentIndex + 1) / posts.length) * 100}%` }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </div>
               </div>
             </div>
+          </div>
+
+          {/* Desktop slide indicators */}
+          <div className="hidden lg:flex justify-center gap-2 mt-6">
+            {posts.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => {
+                  setIsAutoPlaying(false);
+                  setCurrentIndex(idx);
+                }}
+                className={`h-2 rounded-full transition-all duration-300 ${idx === currentIndex
+                    ? 'w-8 bg-polibatam-orange'
+                    : 'w-2 bg-gray-300 hover:bg-gray-400'
+                  }`}
+              />
+            ))}
           </div>
         </div>
       </div>
