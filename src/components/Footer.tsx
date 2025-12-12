@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Twitter, Instagram, Linkedin, Youtube, Mail, Phone, MapPin, ArrowRight, ChevronDown, Send } from 'lucide-react';
+import { Twitter, Instagram, Linkedin, Youtube, Mail, Phone, MapPin, ArrowRight, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 

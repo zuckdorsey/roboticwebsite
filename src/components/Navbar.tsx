@@ -140,7 +140,7 @@ export default function Navbar() {
       return;
     }
     closeMenu();
-  }, [pathname]);
+  }, [pathname, closeMenu, isMenuOpen]);
 
   const routeActive = useMemo(
     () =>

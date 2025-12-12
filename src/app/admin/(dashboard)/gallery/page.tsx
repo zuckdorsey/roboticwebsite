@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Trash2, Upload, Loader2 } from "lucide-react";
+import Image from "next/image";
 
 interface GalleryImage {
     id: string;
@@ -138,10 +139,12 @@ export default function GalleryAdminPage() {
                             className="group relative bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100"
                         >
                             <div className="aspect-video relative overflow-hidden">
-                                <img
+                                <Image
                                     src={image.url}
                                     alt={image.caption || "Gallery Image"}
-                                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                    fill
+                                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                 />
                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                     <button

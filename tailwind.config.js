@@ -20,6 +20,13 @@ module.exports = {
           'navy': '#1E293B',        // headline text
         },
       },
+      animation: {
+        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'pulse-slower': 'pulse 5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
+      animationDelay: {
+        '1000': '1s',
+      },
     },
   },
   darkMode: "class",

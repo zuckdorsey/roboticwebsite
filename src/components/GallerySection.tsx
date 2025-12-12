@@ -195,7 +195,7 @@ export default function GallerySection() {
                                 {/* Image */}
                                 <Image
                                     src={image.url}
-                                    alt={image.caption || 'Gallery image'}
+                                    alt={image.caption || `Campus facility image ${index + 1}`}
                                     fill
                                     className="object-cover transition-all duration-700 group-hover:scale-110"
                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
