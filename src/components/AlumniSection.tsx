@@ -1,4 +1,4 @@
- 'use client';
+'use client';
 
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
@@ -8,8 +8,13 @@ import { alumniContent } from '@/data/alumni-content';
 export default function AlumniSection() {
   const [activeIndex, setActiveIndex] = useState(2); // Start with the 3rd item (center)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
 
   const stories = alumniContent.stories;
+
+  const handleImageError = (id: number) => {
+    setImageErrors(prev => ({ ...prev, [id]: true }));
+  };
 
   useEffect(() => {
     if (!isAutoPlaying) return;
@@ -31,7 +36,7 @@ export default function AlumniSection() {
 
   const getCardStyle = (index: number) => {
     const diff = (index - activeIndex + stories.length) % stories.length;
-    
+
     // Center card - Borderless, floating, soft-shadowed (neumorphism-light glow)
     if (diff === 0) {
       return "z-20 scale-100 opacity-100 translate-x-0 bg-white/80 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.08),0_0_40px_rgba(255,140,66,0.1)] border-0";
@@ -60,11 +65,11 @@ export default function AlumniSection() {
               Our Alumni
             </span>
           </div>
-          
+
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tight text-gray-900">
             {alumniContent.title}
           </h2>
-          
+
           <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             {alumniContent.description}
           </p>
@@ -79,15 +84,14 @@ export default function AlumniSection() {
                 setIsAutoPlaying(false);
                 setActiveIndex(index);
               }}
-              className={`relative transition-all duration-500 ${
-                index === activeIndex ? 'scale-125 mx-4' : 'scale-100 opacity-50 hover:opacity-100'
-              }`}
+              className={`relative transition-all duration-500 ${index === activeIndex ? 'scale-125 mx-4' : 'scale-100 opacity-50 hover:opacity-100'
+                }`}
             >
-              <div className={`w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden border-2 ${
-                index === activeIndex ? 'border-polibatam-orange shadow-[0_0_20px_rgba(235,109,17,0.5)]' : 'border-transparent'
-              }`}>
+              <div className={`w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden border-2 ${index === activeIndex ? 'border-polibatam-orange shadow-[0_0_20px_rgba(235,109,17,0.5)]' : 'border-transparent'
+                }`}>
                 {/* Avatar: fallback initial or image if available */}
-                {story.image ? (
+                {/* Avatar: fallback initial or image if available */}
+                {story.image && !imageErrors[story.id] ? (
                   <Image
                     src={story.image}
                     alt={story.name}
@@ -95,9 +99,10 @@ export default function AlumniSection() {
                     className="object-cover"
                     sizes="48px, 64px, 80px"
                     priority={false}
+                    onError={() => handleImageError(story.id)}
                   />
                 ) : (
-                  <div className="w-full h-full bg-gray-700 flex items-center justify-center text-xs font-bold">
+                  <div className="w-full h-full bg-gray-700 flex items-center justify-center text-xs font-bold text-white">
                     {story.name.charAt(0)}
                   </div>
                 )}
@@ -123,8 +128,18 @@ export default function AlumniSection() {
                 {/* Card Header */}
                 <div className="flex items-start justify-between mb-6">
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-full bg-polibatam-navy flex items-center justify-center text-xl font-bold text-white border-2 border-polibatam-orange/20">
-                      {story.name.charAt(0)}
+                    <div className="w-14 h-14 rounded-full bg-polibatam-navy flex items-center justify-center text-xl font-bold text-white border-2 border-polibatam-orange/20 overflow-hidden relative">
+                      {story.image && !imageErrors[story.id] ? (
+                        <Image
+                          src={story.image}
+                          alt={story.name}
+                          fill
+                          className="object-cover"
+                          onError={() => handleImageError(story.id)}
+                        />
+                      ) : (
+                        story.name.charAt(0)
+                      )}
                     </div>
                     <div>
                       <h4 className="text-xl font-bold text-gray-900">{story.name}</h4>
@@ -147,8 +162,8 @@ export default function AlumniSection() {
                     Specialization
                   </span>
                   {story.tags.map((tag, i) => (
-                    <span 
-                      key={i} 
+                    <span
+                      key={i}
                       className="px-3 py-1 rounded-full bg-polibatam-orange/10 text-xs text-gray-700 border border-polibatam-orange/20"
                     >
                       {tag}

@@ -15,6 +15,7 @@ const AlumniSection = dynamic(() => import("@/components/AlumniSection"));
 const BlogCarousel = dynamic(() => import("@/components/BlogCarousel"));
 const JobOpportunitiesSection = dynamic(() => import("@/components/JobOpportunitiesSection"));
 
+
 export default function Home() {
   // Data untuk Curriculum
   const courses = [
@@ -72,6 +73,8 @@ export default function Home() {
       <ScrollAnimation animation="fade-up" delay={0.4}>
         <CurriculumSection />
       </ScrollAnimation>
+
+
 
       <ScrollAnimation animation="scale-up" delay={0.2}>
         <GallerySection />

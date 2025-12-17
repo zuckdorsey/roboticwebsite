@@ -24,7 +24,7 @@ const menuItems: MenuItem[] = [
   { label: 'HOME', href: '/#home', id: 'home', type: 'anchor' },
   { label: 'ABOUT', href: '/#about', id: 'about', type: 'anchor' },
   { label: 'CURRICULUM', href: '/#curriculum', id: 'curriculum', type: 'anchor' },
-  { label: 'FACILITIES', href: '/#facilities', id: 'facilities', type: 'anchor' },
+  { label: 'FACILITIES', href: '/#gallery', id: 'gallery', type: 'anchor' },
   { label: 'STUDENTS', href: '/students', id: 'students-route', type: 'route' },
   { label: 'FACULTY MEMBERS', href: '/#faculty', id: 'faculty', type: 'anchor' },
   { label: 'ALUMNI', href: '/#alumni', id: 'alumni', type: 'anchor' },
