@@ -92,7 +92,7 @@ export default function FacultyMembersSection({ members }: FacultyMembersSection
               href="/faculty"
               className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-polibatam-orange to-polibatam-peach text-white font-semibold rounded-xl shadow-lg shadow-polibatam-orange/20 hover:shadow-xl transition-all"
             >
-              Lihat Semua Dosen
+              View All Faculty
               <HiArrowRight className="w-4 h-4" />
             </Link>
           ) : hasMore ? (
@@ -110,7 +110,7 @@ export default function FacultyMembersSection({ members }: FacultyMembersSection
               href="/faculty"
               className="inline-flex items-center gap-2 text-polibatam-navy font-semibold hover:text-polibatam-orange transition-colors"
             >
-              Lihat Semua di Halaman Dosen
+              View All on Faculty Page
               <HiArrowRight className="w-4 h-4" />
             </Link>
           )}

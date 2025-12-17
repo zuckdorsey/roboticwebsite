@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Trash2, Upload, Loader2 } from "lucide-react";
+import Image from "next/image";
 
 interface GalleryImage {
     id: string;
@@ -15,6 +16,8 @@ export default function GalleryAdminPage() {
     const [loading, setLoading] = useState(true);
     const [uploading, setUploading] = useState(false);
     const [caption, setCaption] = useState("");
+    const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
 
     useEffect(() => {
         fetchImages();
@@ -30,9 +33,11 @@ export default function GalleryAdminPage() {
             } else {
                 console.error("Gallery data is not an array:", data);
                 setImages([]);
+                setError("Failed to load gallery images");
             }
         } catch (error) {
             console.error("Failed to fetch images", error);
+            setError("Failed to load gallery images. Please try again.");
         } finally {
             setLoading(false);
         }
@@ -46,6 +51,8 @@ export default function GalleryAdminPage() {
         if (!file) return;
 
         setUploading(true);
+        setError(null);
+        setSuccess(null);
         try {
             const res = await fetch("/api/gallery", {
                 method: "POST",
@@ -57,9 +64,15 @@ export default function GalleryAdminPage() {
                 setImages([newImage, ...images]);
                 setCaption("");
                 (e.target as HTMLFormElement).reset();
+                setSuccess("Image uploaded successfully!");
+                setTimeout(() => setSuccess(null), 3000);
+            } else {
+                const errorData = await res.json();
+                setError(errorData.error || "Failed to upload image. Please try again.");
             }
         } catch (error) {
             console.error("Failed to upload image", error);
+            setError("Failed to upload image. Please check your connection and try again.");
         } finally {
             setUploading(false);
         }
@@ -68,6 +81,8 @@ export default function GalleryAdminPage() {
     const handleDelete = async (id: string) => {
         if (!confirm("Are you sure you want to delete this image?")) return;
 
+        setError(null);
+        setSuccess(null);
         try {
             const res = await fetch(`/api/gallery/${id}`, {
                 method: "DELETE",
@@ -75,9 +90,15 @@ export default function GalleryAdminPage() {
 
             if (res.ok) {
                 setImages(images.filter((img) => img.id !== id));
+                setSuccess("Image deleted successfully!");
+                setTimeout(() => setSuccess(null), 3000);
+            } else {
+                const errorData = await res.json();
+                setError(errorData.error || "Failed to delete image. Please try again.");
             }
         } catch (error) {
             console.error("Failed to delete image", error);
+            setError("Failed to delete image. Please check your connection and try again.");
         }
     };
 
@@ -86,6 +107,20 @@ export default function GalleryAdminPage() {
             <div className="flex justify-between items-center">
                 <h1 className="text-3xl font-bold text-polibatam-navy">Gallery Management</h1>
             </div>
+
+            {/* Error/Success Messages */}
+            {error && (
+                <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg flex items-center justify-between">
+                    <span>{error}</span>
+                    <button onClick={() => setError(null)} className="text-red-600 hover:text-red-800" aria-label="Close error message">×</button>
+                </div>
+            )}
+            {success && (
+                <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg flex items-center justify-between">
+                    <span>{success}</span>
+                    <button onClick={() => setSuccess(null)} className="text-green-600 hover:text-green-800" aria-label="Close success message">×</button>
+                </div>
+            )}
 
             {/* Upload Section */}
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
@@ -138,10 +173,12 @@ export default function GalleryAdminPage() {
                             className="group relative bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100"
                         >
                             <div className="aspect-video relative overflow-hidden">
-                                <img
+                                <Image
                                     src={image.url}
                                     alt={image.caption || "Gallery Image"}
-                                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                    fill
+                                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                 />
                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                     <button

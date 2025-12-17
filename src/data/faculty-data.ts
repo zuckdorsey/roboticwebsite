@@ -16,10 +16,9 @@ export const facultyMembers: FacultyMember[] = [
     specialization: 'Mobile Robot',
     photo: '/images/faculty/anugerah-wibisana.jpg',
     social: {
-      twitter: '#',
-      facebook: '#',
-      instagram: '#',
-      linkedin: '#'
+      linkedin: '#',
+      googleScholar: '#',
+      sinta: '#'
     }
   },
   {
@@ -38,10 +37,9 @@ export const facultyMembers: FacultyMember[] = [
     specialization: 'Automatic Control Systems, Fuzzy Logic',
     photo: '/images/faculty/rifi.jpg',
     social: {
-      twitter: '#',
-      facebook: '#',
-      instagram: '#',
-      linkedin: '#'
+      linkedin: '#',
+      googleScholar: '#',
+      sinta: '#'
     }
   },
   {
@@ -59,10 +57,9 @@ export const facultyMembers: FacultyMember[] = [
     specialization: 'Robotics, Image Processing, Machine Vision, Artificial Intelligence',
     photo: '/images/faculty/hendawan.jpg',
     social: {
-      twitter: '#',
-      facebook: '#',
-      instagram: '#',
-      linkedin: '#'
+      linkedin: '#',
+      googleScholar: '#',
+      sinta: '#'
     }
   },
   {
@@ -80,10 +77,9 @@ export const facultyMembers: FacultyMember[] = [
     specialization: 'Humanoid Robot, Computer Vision, Deep Learning, Machine Learning',
     photo: '/images/faculty/eko-rudiawan.jpg',
     social: {
-      twitter: '#',
-      facebook: '#',
-      instagram: '#',
-      linkedin: '#'
+      linkedin: '#',
+      googleScholar: '#',
+      sinta: '#'
     }
   },
   {
@@ -101,10 +97,9 @@ export const facultyMembers: FacultyMember[] = [
     specialization: 'Robotics, Automation, Mechatronics, Artificial Intelligence',
     photo: '/images/faculty/rifqi.jpeg',
     social: {
-      twitter: '#',
-      facebook: '#',
-      instagram: '#',
-      linkedin: '#'
+      linkedin: '#',
+      googleScholar: '#',
+      sinta: '#'
     }
   },
   {
@@ -122,10 +117,9 @@ export const facultyMembers: FacultyMember[] = [
     specialization: 'Robotics, Motion Control, Computer Vision, Artificial Intelligence',
     photo: '/images/faculty/ryan.jpg',
     social: {
-      twitter: '#',
-      facebook: '#',
-      instagram: '#',
-      linkedin: '#'
+      linkedin: '#',
+      googleScholar: '#',
+      sinta: '#'
     }
   },
   {
@@ -143,10 +137,9 @@ export const facultyMembers: FacultyMember[] = [
     specialization: 'Robotics, Artificial Intelligence, Biomedical, Control System',
     photo: '/images/faculty/susanto.jpg',
     social: {
-      twitter: '#',
-      facebook: '#',
-      instagram: '#',
-      linkedin: '#'
+      linkedin: '#',
+      googleScholar: '#',
+      sinta: '#'
     }
   },
   {
@@ -164,10 +157,9 @@ export const facultyMembers: FacultyMember[] = [
     specialization: 'Control System, Robotics, Rehabilitation Robot',
     photo: '/images/faculty/riska.jpg',
     social: {
-      twitter: '#',
-      facebook: '#',
-      instagram: '#',
-      linkedin: '#'
+      linkedin: '#',
+      googleScholar: '#',
+      sinta: '#'
     }
   },
   {
@@ -185,10 +177,9 @@ export const facultyMembers: FacultyMember[] = [
     specialization: 'Instrumentation and Control, Robotics',
     photo: '/images/faculty/yoga.jpg',
     social: {
-      twitter: '#',
-      facebook: '#',
-      instagram: '#',
-      linkedin: '#'
+      linkedin: '#',
+      googleScholar: '#',
+      sinta: '#'
     }
   },
   {
@@ -206,10 +197,9 @@ export const facultyMembers: FacultyMember[] = [
     specialization: 'Reinforcement Learning, Humanoid Robotics',
     photo: '/images/faculty/rifky.jpeg',
     social: {
-      twitter: '#',
-      facebook: '#',
-      instagram: '#',
-      linkedin: '#'
+      linkedin: '#',
+      googleScholar: '#',
+      sinta: '#'
     }
   },
   {
@@ -227,10 +217,9 @@ export const facultyMembers: FacultyMember[] = [
     specialization: 'Artificial Intelligence',
     photo: '/images/faculty/nau.png',
     social: {
-      twitter: '#',
-      facebook: '#',
-      instagram: '#',
-      linkedin: '#'
+      linkedin: '#',
+      googleScholar: '#',
+      sinta: '#'
     }
   },
   {
@@ -248,10 +237,9 @@ export const facultyMembers: FacultyMember[] = [
     specialization: 'English and Communication',
     photo: '/images/faculty/emelia.jpeg',
     social: {
-      twitter: '#',
-      facebook: '#',
-      instagram: '#',
-      linkedin: '#'
+      linkedin: '#',
+      googleScholar: '#',
+      sinta: '#'
     }
   },
   // Staff
@@ -269,10 +257,9 @@ export const facultyMembers: FacultyMember[] = [
     specialization: 'Certified Assessor of BNSP (National Professional Certification Agency)',
     photo: '/images/faculty/dodi.jpg',
     social: {
-      twitter: '#',
-      facebook: '#',
-      instagram: '#',
-      linkedin: '#'
+      linkedin: '#',
+      googleScholar: '#',
+      sinta: '#'
     }
   },
   {
@@ -289,10 +276,9 @@ export const facultyMembers: FacultyMember[] = [
     specialization: '',
     photo: '/images/faculty/novi.jpeg',
     social: {
-      twitter: '#',
-      facebook: '#',
-      instagram: '#',
-      linkedin: '#'
+      linkedin: '#',
+      googleScholar: '#',
+      sinta: '#'
     }
   }
 ];

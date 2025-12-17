@@ -140,6 +140,7 @@ export default function Navbar() {
       return;
     }
     closeMenu();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const routeActive = useMemo(

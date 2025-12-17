@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { HiAcademicCap, HiBookOpen, HiChevronDown, HiChevronUp, HiCheckCircle, HiClock, HiLightningBolt, HiSparkles, HiChevronLeft, HiChevronRight } from 'react-icons/hi';
+import { HiAcademicCap, HiBookOpen, HiChevronDown, HiChevronUp, HiCheckCircle, HiLightningBolt, HiSparkles, HiChevronLeft, HiChevronRight } from 'react-icons/hi';
 import { curriculumContent, Course } from '@/data/curriculum-content';
 
 interface CourseCardProps {
@@ -61,7 +61,7 @@ function CourseCard({ course, index }: CourseCardProps) {
                 <>
                   <HiCheckCircle className="w-2.5 h-2.5 md:w-3 md:h-3" />
                   <span className="hidden xs:inline">Wajib</span>
-                  <span className="xs:hidden">W</span>
+                  <span className="xs:hidden">M</span>
                 </>
               ) : (
                 <>
@@ -113,16 +113,6 @@ export default function CurriculumSection() {
   const currentSemester = curriculumContent.semesters[activeSemester];
   const totalCredits = currentSemester.courses.reduce((sum, course) => sum + course.credits, 0);
 
-
-  const scrollTabs = (direction: 'left' | 'right') => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = 150;
-      scrollContainerRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth'
-      });
-    }
-  };
 
   const goToPrevSemester = () => {
     if (activeSemester > 0) setActiveSemester(activeSemester - 1);
