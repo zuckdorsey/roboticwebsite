@@ -75,7 +75,7 @@ export const aboutContent = {
       title: "Terakreditasi Unggul",
       description: "Program Studi Teknologi Rekayasa Robotika telah meraih predikat akreditasi tertinggi",
       institution: "LAM TEKNIK",
-      certificateUrl: "/accreditation-cert.jpg",
+      certificateUrl: "/lam.png",
       grade: "Unggul",
       program: "Sarjana Terapan"
     },
