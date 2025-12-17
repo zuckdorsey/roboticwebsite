@@ -153,11 +153,11 @@ export default function HeroSection({ title, subtitle }: HeroSectionProps) {
         </svg>
       </div>
 
-      <div className="max-w-[1720px] mx-auto px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20 lg:py-24 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 relative z-10">
         {/* Responsive grid: stacks on mobile, side-by-side on md+ */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 lg:gap-16 items-center md:items-end min-h-[60vh] md:min-h-[70vh]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[60vh] md:min-h-[70vh]">
           {/* Left Content - centered on mobile, left-aligned on desktop */}
-          <div className="md:col-span-7 lg:col-span-6 flex flex-col justify-center md:justify-end w-full text-center md:text-left pt-8 md:pt-0">
+          <div className="flex flex-col justify-center w-full text-center lg:text-left order-2 lg:order-1">
             <div className="space-y-6 sm:space-y-8">
               {/* Badge */}
               <motion.div
@@ -272,7 +272,7 @@ export default function HeroSection({ title, subtitle }: HeroSectionProps) {
           </div>
 
           {/* Right Illustration - large and prominent on mobile */}
-          <div className="md:col-span-5 lg:col-span-6 flex items-center md:items-end justify-center w-full mt-8 md:mt-0">
+          <div className="flex items-center justify-center w-full order-1 lg:order-2">
             {/* Illustration wrapper with organic decorations */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
