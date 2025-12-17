@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { HiUserGroup, HiMail, HiAcademicCap, HiSparkles, HiChevronDown, HiChevronUp } from 'react-icons/hi';
-import { FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { FaLinkedin } from 'react-icons/fa';
+import { SiGooglescholar } from 'react-icons/si';
 import { FacultyMember } from "@/types";
 import { Link } from '@heroui/react';
 
@@ -39,13 +40,23 @@ export default function FacultyCard({ member, index }: FacultyCardProps) {
                                         <FaLinkedin className="w-4 h-4" />
                                     </Link>
                                 )}
-                                {member.social.instagram && (
+                                {member.social.googleScholar && (
                                     <Link
-                                        href={member.social.instagram}
+                                        href={member.social.googleScholar}
                                         isExternal
                                         className="w-8 h-8 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all"
                                     >
-                                        <FaInstagram className="w-4 h-4" />
+                                        <SiGooglescholar className="w-4 h-4" />
+                                    </Link>
+                                )}
+                                {member.social.sinta && (
+                                    <Link
+                                        href={member.social.sinta}
+                                        isExternal
+                                        className="w-8 h-8 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all"
+                                        title="SINTA"
+                                    >
+                                        <span className="text-xs font-bold">S</span>
                                     </Link>
                                 )}
                             </div>

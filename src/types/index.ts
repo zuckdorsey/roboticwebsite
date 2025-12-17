@@ -29,6 +29,8 @@ export interface FacultyMember {
     facebook?: string;
     instagram?: string;
     linkedin?: string;
+    googleScholar?: string;
+    sinta?: string;
   };
 }
 

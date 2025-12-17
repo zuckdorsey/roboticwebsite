@@ -61,7 +61,7 @@ function CourseCard({ course, index }: CourseCardProps) {
                 <>
                   <HiCheckCircle className="w-2.5 h-2.5 md:w-3 md:h-3" />
                   <span className="hidden xs:inline">Wajib</span>
-                  <span className="xs:hidden">W</span>
+                  <span className="xs:hidden">M</span>
                 </>
               ) : (
                 <>
