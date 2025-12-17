@@ -34,26 +34,26 @@ export const jobOpportunities: JobOpportunity[] = [
             "Analyze and evaluate prototypes and robotic systems made."
         ]
     },
-    {
-        title: "Robotics Automation Software Engineer",
-        icon: HiChip,
-        duties: [
-            "Designing robot movements and kinematics.",
-            "Developing algorithms for robot path planning and navigation.",
-            "Implementing control systems for robotic manipulators.",
-            "Integrating vision systems for object recognition and tracking.",
-            "Optimizing code for real-time performance and reliability."
-        ]
-    },
-    {
-        title: "Product Development Engineer",
-        icon: HiCog,
-        duties: [
-            "Manage design, prototype and test development product.",
-            "Conduct market research to identify customer needs and trends.",
-            "Develop product concepts and detailed design specifications.",
-            "Collaborate with cross-functional teams to bring products to market.",
-            "Ensure products meet quality, safety, and regulatory standards."
-        ]
-    }
+    
+    //     title: "Robotics Automation Software Engineer",
+    //     icon: HiChip,
+    //     duties: [
+    //         "Designing robot movements and kinematics.",
+    //         "Developing algorithms for robot path planning and navigation.",
+    //         "Implementing control systems for robotic manipulators.",
+    //         "Integrating vision systems for object recognition and tracking.",
+    //         "Optimizing code for real-time performance and reliability."
+    //     ]
+    // },
+    // {
+    //     title: "Product Development Engineer",
+    //     icon: HiCog,
+    //     duties: [
+    //         "Manage design, prototype and test development product.",
+    //         "Conduct market research to identify customer needs and trends.",
+    //         "Develop product concepts and detailed design specifications.",
+    //         "Collaborate with cross-functional teams to bring products to market.",
+    //         "Ensure products meet quality, safety, and regulatory standards."
+    //     ]
+    // }
 ];
