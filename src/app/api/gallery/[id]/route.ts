@@ -1,12 +1,22 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import cloudinary from "@/lib/cloudinary";
+import { getAuthSession } from "@/lib/auth";
 
 export async function DELETE(
     request: Request,
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        // Check authentication
+        const session = await getAuthSession();
+        if (!session || !session.user) {
+            return NextResponse.json(
+                { error: "Unauthorized. Admin access required." },
+                { status: 401 }
+            );
+        }
+
         const { id } = await params;
 
         const image = await prisma.galleryImage.findUnique({
@@ -21,7 +31,12 @@ export async function DELETE(
         }
 
         // Delete from Cloudinary
-        await cloudinary.uploader.destroy(image.publicId);
+        try {
+            await cloudinary.uploader.destroy(image.publicId);
+        } catch (cloudinaryError) {
+            console.error("Failed to delete from Cloudinary:", cloudinaryError);
+            // Continue with database deletion even if Cloudinary fails
+        }
 
         // Delete from Database
         await prisma.galleryImage.delete({

@@ -1,8 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { Button } from '@heroui/react';
-import { HiAcademicCap, HiExternalLink, HiX, HiLightBulb, HiSparkles, HiChevronRight } from 'react-icons/hi';
+import { HiAcademicCap, HiExternalLink, HiX, HiSparkles } from 'react-icons/hi';
 import { useState } from 'react';
 import { aboutContent } from '@/data/about-content';
 import { AnimatePresence, motion } from 'framer-motion';

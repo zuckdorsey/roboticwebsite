@@ -14,8 +14,8 @@ export default function HeroSection({ title, subtitle }: HeroSectionProps) {
       {/* Animated Background Shapes */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Large gradient orbs */}
-        <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-gradient-to-br from-polibatam-orange/20 via-polibatam-peach/10 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
-        <div className="absolute -bottom-60 -right-40 w-[600px] h-[600px] bg-gradient-to-tl from-polibatam-navy/10 via-polibatam-peach/5 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
+        <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-gradient-to-br from-polibatam-orange/20 via-polibatam-peach/10 to-transparent rounded-full blur-3xl animate-pulse-slow" />
+        <div className="absolute -bottom-60 -right-40 w-[600px] h-[600px] bg-gradient-to-tl from-polibatam-navy/10 via-polibatam-peach/5 to-transparent rounded-full blur-3xl animate-pulse-slower [animation-delay:1s]" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-orange-100/30 via-transparent to-blue-100/20 rounded-full blur-3xl" />
 
         {/* Floating geometric shapes - Top Left */}
