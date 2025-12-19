@@ -1,4 +1,18 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+/*
+╭──────────────────────────────────────────────────────────────────╮
+│                        PORTFOLIO PROJECT                          │
+╰──────────────────────────────────────────────────────────────────╯
+
+Project : Polibatam Robotic Major Website
+Author  : zuckdorsey
+Website : https://ababil.is-not-a.dev
+GitHub  : zuckdorsey
+Year    : 2025
+
+This project showcases my technical skills and coding style.
+Feel free to explore and provide feedback!
+*/
+
 const { heroui } = require("@heroui/theme");
 
 /** @type {import('tailwindcss').Config} */

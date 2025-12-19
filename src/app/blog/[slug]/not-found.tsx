@@ -1,3 +1,18 @@
+/*
+╭──────────────────────────────────────────────────────────────────╮
+│                        PORTFOLIO PROJECT                          │
+╰──────────────────────────────────────────────────────────────────╯
+
+Project : Polibatam Robotic Major Website
+Author  : zuckdorsey
+Website : https://ababil.is-not-a.dev
+GitHub  : zuckdorsey
+Year    : 2025
+
+This project showcases my technical skills and coding style.
+Feel free to explore and provide feedback!
+*/
+
 export default function BlogNotFound() {
   return (
     <section className="flex min-h-[60vh] flex-col items-center justify-center bg-white px-6 text-center">
