@@ -1,17 +1,17 @@
-# 🤖 Robotics Technology Website - Polibatam
+# Robotics Technology Website - Polibatam
 
 Website untuk program studi Teknologi Robotika di Politeknik Negeri Batam. Dibuat dengan Next.js 16, React 19, TypeScript, dan Tailwind CSS.
 
-## ✨ Fitur
+## Fitur
 
-- ✅ **Modular Components** - Setiap section dalam komponen terpisah
-- ✅ **TypeScript** - Type-safe development
-- ✅ **Responsive Design** - Mobile-first approach
-- ✅ **Modern UI** - Clean dan professional design
-- ✅ **Easy Maintenance** - Struktur yang terorganisir
-- ✅ **SEO Friendly** - Next.js App Router
+- Modular Components - Setiap section dalam komponen terpisah
+- TypeScript - Type-safe development
+- Responsive Design - Mobile-first approach
+- Modern UI - Clean dan professional design
+- Easy Maintenance - Struktur yang terorganisir
+- SEO Friendly - Next.js App Router
 
-## 📁 Struktur Project
+## Struktur Project
 
 ```
 roboticwebsite/
@@ -42,7 +42,7 @@ roboticwebsite/
 └── README.md                 # File ini
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -65,7 +65,7 @@ npm run dev
 
 Buka [http://localhost:3000](http://localhost:3000) di browser.
 
-## 📋 Sections
+## Sections
 
 Website ini terdiri dari section-section berikut (sesuai navbar):
 
@@ -77,7 +77,7 @@ Website ini terdiri dari section-section berikut (sesuai navbar):
 6. **STUDENTS** - Informasi mahasiswa aktif
 7. **ALUMNI** - Profil alumni yang sukses
 
-## 🎨 Teknologi
+## Teknologi
 
 - **Framework**: Next.js 16 (App Router)
 - **UI Library**: React 19
@@ -86,7 +86,7 @@ Website ini terdiri dari section-section berikut (sesuai navbar):
 - **Icons**: Lucide React
 - **Linter**: ESLint
 
-## 📝 Cara Update Konten
+## Cara Update Konten
 
 ### 1. Update Data Section
 
@@ -123,12 +123,12 @@ const menuItems = [
 
 Lihat [STRUCTURE.md](./STRUCTURE.md) untuk detail lengkap.
 
-## 📚 Dokumentasi
+## Dokumentasi
 
 - **[COMPONENTS.md](./COMPONENTS.md)** - Dokumentasi lengkap setiap komponen
 - **[STRUCTURE.md](./STRUCTURE.md)** - Struktur project dan design pattern
 
-## 🎯 Komponen Utama
+## Komponen Utama
 
 Setiap komponen menerima props untuk data yang ditampilkan:
 
@@ -146,7 +146,7 @@ Setiap komponen menerima props untuk data yang ditampilkan:
 
 Semua komponen fully typed dengan TypeScript untuk type safety.
 
-## 🛠️ Development Commands
+## Development Commands
 
 ```bash
 # Development server
@@ -162,7 +162,7 @@ npm start
 npm run lint
 ```
 
-## 📱 Responsive Design
+## Responsive Design
 
 Website ini responsive untuk semua ukuran layar:
 
@@ -170,7 +170,7 @@ Website ini responsive untuk semua ukuran layar:
 - Tablet (768px - 1024px)
 - Desktop (> 1024px)
 
-## 🎨 Customization
+## Customization
 
 ### Warna Theme
 
@@ -185,25 +185,25 @@ Edit di `src/app/globals.css` atau langsung di komponen dengan Tailwind:
 
 Menggunakan font default Tailwind. Bisa diganti di `src/app/layout.tsx`.
 
-## 📄 License
+## License
 
 MIT License - Feel free to use for your projects
 
-## 👨‍💻 Maintenance
+## Maintenance
 
 Website ini dirancang untuk mudah di-maintenance:
 
-- ✅ Komponen modular dan reusable
-- ✅ TypeScript untuk type safety
-- ✅ Dokumentasi lengkap
-- ✅ Clean code structure
-- ✅ Easy to scale
+- Komponen modular dan reusable
+- TypeScript untuk type safety
+- Dokumentasi lengkap
+- Clean code structure
+- Easy to scale
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please read the documentation first.
 
-## 📧 Contact
+## Contact
 
 Untuk pertanyaan atau support, hubungi:
 
@@ -212,4 +212,4 @@ Untuk pertanyaan atau support, hubungi:
 
 ---
 
-**Built with ❤️ for Politeknik Negeri Batam**
+**Built for Politeknik Negeri Batam**
