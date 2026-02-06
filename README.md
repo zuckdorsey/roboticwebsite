@@ -23,12 +23,10 @@ roboticwebsite/
 │   └── types/
 │       └── index.ts          # TypeScript interfaces
 ├── public/                   # Static files
-├── COMPONENTS.md             # Dokumentasi komponen
-├── STRUCTURE.md              # Dokumentasi struktur
 └── README.md                 # File ini
 ```
 
-## Cara Development
+## How To Development
 
 ### Prerequisites
 
